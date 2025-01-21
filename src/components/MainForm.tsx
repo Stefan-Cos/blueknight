@@ -35,8 +35,8 @@ export function MainForm() {
     isRegulated: "",
     // Business Information section
     companyDescription: "",
-    productsAndServices: "", // Initialize as empty string
-    revenueModel: "", // Initialize as empty string
+    productsAndServices: "", // New field
+    revenueModel: "", // New field
     industryKeywords: [] as string[],
     valueChain: {
       consultancy: false,
@@ -86,7 +86,7 @@ export function MainForm() {
     outstandingLitigation: "",
     negativeMediaCoverage: "",
     definedBenefitScheme: "",
-    shareholdersPreference: [] as string[],
+    shareholdersPreference: [] as string[], // Initialize as empty array
     additionalInformation: ""
   });
 
@@ -167,11 +167,7 @@ export function MainForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    console.log('Starting form submission...');
-    console.log('Advisor data:', advisorData);
-    
     if (!advisorData) {
-      console.error('Missing advisor data');
       toast({
         variant: "destructive",
         title: "Error",
@@ -185,55 +181,47 @@ export function MainForm() {
 
     try {
       const mappedData = {
-        advisor_company_name: advisorData.companyName || '',
-        advisor_full_name: advisorData.fullName || '',
-        advisor_email: advisorData.email || '',
-        project_name: formData.projectName || '',
-        company_name: formData.companyName || '',
-        share_sale_type: formData.shareSaleType || '',
-        shareholders_exit: formData.shareholdersExit || '',
-        transition_period: formData.transitionPeriod || '',
-        reason_for_selling: formData.reasonForSelling || '',
-        is_regulated: formData.isRegulated || '',
-        company_description: formData.companyDescription || '',
-        products_and_services: formData.productsAndServices || '',
-        revenue_model: formData.revenueModel || '',
+        advisor_company_name: advisorData.companyName,
+        advisor_full_name: advisorData.fullName,
+        advisor_email: advisorData.email,
+        project_name: formData.projectName,
+        company_name: formData.companyName,
+        share_sale_type: formData.shareSaleType,
+        shareholders_exit: formData.shareholdersExit,
+        transition_period: formData.transitionPeriod,
+        reason_for_selling: formData.reasonForSelling,
+        is_regulated: formData.isRegulated,
+        company_description: formData.companyDescription,
         industry_keywords: formData.industryKeywords,
         value_chain: formData.valueChain,
         business_model_type: formData.businessModelType,
         customer_industries: formData.customerIndustries,
-        growth_plan: formData.growthPlan || '',
+        growth_plan: formData.growthPlan,
         main_competitors: formData.mainCompetitors,
-        key_industry_risks: formData.keyIndustryRisks || '',
-        revenue_by_geography: formData.revenueByGeography || '',
-        revenue_by_customer_type: formData.revenueByCustomerType || '',
-        revenue_by_product_type: formData.revenueByProductType || '',
-        customer_lifetime_value: formData.customerLifetimeValue || '',
-        gross_churn: formData.grossChurn || '',
-        average_customer_lifespan: formData.averageCustomerLifespan || '',
+        key_industry_risks: formData.keyIndustryRisks,
+        revenue_by_geography: formData.revenueByGeography,
+        revenue_by_customer_type: formData.revenueByCustomerType,
+        revenue_by_product_type: formData.revenueByProductType,
+        customer_lifetime_value: formData.customerLifetimeValue,
+        gross_churn: formData.grossChurn,
+        average_customer_lifespan: formData.averageCustomerLifespan,
         revenue_and_ebitda: formData.revenueAndEbitda,
-        share_option_schemes: formData.shareOptionSchemes || '',
-        outstanding_litigation: formData.outstandingLitigation || '',
-        negative_media_coverage: formData.negativeMediaCoverage || '',
-        defined_benefit_scheme: formData.definedBenefitScheme || '',
-        shareholders_preference: formData.shareholdersPreference,
-        additional_information: formData.additionalInformation || ''
+        share_option_schemes: formData.shareOptionSchemes,
+        outstanding_litigation: formData.outstandingLitigation,
+        negative_media_coverage: formData.negativeMediaCoverage,
+        defined_benefit_scheme: formData.definedBenefitScheme,
+        shareholders_preference: formData.shareholdersPreference, // Now correctly typed as string[]
+        additional_information: formData.additionalInformation
       };
 
-      console.log('Attempting to insert data with:', mappedData);
+      console.log('Submitting data:', mappedData);
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('form_submissions')
-        .insert(mappedData)
-        .select();
+        .insert(mappedData);
 
       if (error) {
-        console.error('Detailed Supabase error:', {
-          message: error.message,
-          details: error.details,
-          hint: error.hint,
-          code: error.code
-        });
+        console.error('Supabase error:', error);
         toast({
           variant: "destructive",
           title: "Error",
@@ -242,8 +230,6 @@ export function MainForm() {
         setIsLoading(false);
         return;
       }
-
-      console.log('Submission successful:', data);
       
       setIsSubmitted(true);
       toast({
@@ -255,7 +241,7 @@ export function MainForm() {
         navigate('/');
       }, 5000);
     } catch (error) {
-      console.error('Unexpected error during submission:', error);
+      console.error('Error submitting form:', error);
       toast({
         variant: "destructive",
         title: "Error",
