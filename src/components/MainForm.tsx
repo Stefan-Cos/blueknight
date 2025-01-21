@@ -165,97 +165,97 @@ export function MainForm() {
         return (
           <div className="space-y-6">
             <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="projectName">Project Name</Label>
-              <Input
-                id="projectName"
-                placeholder="Enter project name"
-                value={formData.projectName}
-                onChange={(e) => setFormData({ ...formData, projectName: e.target.value })}
-                required
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="projectName">Project Name</Label>
+                <Input
+                  id="projectName"
+                  placeholder="Enter project name"
+                  value={formData.projectName}
+                  onChange={(e) => setFormData({ ...formData, projectName: e.target.value })}
+                  required
+                />
+              </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="shareSaleType">Share Sale Type</Label>
-                    <Select
-                      value={formData.shareSaleType}
-                      onValueChange={(value) => setFormData({ ...formData, shareSaleType: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select sale type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="full">Full sale</SelectItem>
-                        <SelectItem value="partial">Partial sale</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+              <div className="space-y-2">
+                <Label htmlFor="shareSaleType">Share Sale Type</Label>
+                <Select
+                  value={formData.shareSaleType}
+                  onValueChange={(value) => setFormData({ ...formData, shareSaleType: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select sale type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="full">Full sale</SelectItem>
+                    <SelectItem value="partial">Partial sale</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="shareholdersExit">
-                      All shareholders/director(s) intending to exit?
-                    </Label>
-                    <Select
-                      value={formData.shareholdersExit}
-                      onValueChange={(value) => setFormData({ ...prev, shareholdersExit: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select option" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="yes">Yes</SelectItem>
-                        <SelectItem value="no">No</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+              <div className="space-y-2">
+                <Label htmlFor="shareholdersExit">
+                  All shareholders/director(s) intending to exit?
+                </Label>
+                <Select
+                  value={formData.shareholdersExit}
+                  onValueChange={(value) => setFormData({ ...formData, shareholdersExit: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="yes">Yes</SelectItem>
+                    <SelectItem value="no">No</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="transitionPeriod">
-                      Managing director/CEO - Transition period
-                    </Label>
-                    <Select
-                      value={formData.transitionPeriod}
-                      onValueChange={(value) => setFormData({ ...prev, transitionPeriod: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select transition period" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="3-6">3 - 6 months</SelectItem>
-                        <SelectItem value="6-12">6 - 12 months</SelectItem>
-                        <SelectItem value="12+">12+ months</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+              <div className="space-y-2">
+                <Label htmlFor="transitionPeriod">
+                  Managing director/CEO - Transition period
+                </Label>
+                <Select
+                  value={formData.transitionPeriod}
+                  onValueChange={(value) => setFormData({ ...formData, transitionPeriod: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select transition period" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="3-6">3 - 6 months</SelectItem>
+                    <SelectItem value="6-12">6 - 12 months</SelectItem>
+                    <SelectItem value="12+">12+ months</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="reasonForSelling">Reason for Selling</Label>
-                    <Textarea
-                      id="reasonForSelling"
-                      placeholder="Please provide detailed reasons for selling"
-                      value={formData.reasonForSelling}
-                      onChange={(e) => setFormData({ ...prev, reasonForSelling: e.target.value })}
-                      className="min-h-[100px]"
-                      required
-                    />
-                  </div>
+              <div className="space-y-2">
+                <Label htmlFor="reasonForSelling">Reason for Selling</Label>
+                <Textarea
+                  id="reasonForSelling"
+                  placeholder="Please provide detailed reasons for selling"
+                  value={formData.reasonForSelling}
+                  onChange={(e) => setFormData({ ...formData, reasonForSelling: e.target.value })}
+                  className="min-h-[100px]"
+                  required
+                />
+              </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="isRegulated">Is the company regulated?</Label>
-                    <Select
-                      value={formData.isRegulated}
-                      onValueChange={(value) => setFormData({ ...prev, isRegulated: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select option" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="yes">Yes</SelectItem>
-                        <SelectItem value="no">No</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+              <div className="space-y-2">
+                <Label htmlFor="isRegulated">Is the company regulated?</Label>
+                <Select
+                  value={formData.isRegulated}
+                  onValueChange={(value) => setFormData({ ...formData, isRegulated: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="yes">Yes</SelectItem>
+                    <SelectItem value="no">No</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             <div className="flex justify-between mt-6">
               <Button
@@ -283,7 +283,7 @@ export function MainForm() {
                   id="companyDescription"
                   placeholder="Provide a detailed description of your company"
                   value={formData.companyDescription}
-                  onChange={(e) => setFormData({ ...prev, companyDescription: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, companyDescription: e.target.value })}
                   className="min-h-[100px]"
                 />
               </div>
@@ -400,7 +400,7 @@ export function MainForm() {
                   id="growthPlan"
                   placeholder="Describe the company's growth plans around geography, product and customer expansion"
                   value={formData.growthPlan}
-                  onChange={(e) => setFormData({ ...prev, growthPlan: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, growthPlan: e.target.value })}
                   className="min-h-[100px]"
                 />
               </div>
@@ -411,7 +411,7 @@ export function MainForm() {
                   id="keyIndustryRisks"
                   placeholder="Describe the key industry risks impacting the company"
                   value={formData.keyIndustryRisks}
-                  onChange={(e) => setFormData({ ...prev, keyIndustryRisks: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, keyIndustryRisks: e.target.value })}
                   className="min-h-[100px]"
                 />
               </div>
@@ -437,7 +437,7 @@ export function MainForm() {
                   id="revenueByGeography"
                   placeholder="e.g., 70% in the UK, 20% in Ireland"
                   value={formData.revenueByGeography}
-                  onChange={(e) => setFormData({ ...prev, revenueByGeography: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, revenueByGeography: e.target.value })}
                 />
               </div>
 
@@ -447,7 +447,7 @@ export function MainForm() {
                   id="revenueByCustomerType"
                   placeholder="e.g., 70% in life sciences"
                   value={formData.revenueByCustomerType}
-                  onChange={(e) => setFormData({ ...prev, revenueByCustomerType: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, revenueByCustomerType: e.target.value })}
                 />
               </div>
 
@@ -457,7 +457,7 @@ export function MainForm() {
                   id="revenueByProductType"
                   placeholder="e.g., 70% are training modules on a subscription basis"
                   value={formData.revenueByProductType}
-                  onChange={(e) => setFormData({ ...prev, revenueByProductType: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, revenueByProductType: e.target.value })}
                 />
               </div>
 
@@ -467,7 +467,7 @@ export function MainForm() {
                   id="customerLifetimeValue"
                   placeholder="Enter CLV for subscription-based users"
                   value={formData.customerLifetimeValue}
-                  onChange={(e) => setFormData({ ...prev, customerLifetimeValue: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, customerLifetimeValue: e.target.value })}
                 />
               </div>
 
@@ -477,7 +477,7 @@ export function MainForm() {
                   id="grossChurn"
                   placeholder="Enter gross churn for subscription-based users"
                   value={formData.grossChurn}
-                  onChange={(e) => setFormData({ ...prev, grossChurn: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, grossChurn: e.target.value })}
                 />
               </div>
 
@@ -487,7 +487,7 @@ export function MainForm() {
                   id="averageCustomerLifespan"
                   placeholder="Enter average customer lifespan"
                   value={formData.averageCustomerLifespan}
-                  onChange={(e) => setFormData({ ...prev, averageCustomerLifespan: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, averageCustomerLifespan: e.target.value })}
                 />
               </div>
             </div>
