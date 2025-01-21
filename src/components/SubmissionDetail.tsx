@@ -4,32 +4,60 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export function SubmissionDetail() {
   const [submission, setSubmission] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
-    const fetchSubmission = async () => {
-      const { data, error } = await supabase
-        .from('form_submissions')
-        .select('*')
-        .eq('id', id)
-        .single();
-
-      if (error) {
-        console.error('Error fetching submission:', error);
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        navigate("/auth");
         return;
       }
 
-      setSubmission(data);
-      setLoading(false);
+      fetchSubmission();
     };
 
-    fetchSubmission();
-  }, [id]);
+    checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
+        navigate("/auth");
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [id, navigate]);
+
+  const fetchSubmission = async () => {
+    const { data, error } = await supabase
+      .from('form_submissions')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) {
+      console.error('Error fetching submission:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to fetch submission details. Please try again.",
+      });
+      return;
+    }
+
+    setSubmission(data);
+    setLoading(false);
+  };
 
   if (loading) {
     return (
