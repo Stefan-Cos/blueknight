@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface OtherSectionProps {
   formData: any;
@@ -14,6 +15,16 @@ interface OtherSectionProps {
 }
 
 export function OtherSection({ formData, setFormData }: OtherSectionProps) {
+  const handlePreferenceChange = (value: string) => {
+    setFormData(prev => {
+      const currentPreferences = prev.shareholdersPreference || [];
+      const updatedPreferences = currentPreferences.includes(value)
+        ? currentPreferences.filter((pref: string) => pref !== value)
+        : [...currentPreferences, value];
+      return { ...prev, shareholdersPreference: updatedPreferences };
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="text-center pb-6 border-b">
@@ -86,21 +97,24 @@ export function OtherSection({ formData, setFormData }: OtherSectionProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="shareholdersPreference">Shareholders' acquirer preference</Label>
-          <Select
-            value={formData.shareholdersPreference}
-            onValueChange={(value) => setFormData({ ...formData, shareholdersPreference: value })}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Select preference" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="pe">PE</SelectItem>
-              <SelectItem value="trade">Trade</SelectItem>
-              <SelectItem value="fo">FO</SelectItem>
-              <SelectItem value="noPreference">No Preference</SelectItem>
-            </SelectContent>
-          </Select>
+          <Label>Shareholders' acquirer preference (select all that apply)</Label>
+          <div className="space-y-2">
+            {[
+              { id: "pe", label: "PE" },
+              { id: "trade", label: "Trade" },
+              { id: "fo", label: "FO" },
+              { id: "noPreference", label: "No Preference" }
+            ].map((option) => (
+              <div key={option.id} className="flex items-center space-x-2">
+                <Checkbox
+                  id={option.id}
+                  checked={(formData.shareholdersPreference || []).includes(option.id)}
+                  onCheckedChange={() => handlePreferenceChange(option.id)}
+                />
+                <Label htmlFor={option.id} className="cursor-pointer">{option.label}</Label>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="space-y-2">

@@ -41,7 +41,7 @@ export type Database = {
           share_option_schemes: string | null
           share_sale_type: string
           shareholders_exit: string
-          shareholders_preference: string | null
+          shareholders_preference: string[] | null
           transition_period: string
           value_chain: Json
         }
@@ -76,7 +76,7 @@ export type Database = {
           share_option_schemes?: string | null
           share_sale_type: string
           shareholders_exit: string
-          shareholders_preference?: string | null
+          shareholders_preference?: string[] | null
           transition_period: string
           value_chain?: Json
         }
@@ -111,7 +111,7 @@ export type Database = {
           share_option_schemes?: string | null
           share_sale_type?: string
           shareholders_exit?: string
-          shareholders_preference?: string | null
+          shareholders_preference?: string[] | null
           transition_period?: string
           value_chain?: Json
         }
