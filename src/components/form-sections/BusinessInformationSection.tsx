@@ -59,7 +59,7 @@ export function BusinessInformationSection({
           <Label htmlFor="productsAndServices">Describe the products and services</Label>
           <Textarea
             id="productsAndServices"
-            placeholder="Provide a description of your products and services"
+            placeholder="Provide a description of the main products and services"
             value={formData.productsAndServices || ""}
             onChange={(e) => setFormData({ ...formData, productsAndServices: e.target.value })}
             className="min-h-[100px]"
@@ -70,7 +70,7 @@ export function BusinessInformationSection({
           <Label htmlFor="revenueModel">Describe the revenue model for the main products and services</Label>
           <Textarea
             id="revenueModel"
-            placeholder="Explain how your products and services generate revenue"
+            placeholder="Describe how the company generates revenue and charges customers for its products and services"
             value={formData.revenueModel || ""}
             onChange={(e) => setFormData({ ...formData, revenueModel: e.target.value })}
             className="min-h-[100px]"
