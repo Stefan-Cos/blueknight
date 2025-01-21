@@ -212,7 +212,7 @@ export function MainForm() {
 
       const { error } = await supabase
         .from('form_submissions')
-        .insert([mappedData]);
+        .insert(mappedData);
 
       if (error) throw error;
       
