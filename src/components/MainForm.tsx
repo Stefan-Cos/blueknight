@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { CheckCircle2, Send, ChevronRight, ChevronLeft } from "lucide-react";
 import { OverviewSection } from "./form-sections/OverviewSection";
 import { BusinessInformationSection } from "./form-sections/BusinessInformationSection";
