@@ -15,28 +15,26 @@ export function AuthPage() {
   const navigate = useNavigate();
 
   const checkAuthorizedViewer = async (email: string) => {
-    console.log('Checking authorization for exact email:', email);
+    console.log('Checking authorization for email:', email);
     
-    const { data: viewers, error: viewerError } = await supabase
-      .from('authorized_viewers')
-      .select()
-      .eq('email', email)
-      .maybeSingle();
+    try {
+      const { data, error } = await supabase
+        .from('authorized_viewers')
+        .select('email')
+        .eq('email', email)
+        .single();
 
-    console.log('Raw database response:', { viewers, viewerError });
-    
-    if (viewerError) {
-      console.error('Database error during authorization check:', viewerError);
-      throw new Error('Error checking authorization status');
-    }
+      if (error) {
+        console.error('Database error:', error);
+        return false;
+      }
 
-    if (!viewers) {
-      console.log('No viewer found for email:', email);
+      console.log('Database response:', data);
+      return data !== null;
+    } catch (error) {
+      console.error('Error in checkAuthorizedViewer:', error);
       return false;
     }
-
-    console.log('Found authorized viewer:', viewers);
-    return true;
   };
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,11 +42,25 @@ export function AuthPage() {
     setIsLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const email = (formData.get("email") as string).toLowerCase().trim();
+    const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
+    if (!email || !password) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please provide both email and password.",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    console.log('Attempting signup with email:', cleanEmail);
+
     try {
-      const isAuthorized = await checkAuthorizedViewer(email);
+      const isAuthorized = await checkAuthorizedViewer(cleanEmail);
+      console.log('Authorization check result:', isAuthorized);
 
       if (!isAuthorized) {
         toast({
@@ -60,9 +72,8 @@ export function AuthPage() {
         return;
       }
 
-      console.log('Proceeding with signup for authorized email:', email);
       const { error: signUpError } = await supabase.auth.signUp({
-        email,
+        email: cleanEmail,
         password,
       });
 
@@ -91,11 +102,25 @@ export function AuthPage() {
     setIsLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const email = (formData.get("email") as string).toLowerCase().trim();
+    const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
+    if (!email || !password) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Please provide both email and password.",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    console.log('Attempting signin with email:', cleanEmail);
+
     try {
-      const isAuthorized = await checkAuthorizedViewer(email);
+      const isAuthorized = await checkAuthorizedViewer(cleanEmail);
+      console.log('Authorization check result:', isAuthorized);
 
       if (!isAuthorized) {
         toast({
@@ -107,9 +132,8 @@ export function AuthPage() {
         return;
       }
 
-      console.log('Proceeding with signin for authorized email:', email);
       const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
+        email: cleanEmail,
         password,
       });
 
