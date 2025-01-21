@@ -17,7 +17,9 @@ interface OtherSectionProps {
 export function OtherSection({ formData, setFormData }: OtherSectionProps) {
   const handlePreferenceChange = (value: string) => {
     setFormData(prev => {
-      const currentPreferences = prev.shareholdersPreference || [];
+      const currentPreferences = Array.isArray(prev.shareholdersPreference) 
+        ? prev.shareholdersPreference 
+        : [];
       const updatedPreferences = currentPreferences.includes(value)
         ? currentPreferences.filter((pref: string) => pref !== value)
         : [...currentPreferences, value];
@@ -108,7 +110,8 @@ export function OtherSection({ formData, setFormData }: OtherSectionProps) {
               <div key={option.id} className="flex items-center space-x-2">
                 <Checkbox
                   id={option.id}
-                  checked={(formData.shareholdersPreference || []).includes(option.id)}
+                  checked={Array.isArray(formData.shareholdersPreference) && 
+                    formData.shareholdersPreference.includes(option.id)}
                   onCheckedChange={() => handlePreferenceChange(option.id)}
                 />
                 <Label htmlFor={option.id} className="cursor-pointer">{option.label}</Label>

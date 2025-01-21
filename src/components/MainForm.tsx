@@ -20,7 +20,6 @@ export function MainForm() {
   const advisorData = location.state?.advisorData;
 
   const [formData, setFormData] = useState({
-    // Overview section
     projectName: "",
     companyName: "", // Added new field
     shareSaleType: "",
@@ -79,7 +78,7 @@ export function MainForm() {
     outstandingLitigation: "",
     negativeMediaCoverage: "",
     definedBenefitScheme: "",
-    shareholdersPreference: "",
+    shareholdersPreference: [] as string[], // Initialize as empty array
     additionalInformation: ""
   });
 
@@ -142,7 +141,7 @@ export function MainForm() {
   };
 
   const handleNext = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
     if (currentSection < sections.length - 1) {
       setCurrentSection(prev => prev + 1);
       window.scrollTo(0, 0);
@@ -150,7 +149,7 @@ export function MainForm() {
   };
 
   const handlePrevious = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
     if (currentSection > 0) {
       setCurrentSection(prev => prev - 1);
       window.scrollTo(0, 0);
@@ -203,7 +202,7 @@ export function MainForm() {
         outstanding_litigation: formData.outstandingLitigation,
         negative_media_coverage: formData.negativeMediaCoverage,
         defined_benefit_scheme: formData.definedBenefitScheme,
-        shareholders_preference: formData.shareholdersPreference,
+        shareholders_preference: formData.shareholdersPreference, // Now correctly typed as string[]
         additional_information: formData.additionalInformation
       };
 
@@ -230,7 +229,6 @@ export function MainForm() {
         description: "Your form has been submitted successfully.",
       });
 
-      // Add a longer delay before navigation to ensure success state is shown
       setTimeout(() => {
         navigate('/');
       }, 5000);
