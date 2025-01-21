@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { FileText, Eye, Copy, Check, AlertCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function SubmissionsList() {
   const [submissions, setSubmissions] = useState<any[]>([]);
@@ -52,6 +53,16 @@ export function SubmissionsList() {
     setIsAuthorized(!!authorizedUser);
   };
 
+  const checkIfAuthorizedEmail = async (email: string) => {
+    const { data: authorizedUser } = await supabase
+      .from('authorized_viewers')
+      .select('email')
+      .eq('email', email)
+      .single();
+
+    return !!authorizedUser;
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthLoading(true);
@@ -84,13 +95,9 @@ export function SubmissionsList() {
     setAuthError(null);
 
     // First check if email is authorized
-    const { data: authorizedUser } = await supabase
-      .from('authorized_viewers')
-      .select('email')
-      .eq('email', email)
-      .single();
+    const isAuthorized = await checkIfAuthorizedEmail(email);
 
-    if (!authorizedUser) {
+    if (!isAuthorized) {
       setAuthError("This email is not authorized to access submissions. Please contact your administrator.");
       setAuthLoading(false);
       return;
@@ -99,6 +106,9 @@ export function SubmissionsList() {
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/submissions`
+      }
     });
 
     if (error) {
@@ -111,7 +121,7 @@ export function SubmissionsList() {
     } else {
       toast({
         title: "Success",
-        description: "Please check your email to verify your account",
+        description: "Account created successfully. You can now log in.",
       });
     }
     setAuthLoading(false);
@@ -159,36 +169,67 @@ export function SubmissionsList() {
                 <AlertDescription>{authError}</AlertDescription>
               </Alert>
             )}
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="flex gap-2">
-                <Button type="submit" disabled={authLoading} className="flex-1">
-                  {authLoading ? "Loading..." : "Login"}
-                </Button>
-                <Button type="button" variant="outline" onClick={handleSignUp} disabled={authLoading} className="flex-1">
-                  First Time? Sign Up
-                </Button>
-              </div>
-            </form>
+            <Tabs defaultValue="login">
+              <TabsList className="grid w-full grid-cols-2 mb-4">
+                <TabsTrigger value="login">Login</TabsTrigger>
+                <TabsTrigger value="signup">First Time Access</TabsTrigger>
+              </TabsList>
+              <TabsContent value="login">
+                <form onSubmit={handleLogin} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="login-email">Email</Label>
+                    <Input
+                      id="login-email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="login-password">Password</Label>
+                    <Input
+                      id="login-password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full" disabled={authLoading}>
+                    {authLoading ? "Loading..." : "Login"}
+                  </Button>
+                </form>
+              </TabsContent>
+              <TabsContent value="signup">
+                <form onSubmit={handleSignUp} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-email">Email</Label>
+                    <Input
+                      id="signup-email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-password">Set Password</Label>
+                    <Input
+                      id="signup-password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <Button type="submit" className="w-full" disabled={authLoading}>
+                    {authLoading ? "Loading..." : "Create Account"}
+                  </Button>
+                </form>
+              </TabsContent>
+            </Tabs>
           </CardContent>
         </Card>
       </div>
