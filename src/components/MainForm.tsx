@@ -159,18 +159,18 @@ export function MainForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-
+    
     if (!advisorData) {
       toast({
         variant: "destructive",
         title: "Error",
         description: "Missing advisor information. Please register first.",
       });
-      setIsLoading(false);
       navigate('/');
       return;
     }
+
+    setIsLoading(true);
 
     try {
       const mappedData = {
@@ -218,9 +218,10 @@ export function MainForm() {
         toast({
           variant: "destructive",
           title: "Error",
-          description: "Failed to submit form. Please try again.",
+          description: `Failed to submit form: ${error.message}`,
         });
-        throw error;
+        setIsLoading(false);
+        return;
       }
       
       setIsSubmitted(true);
@@ -229,10 +230,10 @@ export function MainForm() {
         description: "Your form has been submitted successfully.",
       });
 
-      // Add a slight delay before navigation to ensure the success state is shown
+      // Add a longer delay before navigation to ensure success state is shown
       setTimeout(() => {
         navigate('/');
-      }, 3000);
+      }, 5000);
     } catch (error) {
       console.error('Error submitting form:', error);
       toast({
@@ -256,7 +257,7 @@ export function MainForm() {
             </CardTitle>
             <CardDescription>
               Thank you for submitting your information. We will review it shortly.
-              You will be redirected back to the registration page.
+              You will be redirected back to the registration page in a few seconds.
             </CardDescription>
           </CardHeader>
         </Card>
