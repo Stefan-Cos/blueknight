@@ -48,7 +48,7 @@ export function SubmissionsList() {
       .from('authorized_viewers')
       .select('email')
       .eq('email', user.email)
-      .single();
+      .maybeSingle();
 
     setIsAuthorized(!!authorizedUser);
   };
@@ -67,7 +67,10 @@ export function SubmissionsList() {
       }
 
       return !!authorizedUser;
-    } 
+    } catch (error) {
+      console.error('Error checking authorization:', error);
+      return false;
+    }
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -116,10 +119,11 @@ export function SubmissionsList() {
         .from('authorized_viewers')
         .select('email')
         .eq('email', email)
-        .single();
+        .maybeSingle();
 
       if (authCheckError || !authorizedUser) {
         setAuthError("This email is not authorized to access submissions. Please contact your administrator.");
+        setAuthLoading(false);
         return;
       }
 
