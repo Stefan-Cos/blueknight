@@ -5,15 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Building2, Mail, User, Copy, Link } from "lucide-react";
-import { generateRegistrationLink } from "@/utils/urlUtils";
+import { ArrowRight, Building2, Mail, User } from "lucide-react";
 
 export function RegistrationForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [showLinkGenerator, setShowLinkGenerator] = useState(false);
   
   useEffect(() => {
     // Pre-fill form if query parameters exist
@@ -34,44 +32,6 @@ export function RegistrationForm() {
       if (emailInput) emailInput.value = email;
     }
   }, [searchParams]);
-
-  const handleGenerateLink = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      companyName: formData.get("companyName") as string,
-      fullName: formData.get("fullName") as string,
-      email: formData.get("email") as string,
-    };
-
-    // Validate form
-    if (!data.companyName || !data.fullName || !data.email) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Please fill in all fields",
-      });
-      return;
-    }
-
-    // Generate the link using your domain
-    const baseUrl = window.location.origin; // This will be your domain in production
-    const registrationLink = generateRegistrationLink(baseUrl, data);
-
-    // Copy to clipboard
-    navigator.clipboard.writeText(registrationLink).then(() => {
-      toast({
-        title: "Link copied!",
-        description: "The registration link has been copied to your clipboard.",
-      });
-    }).catch(() => {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to copy link. Please try again.",
-      });
-    });
-  };
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -126,17 +86,13 @@ export function RegistrationForm() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/5 to-primary/10">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">
-            {showLinkGenerator ? "Generate Registration Link" : "Register"}
-          </CardTitle>
+          <CardTitle className="text-2xl font-bold">Register</CardTitle>
           <CardDescription>
-            {showLinkGenerator 
-              ? "Generate a link to share with others" 
-              : "Enter your details to access the form"}
+            Enter your details to access the form
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={showLinkGenerator ? handleGenerateLink : handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="companyName">Advisor Company Name</Label>
               <div className="relative">
@@ -180,31 +136,16 @@ export function RegistrationForm() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {showLinkGenerator ? (
-                  <>
-                    Generate & Copy Link
-                    <Copy className="ml-2 h-4 w-4" />
-                  </>
-                ) : (
-                  <>
-                    Continue to Form
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </>
-                )}
-              </Button>
-              
-              <Button 
-                type="button" 
-                variant="outline" 
-                className="w-full"
-                onClick={() => setShowLinkGenerator(!showLinkGenerator)}
-              >
-                {showLinkGenerator ? "Back to Registration" : "Generate Sharing Link"}
-                <Link className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? (
+                "Processing..."
+              ) : (
+                <>
+                  Continue to Form
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </>
+              )}
+            </Button>
           </form>
         </CardContent>
       </Card>
