@@ -44,11 +44,16 @@ export function SubmissionsList() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
-    const { data: authorizedUser } = await supabase
+    const { data: authorizedUser, error } = await supabase
       .from('authorized_viewers')
       .select('email')
       .eq('email', user.email)
       .maybeSingle();
+
+    if (error) {
+      console.error('Error checking authorization:', error);
+      return;
+    }
 
     setIsAuthorized(!!authorizedUser);
   };
@@ -79,6 +84,13 @@ export function SubmissionsList() {
     setAuthError(null);
     
     try {
+      const isAuthorized = await checkIfAuthorizedEmail(email);
+      if (!isAuthorized) {
+        setAuthError("This email is not authorized to access submissions. Please contact your administrator.");
+        setAuthLoading(false);
+        return;
+      }
+
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -115,13 +127,8 @@ export function SubmissionsList() {
     setAuthError(null);
 
     try {
-      const { data: authorizedUser, error: authCheckError } = await supabase
-        .from('authorized_viewers')
-        .select('email')
-        .eq('email', email)
-        .maybeSingle();
-
-      if (authCheckError || !authorizedUser) {
+      const isAuthorized = await checkIfAuthorizedEmail(email);
+      if (!isAuthorized) {
         setAuthError("This email is not authorized to access submissions. Please contact your administrator.");
         setAuthLoading(false);
         return;
@@ -152,6 +159,13 @@ export function SubmissionsList() {
           description: "Account created successfully. You can now log in.",
         });
       }
+    } catch (error: any) {
+      setAuthError(error.message);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
     } finally {
       setAuthLoading(false);
     }
@@ -359,4 +373,3 @@ export function SubmissionsList() {
       </div>
     </div>
   );
-}
