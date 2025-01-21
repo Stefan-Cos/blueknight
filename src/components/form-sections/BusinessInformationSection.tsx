@@ -56,6 +56,28 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
+          <Label htmlFor="productsAndServices">Describe the products and services</Label>
+          <Textarea
+            id="productsAndServices"
+            placeholder="Provide a description of your products and services"
+            value={formData.productsAndServices || ""}
+            onChange={(e) => setFormData({ ...formData, productsAndServices: e.target.value })}
+            className="min-h-[100px]"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="revenueModel">Describe the revenue model for the main products and services</Label>
+          <Textarea
+            id="revenueModel"
+            placeholder="Explain how your products and services generate revenue"
+            value={formData.revenueModel || ""}
+            onChange={(e) => setFormData({ ...formData, revenueModel: e.target.value })}
+            className="min-h-[100px]"
+          />
+        </div>
+
+        <div className="space-y-2">
           <Label htmlFor="industryKeywords">Industry keywords</Label>
           <Input
             id="industryKeywords"

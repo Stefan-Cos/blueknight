@@ -19,7 +19,6 @@ export function MainForm() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   
-  // Get advisor data from either state or URL parameters
   const advisorData = location.state?.advisorData || {
     email: searchParams.get('advisor') || '',
     companyName: searchParams.get('company') || '',
@@ -28,7 +27,7 @@ export function MainForm() {
 
   const [formData, setFormData] = useState({
     projectName: "",
-    companyName: "", // Added new field
+    companyName: "",
     shareSaleType: "",
     shareholdersExit: "",
     transitionPeriod: "",
@@ -36,6 +35,8 @@ export function MainForm() {
     isRegulated: "",
     // Business Information section
     companyDescription: "",
+    productsAndServices: "", // New field
+    revenueModel: "", // New field
     industryKeywords: [] as string[],
     valueChain: {
       consultancy: false,
