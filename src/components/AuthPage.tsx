@@ -23,28 +23,34 @@ export function AuthPage() {
     const password = formData.get("password") as string;
 
     try {
-      // First check if the email is in authorized_viewers
+      console.log('Checking authorization for email:', email.trim());
+      
       const { data: viewers, error: viewerError } = await supabase
         .from('authorized_viewers')
-        .select('email')
-        .ilike('email', email.trim());
+        .select('*')
+        .eq('email', email.trim());
+
+      console.log('Authorization check result:', { viewers, viewerError });
 
       if (viewerError) {
+        console.error('Error checking authorization:', viewerError);
         throw new Error('Error checking authorization status');
       }
 
       if (!viewers || viewers.length === 0) {
+        console.log('No authorized viewer found for email:', email.trim());
         toast({
           variant: "destructive",
           title: "Unauthorized",
           description: "This email is not authorized to access submissions.",
         });
+        setIsLoading(false);
         return;
       }
 
-      // If authorized, proceed with signup
+      console.log('Proceeding with signup for authorized email');
       const { error: signUpError } = await supabase.auth.signUp({
-        email,
+        email: email.trim(),
         password,
       });
 
@@ -57,6 +63,7 @@ export function AuthPage() {
 
       navigate("/submissions");
     } catch (error: any) {
+      console.error('Signup error:', error);
       toast({
         variant: "destructive",
         title: "Error",
@@ -76,28 +83,34 @@ export function AuthPage() {
     const password = formData.get("password") as string;
 
     try {
-      // First check if the email is in authorized_viewers
+      console.log('Checking authorization for email:', email.trim());
+      
       const { data: viewers, error: viewerError } = await supabase
         .from('authorized_viewers')
-        .select('email')
-        .ilike('email', email.trim());
+        .select('*')
+        .eq('email', email.trim());
+
+      console.log('Authorization check result:', { viewers, viewerError });
 
       if (viewerError) {
+        console.error('Error checking authorization:', viewerError);
         throw new Error('Error checking authorization status');
       }
 
       if (!viewers || viewers.length === 0) {
+        console.log('No authorized viewer found for email:', email.trim());
         toast({
           variant: "destructive",
           title: "Unauthorized",
           description: "This email is not authorized to access submissions.",
         });
+        setIsLoading(false);
         return;
       }
 
-      // If authorized, proceed with login
+      console.log('Proceeding with signin for authorized email');
       const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
+        email: email.trim(),
         password,
       });
 
@@ -110,6 +123,7 @@ export function AuthPage() {
 
       navigate("/submissions");
     } catch (error: any) {
+      console.error('Signin error:', error);
       toast({
         variant: "destructive",
         title: "Error",
