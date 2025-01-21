@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, Send, ChevronRight, ChevronLeft } from "lucide-react";
 import { OverviewSection } from "./form-sections/OverviewSection";
 import { BusinessInformationSection } from "./form-sections/BusinessInformationSection";
@@ -136,14 +136,16 @@ export function MainForm() {
     }));
   };
 
-  const handleNext = () => {
+  const handleNext = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent form submission
     if (currentSection < sections.length - 1) {
       setCurrentSection(prev => prev + 1);
       window.scrollTo(0, 0);
     }
   };
 
-  const handlePrevious = () => {
+  const handlePrevious = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent form submission
     if (currentSection > 0) {
       setCurrentSection(prev => prev - 1);
       window.scrollTo(0, 0);
