@@ -97,13 +97,18 @@ export function SubmissionsList() {
       });
 
       if (error) {
-        setAuthError(error.message);
+        if (error.message.includes('Invalid login credentials')) {
+          setAuthError("Invalid email or password. Please try again.");
+        } else {
+          setAuthError(error.message);
+        }
         toast({
           variant: "destructive",
           title: "Error",
           description: error.message,
         });
       } else {
+        setIsAuthenticated(true);
         toast({
           title: "Success",
           description: "Logged in successfully",
@@ -145,18 +150,22 @@ export function SubmissionsList() {
       if (error) {
         if (error.message.includes('User already registered')) {
           setAuthError("An account already exists for this email. Please log in instead.");
+          toast({
+            title: "Account exists",
+            description: "Please use the login form instead.",
+          });
         } else {
           setAuthError(error.message);
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: error.message,
+          });
         }
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: error.message,
-        });
       } else {
         toast({
           title: "Success",
-          description: "Account created successfully. You can now log in.",
+          description: "Account created successfully. Please check your email to verify your account before logging in.",
         });
       }
     } catch (error: any) {
@@ -373,4 +382,3 @@ export function SubmissionsList() {
       </div>
     </div>
   );
-}
