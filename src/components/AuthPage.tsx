@@ -15,21 +15,26 @@ export function AuthPage() {
   const navigate = useNavigate();
 
   const checkAuthorizedViewer = async (email: string) => {
-    console.log('Checking authorization for email:', email);
+    const cleanEmail = email.toLowerCase().trim();
+    console.log('Checking authorization for email:', cleanEmail);
     
     try {
       const { data, error } = await supabase
         .from('authorized_viewers')
-        .select('email')
-        .eq('email', email.toLowerCase().trim());
+        .select('*');  // Select all columns to see exactly what we get back
 
       if (error) {
         console.error('Database error:', error);
         return false;
       }
 
-      console.log('Database response:', data);
-      const isAuthorized = data && data.length > 0;
+      console.log('All authorized viewers:', data);
+      
+      // Find exact match (case insensitive)
+      const isAuthorized = data?.some(viewer => 
+        viewer.email.toLowerCase().trim() === cleanEmail
+      );
+      
       console.log('Is authorized:', isAuthorized);
       return isAuthorized;
     } catch (error) {
