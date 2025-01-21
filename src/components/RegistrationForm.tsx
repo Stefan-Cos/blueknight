@@ -18,9 +18,9 @@ export function RegistrationForm() {
     
     const formData = new FormData(e.currentTarget);
     const data = {
-      companyName: formData.get("companyName"),
-      fullName: formData.get("fullName"),
-      email: formData.get("email"),
+      companyName: formData.get("companyName") as string,
+      fullName: formData.get("fullName") as string,
+      email: formData.get("email") as string,
     };
 
     // Validate form
@@ -44,9 +44,11 @@ export function RegistrationForm() {
         description: "You will be redirected to the form.",
       });
       
-      // Navigate to the main form
+      // Navigate to the main form with advisor data
       setTimeout(() => {
-        navigate("/form");
+        navigate("/form", {
+          state: { advisorData: data }
+        });
       }, 1500);
     } catch (error) {
       toast({
