@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,27 @@ export function RegistrationForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  
+  useEffect(() => {
+    // Pre-fill form if query parameters exist
+    const companyName = searchParams.get("company");
+    const fullName = searchParams.get("name");
+    const email = searchParams.get("advisor");
+    
+    if (companyName) {
+      const companyInput = document.getElementById("companyName") as HTMLInputElement;
+      if (companyInput) companyInput.value = companyName;
+    }
+    if (fullName) {
+      const nameInput = document.getElementById("fullName") as HTMLInputElement;
+      if (nameInput) nameInput.value = fullName;
+    }
+    if (email) {
+      const emailInput = document.getElementById("email") as HTMLInputElement;
+      if (emailInput) emailInput.value = email;
+    }
+  }, [searchParams]);
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

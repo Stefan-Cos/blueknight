@@ -15,9 +15,10 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<RegistrationForm />} />
+          <Route path="/register" element={<RegistrationForm />} />
           <Route path="/form" element={<MainForm />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/" element={<Navigate to="/register" replace />} />
+          <Route path="*" element={<Navigate to="/register" replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
