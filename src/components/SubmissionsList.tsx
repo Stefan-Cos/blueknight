@@ -124,14 +124,16 @@ export function SubmissionsList() {
         return;
       }
 
-      // Check if user already exists using admin API
-      const { data: existingUsers } = await supabase.auth.admin.listUsers({
-        filters: {
-          email: email
+      // Check if user already exists using signInWithOtp
+      const { error: existingUserError } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          shouldCreateUser: false
         }
       });
 
-      if (existingUsers?.users?.length > 0) {
+      // If there's no error, the user exists
+      if (!existingUserError) {
         setAuthError("An account already exists for this email. Please log in instead.");
         return;
       }
