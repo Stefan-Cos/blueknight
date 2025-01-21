@@ -18,15 +18,14 @@ export function AuthPage() {
     const { data, error } = await supabase
       .from('authorized_viewers')
       .select('email')
-      .eq('email', email)
-      .single();
+      .eq('email', email);
 
     if (error) {
       console.error('Error checking authorized viewer:', error);
       return false;
     }
 
-    return !!data;
+    return data.length > 0;
   };
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,6 +45,7 @@ export function AuthPage() {
           title: "Unauthorized",
           description: "This email is not authorized to access submissions.",
         });
+        setIsLoading(false);
         return;
       }
 
@@ -90,6 +90,7 @@ export function AuthPage() {
           title: "Unauthorized",
           description: "This email is not authorized to access submissions.",
         });
+        setIsLoading(false);
         return;
       }
 
