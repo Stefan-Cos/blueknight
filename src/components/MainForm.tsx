@@ -192,6 +192,8 @@ export function MainForm() {
         reason_for_selling: formData.reasonForSelling,
         is_regulated: formData.isRegulated,
         company_description: formData.companyDescription,
+        products_and_services: formData.productsAndServices, // Make sure this field is included
+        revenue_model: formData.revenueModel, // Make sure this field is included
         industry_keywords: formData.industryKeywords,
         value_chain: formData.valueChain,
         business_model_type: formData.businessModelType,
@@ -210,7 +212,7 @@ export function MainForm() {
         outstanding_litigation: formData.outstandingLitigation,
         negative_media_coverage: formData.negativeMediaCoverage,
         defined_benefit_scheme: formData.definedBenefitScheme,
-        shareholders_preference: formData.shareholdersPreference, // Now correctly typed as string[]
+        shareholders_preference: formData.shareholdersPreference,
         additional_information: formData.additionalInformation
       };
 
