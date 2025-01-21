@@ -198,7 +198,7 @@ export function MainForm() {
                     </Label>
                     <Select
                       value={formData.shareholdersExit}
-                      onValueChange={(value) => setFormData({ ...formData, shareholdersExit: value })}
+                      onValueChange={(value) => setFormData({ ...prev, shareholdersExit: value })}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select option" />
@@ -216,7 +216,7 @@ export function MainForm() {
                     </Label>
                     <Select
                       value={formData.transitionPeriod}
-                      onValueChange={(value) => setFormData({ ...formData, transitionPeriod: value })}
+                      onValueChange={(value) => setFormData({ ...prev, transitionPeriod: value })}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select transition period" />
@@ -235,7 +235,7 @@ export function MainForm() {
                       id="reasonForSelling"
                       placeholder="Please provide detailed reasons for selling"
                       value={formData.reasonForSelling}
-                      onChange={(e) => setFormData({ ...formData, reasonForSelling: e.target.value })}
+                      onChange={(e) => setFormData({ ...prev, reasonForSelling: e.target.value })}
                       className="min-h-[100px]"
                       required
                     />
@@ -245,7 +245,7 @@ export function MainForm() {
                     <Label htmlFor="isRegulated">Is the company regulated?</Label>
                     <Select
                       value={formData.isRegulated}
-                      onValueChange={(value) => setFormData({ ...formData, isRegulated: value })}
+                      onValueChange={(value) => setFormData({ ...prev, isRegulated: value })}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select option" />
@@ -259,13 +259,14 @@ export function MainForm() {
             </div>
             <div className="flex justify-between mt-6">
               <Button
+                type="button"
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentSection === 0}
               >
                 <ChevronLeft className="h-4 w-4 mr-1" /> Previous
               </Button>
-              <Button onClick={handleNext}>
+              <Button type="button" onClick={handleNext}>
                 Next <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
@@ -282,7 +283,7 @@ export function MainForm() {
                   id="companyDescription"
                   placeholder="Provide a detailed description of your company"
                   value={formData.companyDescription}
-                  onChange={(e) => setFormData({ ...formData, companyDescription: e.target.value })}
+                  onChange={(e) => setFormData({ ...prev, companyDescription: e.target.value })}
                   className="min-h-[100px]"
                 />
               </div>
@@ -399,7 +400,7 @@ export function MainForm() {
                   id="growthPlan"
                   placeholder="Describe the company's growth plans around geography, product and customer expansion"
                   value={formData.growthPlan}
-                  onChange={(e) => setFormData({ ...formData, growthPlan: e.target.value })}
+                  onChange={(e) => setFormData({ ...prev, growthPlan: e.target.value })}
                   className="min-h-[100px]"
                 />
               </div>
@@ -410,16 +411,16 @@ export function MainForm() {
                   id="keyIndustryRisks"
                   placeholder="Describe the key industry risks impacting the company"
                   value={formData.keyIndustryRisks}
-                  onChange={(e) => setFormData({ ...formData, keyIndustryRisks: e.target.value })}
+                  onChange={(e) => setFormData({ ...prev, keyIndustryRisks: e.target.value })}
                   className="min-h-[100px]"
                 />
               </div>
             </div>
             <div className="flex justify-between mt-6">
-              <Button variant="outline" onClick={handlePrevious}>
+              <Button type="button" variant="outline" onClick={handlePrevious}>
                 <ChevronLeft className="h-4 w-4 mr-1" /> Previous
               </Button>
-              <Button onClick={handleNext}>
+              <Button type="button" onClick={handleNext}>
                 Next <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
@@ -436,7 +437,7 @@ export function MainForm() {
                   id="revenueByGeography"
                   placeholder="e.g., 70% in the UK, 20% in Ireland"
                   value={formData.revenueByGeography}
-                  onChange={(e) => setFormData({ ...formData, revenueByGeography: e.target.value })}
+                  onChange={(e) => setFormData({ ...prev, revenueByGeography: e.target.value })}
                 />
               </div>
 
@@ -446,7 +447,7 @@ export function MainForm() {
                   id="revenueByCustomerType"
                   placeholder="e.g., 70% in life sciences"
                   value={formData.revenueByCustomerType}
-                  onChange={(e) => setFormData({ ...formData, revenueByCustomerType: e.target.value })}
+                  onChange={(e) => setFormData({ ...prev, revenueByCustomerType: e.target.value })}
                 />
               </div>
 
@@ -456,7 +457,7 @@ export function MainForm() {
                   id="revenueByProductType"
                   placeholder="e.g., 70% are training modules on a subscription basis"
                   value={formData.revenueByProductType}
-                  onChange={(e) => setFormData({ ...formData, revenueByProductType: e.target.value })}
+                  onChange={(e) => setFormData({ ...prev, revenueByProductType: e.target.value })}
                 />
               </div>
 
@@ -466,7 +467,7 @@ export function MainForm() {
                   id="customerLifetimeValue"
                   placeholder="Enter CLV for subscription-based users"
                   value={formData.customerLifetimeValue}
-                  onChange={(e) => setFormData({ ...formData, customerLifetimeValue: e.target.value })}
+                  onChange={(e) => setFormData({ ...prev, customerLifetimeValue: e.target.value })}
                 />
               </div>
 
@@ -476,7 +477,7 @@ export function MainForm() {
                   id="grossChurn"
                   placeholder="Enter gross churn for subscription-based users"
                   value={formData.grossChurn}
-                  onChange={(e) => setFormData({ ...formData, grossChurn: e.target.value })}
+                  onChange={(e) => setFormData({ ...prev, grossChurn: e.target.value })}
                 />
               </div>
 
@@ -486,15 +487,15 @@ export function MainForm() {
                   id="averageCustomerLifespan"
                   placeholder="Enter average customer lifespan"
                   value={formData.averageCustomerLifespan}
-                  onChange={(e) => setFormData({ ...formData, averageCustomerLifespan: e.target.value })}
+                  onChange={(e) => setFormData({ ...prev, averageCustomerLifespan: e.target.value })}
                 />
               </div>
             </div>
             <div className="flex justify-between mt-6">
-              <Button variant="outline" onClick={handlePrevious}>
+              <Button type="button" variant="outline" onClick={handlePrevious}>
                 <ChevronLeft className="h-4 w-4 mr-1" /> Previous
               </Button>
-              <Button onClick={handleNext}>
+              <Button type="button" onClick={handleNext}>
                 Next <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
@@ -508,7 +509,7 @@ export function MainForm() {
               Other section will be implemented in the next phase
             </div>
             <div className="flex justify-between mt-6">
-              <Button variant="outline" onClick={handlePrevious}>
+              <Button type="button" variant="outline" onClick={handlePrevious}>
                 <ChevronLeft className="h-4 w-4 mr-1" /> Previous
               </Button>
               <Button type="submit" form="mainForm" disabled={isLoading}>
