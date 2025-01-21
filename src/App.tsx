@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { RegistrationForm } from "./components/RegistrationForm";
 import { MainForm } from "./components/MainForm";
+import { SubmissionsList } from "./components/SubmissionsList";
+import { SubmissionDetail } from "./components/SubmissionDetail";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +19,8 @@ const App = () => (
         <Routes>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/form" element={<MainForm />} />
+          <Route path="/submissions" element={<SubmissionsList />} />
+          <Route path="/submissions/:id" element={<SubmissionDetail />} />
           <Route path="/" element={<Navigate to="/register" replace />} />
           <Route path="*" element={<Navigate to="/register" replace />} />
         </Routes>
