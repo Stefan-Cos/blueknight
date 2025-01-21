@@ -53,12 +53,20 @@ export function MainForm() {
     },
     customerIndustries: [] as string[],
     growthPlan: "",
-    mainCompetitors: "",
+    mainCompetitors: [] as string[],
     keyIndustryRisks: "",
+    // Metrics section
+    revenueByGeography: "",
+    revenueByCustomerType: "",
+    revenueByProductType: "",
+    customerLifetimeValue: "",
+    grossChurn: "",
+    averageCustomerLifespan: "",
   });
 
   const [currentKeyword, setCurrentKeyword] = useState("");
   const [currentIndustry, setCurrentIndustry] = useState("");
+  const [currentCompetitor, setCurrentCompetitor] = useState("");
 
   const handleKeywordKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if ((e.key === 'Enter' || e.key === 'Tab') && currentKeyword.trim()) {
@@ -82,17 +90,30 @@ export function MainForm() {
     }
   };
 
+  const handleCompetitorKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if ((e.key === 'Enter' || e.key === 'Tab') && currentCompetitor.trim()) {
+      e.preventDefault();
+      setFormData(prev => ({
+        ...prev,
+        mainCompetitors: [...prev.mainCompetitors, currentCompetitor.trim()]
+      }));
+      setCurrentCompetitor("");
+    }
+  };
+
   const sections = ["Overview", "Business Information", "Metrics", "Other"];
 
   const handleNext = () => {
     if (currentSection < sections.length - 1) {
       setCurrentSection(prev => prev + 1);
+      window.scrollTo(0, 0);
     }
   };
 
   const handlePrevious = () => {
     if (currentSection > 0) {
       setCurrentSection(prev => prev - 1);
+      window.scrollTo(0, 0);
     }
   };
 
@@ -142,7 +163,8 @@ export function MainForm() {
     switch (currentSection) {
       case 0: // Overview
         return (
-          <div className="space-y-4">
+          <div className="space-y-6">
+            <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="projectName">Project Name</Label>
               <Input
@@ -234,157 +256,271 @@ export function MainForm() {
                       </SelectContent>
                     </Select>
                   </div>
+            </div>
+            <div className="flex justify-between mt-6">
+              <Button
+                variant="outline"
+                onClick={handlePrevious}
+                disabled={currentSection === 0}
+              >
+                <ChevronLeft className="h-4 w-4 mr-1" /> Previous
+              </Button>
+              <Button onClick={handleNext}>
+                Next <ChevronRight className="h-4 w-4 ml-1" />
+              </Button>
+            </div>
           </div>
         );
 
       case 1: // Business Information
         return (
           <div className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="companyDescription">Company Description</Label>
-              <Textarea
-                id="companyDescription"
-                placeholder="Provide a detailed description of your company"
-                value={formData.companyDescription}
-                onChange={(e) => setFormData({ ...formData, companyDescription: e.target.value })}
-                className="min-h-[100px]"
-              />
-            </div>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="companyDescription">Company Description</Label>
+                <Textarea
+                  id="companyDescription"
+                  placeholder="Provide a detailed description of your company"
+                  value={formData.companyDescription}
+                  onChange={(e) => setFormData({ ...formData, companyDescription: e.target.value })}
+                  className="min-h-[100px]"
+                />
+              </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="industryKeywords">Industry Keywords</Label>
-              <Input
-                id="industryKeywords"
-                placeholder="Type keywords and press Enter"
-                value={currentKeyword}
-                onChange={(e) => setCurrentKeyword(e.target.value)}
-                onKeyDown={handleKeywordKeyDown}
-              />
-              <div className="flex flex-wrap gap-2 mt-2">
-                {formData.industryKeywords.map((keyword, index) => (
-                  <span key={index} className="bg-primary/10 px-2 py-1 rounded-md text-sm">
-                    {keyword}
-                  </span>
-                ))}
+              <div className="space-y-2">
+                <Label htmlFor="industryKeywords">Industry Keywords</Label>
+                <Input
+                  id="industryKeywords"
+                  placeholder="Type keywords and press Enter"
+                  value={currentKeyword}
+                  onChange={(e) => setCurrentKeyword(e.target.value)}
+                  onKeyDown={handleKeywordKeyDown}
+                />
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {formData.industryKeywords.map((keyword, index) => (
+                    <span key={index} className="bg-primary/10 px-2 py-1 rounded-md text-sm">
+                      {keyword}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Company's Place in Value Chain</Label>
+                <div className="grid grid-cols-2 gap-4">
+                  {Object.entries(formData.valueChain).map(([key, value]) => (
+                    <div key={key} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={key}
+                        checked={value}
+                        onCheckedChange={(checked) =>
+                          setFormData(prev => ({
+                            ...prev,
+                            valueChain: {
+                              ...prev.valueChain,
+                              [key]: checked === true
+                            }
+                          }))
+                        }
+                      />
+                      <Label htmlFor={key} className="capitalize">
+                        {key.replace(/([A-Z])/g, ' $1').trim()}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label>Business Model Type</Label>
+                <div className="grid grid-cols-2 gap-4">
+                  {Object.entries(formData.businessModelType).map(([key, value]) => (
+                    <div key={key} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={key}
+                        checked={value}
+                        onCheckedChange={(checked) =>
+                          setFormData(prev => ({
+                            ...prev,
+                            businessModelType: {
+                              ...prev.businessModelType,
+                              [key]: checked === true
+                            }
+                          }))
+                        }
+                      />
+                      <Label htmlFor={key} className="uppercase">
+                        {key}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="customerIndustries">Industries of your customers</Label>
+                <Input
+                  id="customerIndustries"
+                  placeholder="Type industry and press Enter"
+                  value={currentIndustry}
+                  onChange={(e) => setCurrentIndustry(e.target.value)}
+                  onKeyDown={handleIndustryKeyDown}
+                />
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {formData.customerIndustries.map((industry, index) => (
+                    <span key={index} className="bg-primary/10 px-2 py-1 rounded-md text-sm">
+                      {industry}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="mainCompetitors">Main Competitors</Label>
+                <Input
+                  id="mainCompetitors"
+                  placeholder="Type competitor and press Enter"
+                  value={currentCompetitor}
+                  onChange={(e) => setCurrentCompetitor(e.target.value)}
+                  onKeyDown={handleCompetitorKeyDown}
+                />
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {formData.mainCompetitors.map((competitor, index) => (
+                    <span key={index} className="bg-primary/10 px-2 py-1 rounded-md text-sm">
+                      {competitor}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="growthPlan">Growth Plan</Label>
+                <Textarea
+                  id="growthPlan"
+                  placeholder="Describe the company's growth plans around geography, product and customer expansion"
+                  value={formData.growthPlan}
+                  onChange={(e) => setFormData({ ...formData, growthPlan: e.target.value })}
+                  className="min-h-[100px]"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="keyIndustryRisks">Key Industry Risks</Label>
+                <Textarea
+                  id="keyIndustryRisks"
+                  placeholder="Describe the key industry risks impacting the company"
+                  value={formData.keyIndustryRisks}
+                  onChange={(e) => setFormData({ ...formData, keyIndustryRisks: e.target.value })}
+                  className="min-h-[100px]"
+                />
               </div>
             </div>
-
-            <div className="space-y-2">
-              <Label>Company's Place in Value Chain</Label>
-              <div className="grid grid-cols-2 gap-4">
-                {Object.entries(formData.valueChain).map(([key, value]) => (
-                  <div key={key} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={key}
-                      checked={value}
-                      onCheckedChange={(checked) =>
-                        setFormData(prev => ({
-                          ...prev,
-                          valueChain: {
-                            ...prev.valueChain,
-                            [key]: checked === true
-                          }
-                        }))
-                      }
-                    />
-                    <Label htmlFor={key} className="capitalize">
-                      {key.replace(/([A-Z])/g, ' $1').trim()}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Business Model Type</Label>
-              <div className="grid grid-cols-2 gap-4">
-                {Object.entries(formData.businessModelType).map(([key, value]) => (
-                  <div key={key} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={key}
-                      checked={value}
-                      onCheckedChange={(checked) =>
-                        setFormData(prev => ({
-                          ...prev,
-                          businessModelType: {
-                            ...prev.businessModelType,
-                            [key]: checked === true
-                          }
-                        }))
-                      }
-                    />
-                    <Label htmlFor={key} className="uppercase">
-                      {key}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="customerIndustries">Industries of your customers</Label>
-              <Input
-                id="customerIndustries"
-                placeholder="Type industry and press Enter"
-                value={currentIndustry}
-                onChange={(e) => setCurrentIndustry(e.target.value)}
-                onKeyDown={handleIndustryKeyDown}
-              />
-              <div className="flex flex-wrap gap-2 mt-2">
-                {formData.customerIndustries.map((industry, index) => (
-                  <span key={index} className="bg-primary/10 px-2 py-1 rounded-md text-sm">
-                    {industry}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="growthPlan">Growth Plan</Label>
-              <Textarea
-                id="growthPlan"
-                placeholder="Describe the company's growth plans around geography, product and customer expansion"
-                value={formData.growthPlan}
-                onChange={(e) => setFormData({ ...formData, growthPlan: e.target.value })}
-                className="min-h-[100px]"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="mainCompetitors">Main Competitors</Label>
-              <Textarea
-                id="mainCompetitors"
-                placeholder="List your main competitors"
-                value={formData.mainCompetitors}
-                onChange={(e) => setFormData({ ...formData, mainCompetitors: e.target.value })}
-                className="min-h-[100px]"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="keyIndustryRisks">Key Industry Risks</Label>
-              <Textarea
-                id="keyIndustryRisks"
-                placeholder="Describe the key industry risks impacting the company"
-                value={formData.keyIndustryRisks}
-                onChange={(e) => setFormData({ ...formData, keyIndustryRisks: e.target.value })}
-                className="min-h-[100px]"
-              />
+            <div className="flex justify-between mt-6">
+              <Button variant="outline" onClick={handlePrevious}>
+                <ChevronLeft className="h-4 w-4 mr-1" /> Previous
+              </Button>
+              <Button onClick={handleNext}>
+                Next <ChevronRight className="h-4 w-4 ml-1" />
+              </Button>
             </div>
           </div>
         );
 
       case 2: // Metrics
         return (
-          <div className="py-4 text-center text-muted-foreground">
-            Metrics section will be implemented in the next phase
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="revenueByGeography">Revenue Split by Geography</Label>
+                <Input
+                  id="revenueByGeography"
+                  placeholder="e.g., 70% in the UK, 20% in Ireland"
+                  value={formData.revenueByGeography}
+                  onChange={(e) => setFormData({ ...formData, revenueByGeography: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="revenueByCustomerType">Revenue Split by Customer Type</Label>
+                <Input
+                  id="revenueByCustomerType"
+                  placeholder="e.g., 70% in life sciences"
+                  value={formData.revenueByCustomerType}
+                  onChange={(e) => setFormData({ ...formData, revenueByCustomerType: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="revenueByProductType">Revenue Split by Product Type</Label>
+                <Input
+                  id="revenueByProductType"
+                  placeholder="e.g., 70% are training modules on a subscription basis"
+                  value={formData.revenueByProductType}
+                  onChange={(e) => setFormData({ ...formData, revenueByProductType: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="customerLifetimeValue">Customer Lifetime Value (CLV)</Label>
+                <Input
+                  id="customerLifetimeValue"
+                  placeholder="Enter CLV for subscription-based users"
+                  value={formData.customerLifetimeValue}
+                  onChange={(e) => setFormData({ ...formData, customerLifetimeValue: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="grossChurn">Gross Churn</Label>
+                <Input
+                  id="grossChurn"
+                  placeholder="Enter gross churn for subscription-based users"
+                  value={formData.grossChurn}
+                  onChange={(e) => setFormData({ ...formData, grossChurn: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="averageCustomerLifespan">Average Customer Lifespan</Label>
+                <Input
+                  id="averageCustomerLifespan"
+                  placeholder="Enter average customer lifespan"
+                  value={formData.averageCustomerLifespan}
+                  onChange={(e) => setFormData({ ...formData, averageCustomerLifespan: e.target.value })}
+                />
+              </div>
+            </div>
+            <div className="flex justify-between mt-6">
+              <Button variant="outline" onClick={handlePrevious}>
+                <ChevronLeft className="h-4 w-4 mr-1" /> Previous
+              </Button>
+              <Button onClick={handleNext}>
+                Next <ChevronRight className="h-4 w-4 ml-1" />
+              </Button>
+            </div>
           </div>
         );
 
       case 3: // Other
         return (
-          <div className="py-4 text-center text-muted-foreground">
-            Other section will be implemented in the next phase
+          <div className="space-y-6">
+            <div className="py-4 text-center text-muted-foreground">
+              Other section will be implemented in the next phase
+            </div>
+            <div className="flex justify-between mt-6">
+              <Button variant="outline" onClick={handlePrevious}>
+                <ChevronLeft className="h-4 w-4 mr-1" /> Previous
+              </Button>
+              <Button type="submit" form="mainForm" disabled={isLoading}>
+                {isLoading ? (
+                  "Submitting..."
+                ) : (
+                  <>
+                    Submit <Send className="ml-2 h-4 w-4" />
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
         );
 
@@ -404,32 +540,6 @@ export function MainForm() {
           <div className="flex justify-between items-center mt-4">
             <div className="text-sm text-muted-foreground">
               Step {currentSection + 1} of {sections.length}: {sections[currentSection]}
-            </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={handlePrevious}
-                disabled={currentSection === 0}
-                size="sm"
-              >
-                <ChevronLeft className="h-4 w-4 mr-1" /> Previous
-              </Button>
-              {currentSection === sections.length - 1 ? (
-                <Button type="submit" form="mainForm" disabled={isLoading} size="sm">
-                  {isLoading ? (
-                    "Submitting..."
-                  ) : (
-                    <>
-                      Submit
-                      <Send className="ml-2 h-4 w-4" />
-                    </>
-                  )}
-                </Button>
-              ) : (
-                <Button onClick={handleNext} size="sm">
-                  Next <ChevronRight className="h-4 w-4 ml-1" />
-                </Button>
-              )}
             </div>
           </div>
         </CardHeader>
