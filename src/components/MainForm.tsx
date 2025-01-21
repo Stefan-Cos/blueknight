@@ -174,12 +174,9 @@ export function MainForm() {
 
     try {
       const mappedData = {
-        // Advisor information from registration
         advisor_company_name: advisorData.companyName,
         advisor_full_name: advisorData.fullName,
         advisor_email: advisorData.email,
-        
-        // Form data mapped to match database columns
         project_name: formData.projectName,
         company_name: formData.companyName,
         share_sale_type: formData.shareSaleType,
@@ -210,11 +207,16 @@ export function MainForm() {
         additional_information: formData.additionalInformation
       };
 
+      console.log('Submitting data:', mappedData);
+
       const { error } = await supabase
         .from('form_submissions')
         .insert(mappedData);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
       
       setIsSubmitted(true);
       toast({
