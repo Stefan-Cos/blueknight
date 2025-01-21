@@ -20,6 +20,7 @@ export function SubmissionsList() {
   const [authLoading, setAuthLoading] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -54,13 +55,23 @@ export function SubmissionsList() {
   };
 
   const checkIfAuthorizedEmail = async (email: string) => {
-    const { data: authorizedUser } = await supabase
-      .from('authorized_viewers')
-      .select('email')
-      .eq('email', email)
-      .single();
+    setIsCheckingAuth(true);
+    try {
+      const { data: authorizedUser, error } = await supabase
+        .from('authorized_viewers')
+        .select('email')
+        .eq('email', email)
+        .maybeSingle();
 
-    return !!authorizedUser;
+      if (error) {
+        console.error('Error checking authorization:', error);
+        return false;
+      }
+
+      return !!authorizedUser;
+    } finally {
+      setIsCheckingAuth(false);
+    }
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -99,6 +110,18 @@ export function SubmissionsList() {
 
     if (!isAuthorized) {
       setAuthError("This email is not authorized to access submissions. Please contact your administrator.");
+      setAuthLoading(false);
+      return;
+    }
+
+    // Check if user already exists
+    const { data: existingUser } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (existingUser.user) {
+      setAuthError("An account already exists for this email. Please log in instead.");
       setAuthLoading(false);
       return;
     }
@@ -169,7 +192,7 @@ export function SubmissionsList() {
                 <AlertDescription>{authError}</AlertDescription>
               </Alert>
             )}
-            <Tabs defaultValue="login">
+            <Tabs defaultValue="signup">
               <TabsList className="grid w-full grid-cols-2 mb-4">
                 <TabsTrigger value="login">Login</TabsTrigger>
                 <TabsTrigger value="signup">First Time Access</TabsTrigger>
@@ -224,8 +247,8 @@ export function SubmissionsList() {
                       minLength={6}
                     />
                   </div>
-                  <Button type="submit" className="w-full" disabled={authLoading}>
-                    {authLoading ? "Loading..." : "Create Account"}
+                  <Button type="submit" className="w-full" disabled={authLoading || isCheckingAuth}>
+                    {authLoading || isCheckingAuth ? "Loading..." : "Create Account"}
                   </Button>
                 </form>
               </TabsContent>
