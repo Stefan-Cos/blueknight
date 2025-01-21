@@ -15,16 +15,19 @@ export function AuthPage() {
   const navigate = useNavigate();
 
   const checkAuthorizedViewer = async (email: string) => {
+    console.log('Checking authorization for email:', email);
+    
     const { data, error } = await supabase
       .from('authorized_viewers')
       .select('email')
-      .eq('email', email);
+      .ilike('email', email); // Using ilike for case-insensitive comparison
 
     if (error) {
       console.error('Error checking authorized viewer:', error);
       return false;
     }
 
+    console.log('Authorization check result:', data);
     return data.length > 0;
   };
 
@@ -37,7 +40,9 @@ export function AuthPage() {
     const password = formData.get("password") as string;
 
     try {
+      console.log('Attempting to sign up with email:', email);
       const isAuthorized = await checkAuthorizedViewer(email);
+      console.log('Is authorized:', isAuthorized);
       
       if (!isAuthorized) {
         toast({
@@ -82,7 +87,9 @@ export function AuthPage() {
     const password = formData.get("password") as string;
 
     try {
+      console.log('Attempting to sign in with email:', email);
       const isAuthorized = await checkAuthorizedViewer(email);
+      console.log('Is authorized:', isAuthorized);
       
       if (!isAuthorized) {
         toast({
@@ -228,4 +235,4 @@ export function AuthPage() {
       </Card>
     </div>
   );
-}
+};
