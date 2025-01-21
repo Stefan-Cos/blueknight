@@ -373,3 +373,4 @@ export function SubmissionsList() {
       </div>
     </div>
   );
+}
