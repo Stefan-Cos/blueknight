@@ -8,7 +8,7 @@ import { BusinessInformationSection } from "./form-sections/BusinessInformationS
 import { MetricsSection } from "./form-sections/MetricsSection";
 import { OtherSection } from "./form-sections/OtherSection";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export function MainForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +16,8 @@ export function MainForm() {
   const [currentSection, setCurrentSection] = useState(0);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
+  const advisorData = location.state?.advisorData;
 
   const [formData, setFormData] = useState({
     // Overview section
@@ -159,10 +161,58 @@ export function MainForm() {
     e.preventDefault();
     setIsLoading(true);
 
+    if (!advisorData) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Missing advisor information. Please register first.",
+      });
+      setIsLoading(false);
+      navigate('/');
+      return;
+    }
+
     try {
+      const mappedData = {
+        // Advisor information from registration
+        advisor_company_name: advisorData.companyName,
+        advisor_full_name: advisorData.fullName,
+        advisor_email: advisorData.email,
+        
+        // Form data mapped to match database columns
+        project_name: formData.projectName,
+        company_name: formData.companyName,
+        share_sale_type: formData.shareSaleType,
+        shareholders_exit: formData.shareholdersExit,
+        transition_period: formData.transitionPeriod,
+        reason_for_selling: formData.reasonForSelling,
+        is_regulated: formData.isRegulated,
+        company_description: formData.companyDescription,
+        industry_keywords: formData.industryKeywords,
+        value_chain: formData.valueChain,
+        business_model_type: formData.businessModelType,
+        customer_industries: formData.customerIndustries,
+        growth_plan: formData.growthPlan,
+        main_competitors: formData.mainCompetitors,
+        key_industry_risks: formData.keyIndustryRisks,
+        revenue_by_geography: formData.revenueByGeography,
+        revenue_by_customer_type: formData.revenueByCustomerType,
+        revenue_by_product_type: formData.revenueByProductType,
+        customer_lifetime_value: formData.customerLifetimeValue,
+        gross_churn: formData.grossChurn,
+        average_customer_lifespan: formData.averageCustomerLifespan,
+        revenue_and_ebitda: formData.revenueAndEbitda,
+        share_option_schemes: formData.shareOptionSchemes,
+        outstanding_litigation: formData.outstandingLitigation,
+        negative_media_coverage: formData.negativeMediaCoverage,
+        defined_benefit_scheme: formData.definedBenefitScheme,
+        shareholders_preference: formData.shareholdersPreference,
+        additional_information: formData.additionalInformation
+      };
+
       const { error } = await supabase
         .from('form_submissions')
-        .insert([formData]);
+        .insert([mappedData]);
 
       if (error) throw error;
       
