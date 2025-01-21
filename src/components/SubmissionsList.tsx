@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Eye } from "lucide-react";
+import { FileText, Eye, Copy, Check } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export function SubmissionsList() {
   const [submissions, setSubmissions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -28,6 +31,17 @@ export function SubmissionsList() {
 
     fetchSubmissions();
   }, []);
+
+  const copySubmissionLink = (id: string) => {
+    const fullUrl = `${window.location.origin}/submissions/${id}`;
+    navigator.clipboard.writeText(fullUrl);
+    setCopiedId(id);
+    toast({
+      title: "Link copied",
+      description: "The submission link has been copied to your clipboard",
+    });
+    setTimeout(() => setCopiedId(null), 2000);
+  };
 
   if (loading) {
     return (
@@ -59,14 +73,28 @@ export function SubmissionsList() {
                     Submitted: {new Date(submission.created_at).toLocaleDateString()}
                   </p>
                 </div>
-                <Button
-                  variant="outline"
-                  onClick={() => navigate(`/submissions/${submission.id}`)}
-                  className="flex items-center gap-2"
-                >
-                  <Eye className="h-4 w-4" />
-                  View Details
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => copySubmissionLink(submission.id)}
+                    className="flex items-center gap-2"
+                  >
+                    {copiedId === submission.id ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                    Copy Link
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate(`/submissions/${submission.id}`)}
+                    className="flex items-center gap-2"
+                  >
+                    <Eye className="h-4 w-4" />
+                    View Details
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
