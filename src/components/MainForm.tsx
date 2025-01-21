@@ -206,9 +206,9 @@ export function MainForm() {
       case 0: // Overview
         return (
           <div className="space-y-6">
-            <div>
-              <h2 className="text-2xl font-semibold">Overview</h2>
-              <p className="text-sm text-muted-foreground">Step 1 of 4</p>
+            <div className="text-center pb-6 border-b">
+              <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">Overview</h2>
+              <p className="text-sm text-muted-foreground mt-1">Step 1 of 4</p>
             </div>
             <div className="space-y-4">
               <div className="space-y-2">
@@ -333,9 +333,9 @@ export function MainForm() {
       case 1: // Business Information
         return (
           <div className="space-y-6">
-            <div>
-              <h2 className="text-2xl font-semibold">Business Information</h2>
-              <p className="text-sm text-muted-foreground">Step 2 of 4</p>
+            <div className="text-center pb-6 border-b">
+              <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">Business Information</h2>
+              <p className="text-sm text-muted-foreground mt-1">Step 2 of 4</p>
             </div>
             <div className="space-y-4">
               <div className="space-y-2">
@@ -417,7 +417,7 @@ export function MainForm() {
                         }
                       />
                       <Label htmlFor={key} className="uppercase">
-                        {key === 'other' ? 'Other' : key}
+                        {key === 'other' ? 'Other' : key.toUpperCase()}
                       </Label>
                     </div>
                   ))}
@@ -506,7 +506,10 @@ export function MainForm() {
       case 2: // Metrics
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-semibold mb-6">Metrics</h2>
+            <div className="text-center pb-6 border-b">
+              <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">Metrics</h2>
+              <p className="text-sm text-muted-foreground mt-1">Step 3 of 4</p>
+            </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="revenueByGeography">Revenue split by geography</Label>
@@ -790,7 +793,10 @@ export function MainForm() {
       case 3: // Other
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-semibold mb-6">Other</h2>
+            <div className="text-center pb-6 border-b">
+              <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">Other</h2>
+              <p className="text-sm text-muted-foreground mt-1">Step 4 of 4</p>
+            </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="shareOptionSchemes">Any share option schemes in operation</Label>
