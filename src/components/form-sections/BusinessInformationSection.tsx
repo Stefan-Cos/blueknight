@@ -78,7 +78,7 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="industryKeywords">Industry keywords</Label>
+          <Label htmlFor="industryKeywords">The industries the company operates in</Label>
           <Input
             id="industryKeywords"
             placeholder="Type keywords and press Enter"
