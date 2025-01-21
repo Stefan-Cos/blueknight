@@ -21,7 +21,6 @@ export function MainForm() {
   const [currentSection, setCurrentSection] = useState(0);
   const { toast } = useToast();
 
-  // Form state
   const [formData, setFormData] = useState({
     // Overview section
     projectName: "",
@@ -62,6 +61,26 @@ export function MainForm() {
     customerLifetimeValue: "",
     grossChurn: "",
     averageCustomerLifespan: "",
+    revenueAndEbitda: {
+      yearMinus2Revenue: "0.0",
+      yearMinus2Ebitda: "0.0",
+      previousYearRevenue: "0.0",
+      previousYearEbitda: "0.0",
+      lastYearRevenue: "0.0",
+      lastYearEbitda: "0.0",
+      year0Revenue: "0.0",
+      year0Ebitda: "0.0",
+      fcPlus1Revenue: "0.0",
+      fcPlus1Ebitda: "0.0",
+      fcPlus2Revenue: "0.0",
+      fcPlus2Ebitda: "0.0"
+    },
+    // Other section
+    shareOptionSchemes: "",
+    outstandingLitigation: "",
+    negativeMediaCoverage: "",
+    definedBenefitScheme: "",
+    shareholdersPreference: ""
   });
 
   const [currentKeyword, setCurrentKeyword] = useState("");
@@ -490,14 +509,222 @@ export function MainForm() {
                   onChange={(e) => setFormData({ ...formData, averageCustomerLifespan: e.target.value })}
                 />
               </div>
-            </div>
-            <div className="flex justify-between mt-6">
-              <Button type="button" variant="outline" onClick={handlePrevious}>
-                <ChevronLeft className="h-4 w-4 mr-1" /> Previous
-              </Button>
-              <Button type="button" onClick={handleNext}>
-                Next <ChevronRight className="h-4 w-4 ml-1" />
-              </Button>
+
+              <div className="space-y-4">
+                <Label>Revenue and EBITDA in £M</Label>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="p-2 text-left">Metric</th>
+                        <th className="p-2">Year-2</th>
+                        <th className="p-2">PY</th>
+                        <th className="p-2">LY</th>
+                        <th className="p-2">Year 0</th>
+                        <th className="p-2">FC+1</th>
+                        <th className="p-2">FC+2</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b">
+                        <td className="p-2">Revenue</td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.yearMinus2Revenue}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                yearMinus2Revenue: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.previousYearRevenue}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                previousYearRevenue: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.lastYearRevenue}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                lastYearRevenue: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.year0Revenue}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                year0Revenue: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.fcPlus1Revenue}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                fcPlus1Revenue: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.fcPlus2Revenue}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                fcPlus2Revenue: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="p-2">EBITDA</td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.yearMinus2Ebitda}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                yearMinus2Ebitda: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.previousYearEbitda}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                previousYearEbitda: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.lastYearEbitda}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                lastYearEbitda: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.year0Ebitda}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                year0Ebitda: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.fcPlus1Ebitda}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                fcPlus1Ebitda: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                        <td className="p-2">
+                          <Input
+                            type="number"
+                            step="0.1"
+                            placeholder="0.0"
+                            value={formData.revenueAndEbitda.fcPlus2Ebitda}
+                            onChange={(e) => setFormData({
+                              ...formData,
+                              revenueAndEbitda: {
+                                ...formData.revenueAndEbitda,
+                                fcPlus2Ebitda: e.target.value
+                              }
+                            })}
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="flex justify-between mt-6">
+                <Button type="button" variant="outline" onClick={handlePrevious}>
+                  <ChevronLeft className="h-4 w-4 mr-1" /> Previous
+                </Button>
+                <Button type="button" onClick={handleNext}>
+                  Next <ChevronRight className="h-4 w-4 ml-1" />
+                </Button>
+              </div>
             </div>
           </div>
         );
@@ -505,14 +732,95 @@ export function MainForm() {
       case 3: // Other
         return (
           <div className="space-y-6">
-            <div className="py-4 text-center text-muted-foreground">
-              Other section will be implemented in the next phase
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="shareOptionSchemes">Any Share Option Schemes in Operation</Label>
+                <Select
+                  value={formData.shareOptionSchemes}
+                  onValueChange={(value) => setFormData({ ...formData, shareOptionSchemes: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="yes">Yes</SelectItem>
+                    <SelectItem value="no">No</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="outstandingLitigation">Any Outstanding Litigation</Label>
+                <Select
+                  value={formData.outstandingLitigation}
+                  onValueChange={(value) => setFormData({ ...formData, outstandingLitigation: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="yes">Yes</SelectItem>
+                    <SelectItem value="no">No</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="negativeMediaCoverage">Any Negative Media Coverage</Label>
+                <Select
+                  value={formData.negativeMediaCoverage}
+                  onValueChange={(value) => setFormData({ ...formData, negativeMediaCoverage: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="yes">Yes</SelectItem>
+                    <SelectItem value="no">No</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="definedBenefitScheme">Any Defined Benefit Scheme in Operation</Label>
+                <Select
+                  value={formData.definedBenefitScheme}
+                  onValueChange={(value) => setFormData({ ...formData, definedBenefitScheme: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="yes">Yes</SelectItem>
+                    <SelectItem value="no">No</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="shareholdersPreference">Shareholders' Acquirer Preference</Label>
+                <Select
+                  value={formData.shareholdersPreference}
+                  onValueChange={(value) => setFormData({ ...formData, shareholdersPreference: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pe">PE</SelectItem>
+                    <SelectItem value="trade">Trade</SelectItem>
+                    <SelectItem value="fo">FO</SelectItem>
+                    <SelectItem value="noPreference">No Preference</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
+
             <div className="flex justify-between mt-6">
               <Button type="button" variant="outline" onClick={handlePrevious}>
                 <ChevronLeft className="h-4 w-4 mr-1" /> Previous
               </Button>
-              <Button type="submit" form="mainForm" disabled={isLoading}>
+              <Button type="submit" disabled={isLoading}>
                 {isLoading ? (
                   "Submitting..."
                 ) : (
