@@ -7,7 +7,6 @@ import { RegistrationForm } from "./components/RegistrationForm";
 import { MainForm } from "./components/MainForm";
 import { SubmissionsList } from "./components/SubmissionsList";
 import { SubmissionDetail } from "./components/SubmissionDetail";
-import { AuthPage } from "./components/AuthPage";
 
 const queryClient = new QueryClient();
 
@@ -20,7 +19,6 @@ const App = () => (
         <Routes>
           <Route path="/register" element={<RegistrationForm />} />
           <Route path="/form" element={<MainForm />} />
-          <Route path="/auth" element={<AuthPage />} />
           <Route path="/submissions" element={<SubmissionsList />} />
           <Route path="/submissions/:id" element={<SubmissionDetail />} />
           <Route path="/" element={<Navigate to="/register" replace />} />
