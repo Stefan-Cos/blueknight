@@ -20,7 +20,6 @@ export function SubmissionsList() {
   const [authLoading, setAuthLoading] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -55,7 +54,6 @@ export function SubmissionsList() {
   };
 
   const checkIfAuthorizedEmail = async (email: string) => {
-    setIsCheckingAuth(true);
     try {
       const { data: authorizedUser, error } = await supabase
         .from('authorized_viewers')
@@ -69,9 +67,7 @@ export function SubmissionsList() {
       }
 
       return !!authorizedUser;
-    } finally {
-      setIsCheckingAuth(false);
-    }
+    } 
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -116,7 +112,6 @@ export function SubmissionsList() {
     setAuthError(null);
 
     try {
-      // First check if email is authorized
       const { data: authorizedUser, error: authCheckError } = await supabase
         .from('authorized_viewers')
         .select('email')
@@ -128,7 +123,6 @@ export function SubmissionsList() {
         return;
       }
 
-      // Proceed with signup
       const { error } = await supabase.auth.signUp({
         email,
         password,
