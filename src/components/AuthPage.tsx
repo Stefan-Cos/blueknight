@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,18 +16,23 @@ export function AuthPage() {
   const navigate = useNavigate();
 
   const checkAuthorization = async (email: string) => {
-    const { data, error } = await supabase
-      .from("authorized_viewers")
-      .select("email")
-      .eq("email", email.toLowerCase().trim())
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from("authorized_viewers")
+        .select("email")
+        .eq("email", email.toLowerCase().trim())
+        .maybeSingle();
 
-    if (error) {
-      console.error("Authorization check error:", error);
+      if (error) {
+        console.error("Authorization check error:", error);
+        return false;
+      }
+
+      return !!data;
+    } catch (error) {
+      console.error("Authorization check failed:", error);
       return false;
     }
-
-    return !!data;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,49 +40,58 @@ export function AuthPage() {
     setIsLoading(true);
 
     try {
-      const isAuthorized = await checkAuthorization(email);
+      const trimmedEmail = email.toLowerCase().trim();
+      
+      // First check if user is authorized
+      const isAuthorized = await checkAuthorization(trimmedEmail);
       if (!isAuthorized) {
         toast({
           variant: "destructive",
           title: "Unauthorized",
           description: "This email is not authorized to access submissions.",
         });
+        setIsLoading(false);
         return;
       }
 
-      // Try to sign in first
-      let { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
+      // Try to sign in
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: trimmedEmail,
         password,
       });
 
       // If sign in fails, try to sign up
       if (signInError) {
         const { error: signUpError } = await supabase.auth.signUp({
-          email,
+          email: trimmedEmail,
           password,
         });
 
-        if (signUpError) throw signUpError;
+        if (signUpError) {
+          toast({
+            variant: "destructive",
+            title: "Authentication Error",
+            description: signUpError.message,
+          });
+          return;
+        }
 
         toast({
-          title: "Account created",
+          title: "Account Created",
           description: "Please check your email to verify your account.",
         });
       } else {
         toast({
-          title: "Welcome back!",
+          title: "Success",
           description: "Successfully logged in.",
         });
+        navigate("/submissions");
       }
-
-      navigate("/submissions");
     } catch (error: any) {
-      console.error("Auth error:", error);
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: error.message || "An error occurred during authentication.",
       });
     } finally {
       setIsLoading(false);
