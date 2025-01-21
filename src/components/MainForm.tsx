@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle2, Send, ChevronRight, ChevronLeft } from "lucide-react";
+import { CheckCircle2, Send, ChevronRight, ChevronLeft, X } from "lucide-react";
 
 export function MainForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +24,7 @@ export function MainForm() {
   const [formData, setFormData] = useState({
     // Overview section
     projectName: "",
+    companyName: "", // Added new field
     shareSaleType: "",
     shareholdersExit: "",
     transitionPeriod: "",
@@ -121,6 +122,27 @@ export function MainForm() {
     }
   };
 
+  const removeKeyword = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      industryKeywords: prev.industryKeywords.filter((_, i) => i !== index)
+    }));
+  };
+
+  const removeIndustry = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      customerIndustries: prev.customerIndustries.filter((_, i) => i !== index)
+    }));
+  };
+
+  const removeCompetitor = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      mainCompetitors: prev.mainCompetitors.filter((_, i) => i !== index)
+    }));
+  };
+
   const sections = ["Overview", "Business Information", "Metrics", "Other"];
 
   const handleNext = () => {
@@ -184,7 +206,10 @@ export function MainForm() {
       case 0: // Overview
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-semibold mb-6">Overview</h2>
+            <div>
+              <h2 className="text-2xl font-semibold">Overview</h2>
+              <p className="text-sm text-muted-foreground">Step 1 of 4</p>
+            </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="projectName">Project name</Label>
@@ -193,6 +218,17 @@ export function MainForm() {
                   placeholder="Enter project name"
                   value={formData.projectName}
                   onChange={(e) => setFormData({ ...formData, projectName: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="companyName">Company name</Label>
+                <Input
+                  id="companyName"
+                  placeholder="Enter company name"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                   required
                 />
               </div>
@@ -254,7 +290,7 @@ export function MainForm() {
                 <Label htmlFor="reasonForSelling">Reason for selling</Label>
                 <Textarea
                   id="reasonForSelling"
-                  placeholder="Please provide detailed reasons for selling"
+                  placeholder="Please provide reasons for selling"
                   value={formData.reasonForSelling}
                   onChange={(e) => setFormData({ ...formData, reasonForSelling: e.target.value })}
                   className="min-h-[100px]"
@@ -297,13 +333,16 @@ export function MainForm() {
       case 1: // Business Information
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-semibold mb-6">Business Information</h2>
+            <div>
+              <h2 className="text-2xl font-semibold">Business Information</h2>
+              <p className="text-sm text-muted-foreground">Step 2 of 4</p>
+            </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="companyDescription">Company description</Label>
                 <Textarea
                   id="companyDescription"
-                  placeholder="Provide a detailed description of your company"
+                  placeholder="Provide a description of your company"
                   value={formData.companyDescription}
                   onChange={(e) => setFormData({ ...formData, companyDescription: e.target.value })}
                   className="min-h-[100px]"
@@ -321,8 +360,13 @@ export function MainForm() {
                 />
                 <div className="flex flex-wrap gap-2 mt-2">
                   {formData.industryKeywords.map((keyword, index) => (
-                    <span key={index} className="bg-primary/10 px-2 py-1 rounded-md text-sm">
+                    <span 
+                      key={index} 
+                      className="bg-primary/10 px-2 py-1 rounded-md text-sm flex items-center gap-1 cursor-pointer"
+                      onClick={() => removeKeyword(index)}
+                    >
                       {keyword}
+                      <X className="h-3 w-3" />
                     </span>
                   ))}
                 </div>
@@ -373,7 +417,7 @@ export function MainForm() {
                         }
                       />
                       <Label htmlFor={key} className="uppercase">
-                        {key}
+                        {key === 'other' ? 'Other' : key}
                       </Label>
                     </div>
                   ))}
@@ -391,8 +435,13 @@ export function MainForm() {
                 />
                 <div className="flex flex-wrap gap-2 mt-2">
                   {formData.customerIndustries.map((industry, index) => (
-                    <span key={index} className="bg-primary/10 px-2 py-1 rounded-md text-sm">
+                    <span 
+                      key={index} 
+                      className="bg-primary/10 px-2 py-1 rounded-md text-sm flex items-center gap-1 cursor-pointer"
+                      onClick={() => removeIndustry(index)}
+                    >
                       {industry}
+                      <X className="h-3 w-3" />
                     </span>
                   ))}
                 </div>
@@ -409,8 +458,13 @@ export function MainForm() {
                 />
                 <div className="flex flex-wrap gap-2 mt-2">
                   {formData.mainCompetitors.map((competitor, index) => (
-                    <span key={index} className="bg-primary/10 px-2 py-1 rounded-md text-sm">
+                    <span 
+                      key={index} 
+                      className="bg-primary/10 px-2 py-1 rounded-md text-sm flex items-center gap-1 cursor-pointer"
+                      onClick={() => removeCompetitor(index)}
+                    >
                       {competitor}
+                      <X className="h-3 w-3" />
                     </span>
                   ))}
                 </div>
