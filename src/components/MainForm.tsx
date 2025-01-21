@@ -35,8 +35,8 @@ export function MainForm() {
     isRegulated: "",
     // Business Information section
     companyDescription: "",
-    productsAndServices: "", // New field
-    revenueModel: "", // New field
+    productsAndServices: "", // Initialize as empty string
+    revenueModel: "", // Initialize as empty string
     industryKeywords: [] as string[],
     valueChain: {
       consultancy: false,
@@ -86,7 +86,7 @@ export function MainForm() {
     outstandingLitigation: "",
     negativeMediaCoverage: "",
     definedBenefitScheme: "",
-    shareholdersPreference: [] as string[], // Initialize as empty array
+    shareholdersPreference: [] as string[],
     additionalInformation: ""
   });
 
@@ -181,52 +181,51 @@ export function MainForm() {
 
     try {
       const mappedData = {
-        advisor_company_name: advisorData.companyName,
-        advisor_full_name: advisorData.fullName,
-        advisor_email: advisorData.email,
-        project_name: formData.projectName,
-        company_name: formData.companyName,
-        share_sale_type: formData.shareSaleType,
-        shareholders_exit: formData.shareholdersExit,
-        transition_period: formData.transitionPeriod,
-        reason_for_selling: formData.reasonForSelling,
-        is_regulated: formData.isRegulated,
-        company_description: formData.companyDescription,
-        products_and_services: formData.productsAndServices,
-        revenue_model: formData.revenueModel,
+        advisor_company_name: advisorData.companyName || '',
+        advisor_full_name: advisorData.fullName || '',
+        advisor_email: advisorData.email || '',
+        project_name: formData.projectName || '',
+        company_name: formData.companyName || '',
+        share_sale_type: formData.shareSaleType || '',
+        shareholders_exit: formData.shareholdersExit || '',
+        transition_period: formData.transitionPeriod || '',
+        reason_for_selling: formData.reasonForSelling || '',
+        is_regulated: formData.isRegulated || '',
+        company_description: formData.companyDescription || '',
+        products_and_services: formData.productsAndServices || '', // Ensure empty string fallback
+        revenue_model: formData.revenueModel || '', // Ensure empty string fallback
         industry_keywords: formData.industryKeywords,
         value_chain: formData.valueChain,
         business_model_type: formData.businessModelType,
         customer_industries: formData.customerIndustries,
-        growth_plan: formData.growthPlan,
+        growth_plan: formData.growthPlan || '',
         main_competitors: formData.mainCompetitors,
-        key_industry_risks: formData.keyIndustryRisks,
-        revenue_by_geography: formData.revenueByGeography,
-        revenue_by_customer_type: formData.revenueByCustomerType,
-        revenue_by_product_type: formData.revenueByProductType,
-        customer_lifetime_value: formData.customerLifetimeValue,
-        gross_churn: formData.grossChurn,
-        average_customer_lifespan: formData.averageCustomerLifespan,
+        key_industry_risks: formData.keyIndustryRisks || '',
+        revenue_by_geography: formData.revenueByGeography || '',
+        revenue_by_customer_type: formData.revenueByCustomerType || '',
+        revenue_by_product_type: formData.revenueByProductType || '',
+        customer_lifetime_value: formData.customerLifetimeValue || '',
+        gross_churn: formData.grossChurn || '',
+        average_customer_lifespan: formData.averageCustomerLifespan || '',
         revenue_and_ebitda: formData.revenueAndEbitda,
-        share_option_schemes: formData.shareOptionSchemes,
-        outstanding_litigation: formData.outstandingLitigation,
-        negative_media_coverage: formData.negativeMediaCoverage,
-        defined_benefit_scheme: formData.definedBenefitScheme,
+        share_option_schemes: formData.shareOptionSchemes || '',
+        outstanding_litigation: formData.outstandingLitigation || '',
+        negative_media_coverage: formData.negativeMediaCoverage || '',
+        defined_benefit_scheme: formData.definedBenefitScheme || '',
         shareholders_preference: formData.shareholdersPreference,
-        additional_information: formData.additionalInformation
+        additional_information: formData.additionalInformation || ''
       };
 
       console.log('Form submission data:', {
         productsAndServices: formData.productsAndServices,
-        revenueModel: formData.revenueModel
+        revenueModel: formData.revenueModel,
+        mappedData
       });
 
       const { data, error } = await supabase
         .from('form_submissions')
         .insert(mappedData)
         .select();
-
-      console.log('Supabase response:', { data, error });
 
       if (error) {
         console.error('Supabase error:', error);
