@@ -80,7 +80,8 @@ export function MainForm() {
     outstandingLitigation: "",
     negativeMediaCoverage: "",
     definedBenefitScheme: "",
-    shareholdersPreference: ""
+    shareholdersPreference: "",
+    additionalInformation: ""
   });
 
   const [currentKeyword, setCurrentKeyword] = useState("");
@@ -183,9 +184,10 @@ export function MainForm() {
       case 0: // Overview
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-semibold mb-6">Overview</h2>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="projectName">Project Name</Label>
+                <Label htmlFor="projectName">Project name</Label>
                 <Input
                   id="projectName"
                   placeholder="Enter project name"
@@ -196,7 +198,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="shareSaleType">Share Sale Type</Label>
+                <Label htmlFor="shareSaleType">Share sale type</Label>
                 <Select
                   value={formData.shareSaleType}
                   onValueChange={(value) => setFormData({ ...formData, shareSaleType: value })}
@@ -213,7 +215,7 @@ export function MainForm() {
 
               <div className="space-y-2">
                 <Label htmlFor="shareholdersExit">
-                  All shareholders/director(s) intending to exit?
+                  All shareholders/director(s) intending to exit
                 </Label>
                 <Select
                   value={formData.shareholdersExit}
@@ -231,7 +233,7 @@ export function MainForm() {
 
               <div className="space-y-2">
                 <Label htmlFor="transitionPeriod">
-                  Managing director/CEO - Transition period
+                  Managing director/CEO - transition period
                 </Label>
                 <Select
                   value={formData.transitionPeriod}
@@ -249,7 +251,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="reasonForSelling">Reason for Selling</Label>
+                <Label htmlFor="reasonForSelling">Reason for selling</Label>
                 <Textarea
                   id="reasonForSelling"
                   placeholder="Please provide detailed reasons for selling"
@@ -261,7 +263,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="isRegulated">Is the company regulated?</Label>
+                <Label htmlFor="isRegulated">Is the company regulated</Label>
                 <Select
                   value={formData.isRegulated}
                   onValueChange={(value) => setFormData({ ...formData, isRegulated: value })}
@@ -295,9 +297,10 @@ export function MainForm() {
       case 1: // Business Information
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-semibold mb-6">Business Information</h2>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="companyDescription">Company Description</Label>
+                <Label htmlFor="companyDescription">Company description</Label>
                 <Textarea
                   id="companyDescription"
                   placeholder="Provide a detailed description of your company"
@@ -308,7 +311,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="industryKeywords">Industry Keywords</Label>
+                <Label htmlFor="industryKeywords">Industry keywords</Label>
                 <Input
                   id="industryKeywords"
                   placeholder="Type keywords and press Enter"
@@ -326,7 +329,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label>Company's Place in Value Chain</Label>
+                <Label>Company's place in value chain</Label>
                 <div className="grid grid-cols-2 gap-4">
                   {Object.entries(formData.valueChain).map(([key, value]) => (
                     <div key={key} className="flex items-center space-x-2">
@@ -352,7 +355,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label>Business Model Type</Label>
+                <Label>Business model type</Label>
                 <div className="grid grid-cols-2 gap-4">
                   {Object.entries(formData.businessModelType).map(([key, value]) => (
                     <div key={key} className="flex items-center space-x-2">
@@ -396,7 +399,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="mainCompetitors">Main Competitors</Label>
+                <Label htmlFor="mainCompetitors">Main competitors</Label>
                 <Input
                   id="mainCompetitors"
                   placeholder="Type competitor and press Enter"
@@ -414,7 +417,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="growthPlan">Growth Plan</Label>
+                <Label htmlFor="growthPlan">Growth plan</Label>
                 <Textarea
                   id="growthPlan"
                   placeholder="Describe the company's growth plans around geography, product and customer expansion"
@@ -425,7 +428,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="keyIndustryRisks">Key Industry Risks</Label>
+                <Label htmlFor="keyIndustryRisks">Key industry risks</Label>
                 <Textarea
                   id="keyIndustryRisks"
                   placeholder="Describe the key industry risks impacting the company"
@@ -449,9 +452,10 @@ export function MainForm() {
       case 2: // Metrics
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-semibold mb-6">Metrics</h2>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="revenueByGeography">Revenue Split by Geography</Label>
+                <Label htmlFor="revenueByGeography">Revenue split by geography</Label>
                 <Input
                   id="revenueByGeography"
                   placeholder="e.g., 70% in the UK, 20% in Ireland"
@@ -461,7 +465,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="revenueByCustomerType">Revenue Split by Customer Type</Label>
+                <Label htmlFor="revenueByCustomerType">Revenue split by customer type</Label>
                 <Input
                   id="revenueByCustomerType"
                   placeholder="e.g., 70% in life sciences"
@@ -471,7 +475,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="revenueByProductType">Revenue Split by Product Type</Label>
+                <Label htmlFor="revenueByProductType">Revenue split by product type</Label>
                 <Input
                   id="revenueByProductType"
                   placeholder="e.g., 70% are training modules on a subscription basis"
@@ -481,7 +485,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="customerLifetimeValue">Customer Lifetime Value (CLV)</Label>
+                <Label htmlFor="customerLifetimeValue">Customer lifetime value (CLV)</Label>
                 <Input
                   id="customerLifetimeValue"
                   placeholder="Enter CLV for subscription-based users"
@@ -491,7 +495,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="grossChurn">Gross Churn</Label>
+                <Label htmlFor="grossChurn">Gross churn</Label>
                 <Input
                   id="grossChurn"
                   placeholder="Enter gross churn for subscription-based users"
@@ -501,7 +505,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="averageCustomerLifespan">Average Customer Lifespan</Label>
+                <Label htmlFor="averageCustomerLifespan">Average customer lifespan</Label>
                 <Input
                   id="averageCustomerLifespan"
                   placeholder="Enter average customer lifespan"
@@ -732,9 +736,10 @@ export function MainForm() {
       case 3: // Other
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-semibold mb-6">Other</h2>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="shareOptionSchemes">Any Share Option Schemes in Operation</Label>
+                <Label htmlFor="shareOptionSchemes">Any share option schemes in operation</Label>
                 <Select
                   value={formData.shareOptionSchemes}
                   onValueChange={(value) => setFormData({ ...formData, shareOptionSchemes: value })}
@@ -750,7 +755,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="outstandingLitigation">Any Outstanding Litigation</Label>
+                <Label htmlFor="outstandingLitigation">Any outstanding litigation</Label>
                 <Select
                   value={formData.outstandingLitigation}
                   onValueChange={(value) => setFormData({ ...formData, outstandingLitigation: value })}
@@ -766,7 +771,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="negativeMediaCoverage">Any Negative Media Coverage</Label>
+                <Label htmlFor="negativeMediaCoverage">Any negative media coverage</Label>
                 <Select
                   value={formData.negativeMediaCoverage}
                   onValueChange={(value) => setFormData({ ...formData, negativeMediaCoverage: value })}
@@ -782,7 +787,7 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="definedBenefitScheme">Any Defined Benefit Scheme in Operation</Label>
+                <Label htmlFor="definedBenefitScheme">Any defined benefit scheme in operation</Label>
                 <Select
                   value={formData.definedBenefitScheme}
                   onValueChange={(value) => setFormData({ ...formData, definedBenefitScheme: value })}
@@ -798,13 +803,13 @@ export function MainForm() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="shareholdersPreference">Shareholders' Acquirer Preference</Label>
+                <Label htmlFor="shareholdersPreference">Shareholders' acquirer preference</Label>
                 <Select
                   value={formData.shareholdersPreference}
                   onValueChange={(value) => setFormData({ ...formData, shareholdersPreference: value })}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select option" />
+                    <SelectValue placeholder="Select preference" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="pe">PE</SelectItem>
@@ -813,6 +818,17 @@ export function MainForm() {
                     <SelectItem value="noPreference">No Preference</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="additionalInformation">Additional information to enhance buyer search</Label>
+                <Textarea
+                  id="additionalInformation"
+                  placeholder="Share any additional information that would help with the buyer search"
+                  value={formData.additionalInformation}
+                  onChange={(e) => setFormData({ ...formData, additionalInformation: e.target.value })}
+                  className="min-h-[100px]"
+                />
               </div>
             </div>
 
