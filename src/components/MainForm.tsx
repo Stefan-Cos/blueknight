@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -8,7 +8,7 @@ import { BusinessInformationSection } from "./form-sections/BusinessInformationS
 import { MetricsSection } from "./form-sections/MetricsSection";
 import { OtherSection } from "./form-sections/OtherSection";
 import { supabase } from "@/integrations/supabase/client";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
 export function MainForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,14 @@ export function MainForm() {
   const { toast } = useToast();
   const navigate = useNavigate();
   const location = useLocation();
-  const advisorData = location.state?.advisorData;
+  const [searchParams] = useSearchParams();
+  
+  // Get advisor data from either state or URL parameters
+  const advisorData = location.state?.advisorData || {
+    email: searchParams.get('advisor') || '',
+    companyName: searchParams.get('company') || '',
+    fullName: searchParams.get('name') || ''
+  };
 
   const [formData, setFormData] = useState({
     projectName: "",
@@ -243,6 +250,18 @@ export function MainForm() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    // Validate advisor data
+    if (!advisorData.email || !advisorData.companyName || !advisorData.fullName) {
+      toast({
+        variant: "destructive",
+        title: "Missing Information",
+        description: "The form URL is missing required advisor information. Please make sure you have the correct URL.",
+      });
+      navigate('/');
+    }
+  }, [advisorData, navigate, toast]);
 
   if (isSubmitted) {
     return (
