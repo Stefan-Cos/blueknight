@@ -117,24 +117,14 @@ export function SubmissionsList() {
 
     try {
       // First check if email is authorized
-      const isAuthorized = await checkIfAuthorizedEmail(email);
+      const { data: authorizedUser, error: authCheckError } = await supabase
+        .from('authorized_viewers')
+        .select('email')
+        .eq('email', email)
+        .single();
 
-      if (!isAuthorized) {
+      if (authCheckError || !authorizedUser) {
         setAuthError("This email is not authorized to access submissions. Please contact your administrator.");
-        return;
-      }
-
-      // Check if user already exists using signInWithOtp
-      const { error: existingUserError } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          shouldCreateUser: false
-        }
-      });
-
-      // If there's no error, the user exists
-      if (!existingUserError) {
-        setAuthError("An account already exists for this email. Please log in instead.");
         return;
       }
 
@@ -148,7 +138,11 @@ export function SubmissionsList() {
       });
 
       if (error) {
-        setAuthError(error.message);
+        if (error.message.includes('User already registered')) {
+          setAuthError("An account already exists for this email. Please log in instead.");
+        } else {
+          setAuthError(error.message);
+        }
         toast({
           variant: "destructive",
           title: "Error",
@@ -160,13 +154,6 @@ export function SubmissionsList() {
           description: "Account created successfully. You can now log in.",
         });
       }
-    } catch (error: any) {
-      setAuthError(error.message);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message,
-      });
     } finally {
       setAuthLoading(false);
     }
@@ -269,8 +256,8 @@ export function SubmissionsList() {
                       minLength={6}
                     />
                   </div>
-                  <Button type="submit" className="w-full" disabled={authLoading || isCheckingAuth}>
-                    {authLoading || isCheckingAuth ? "Loading..." : "Create Account"}
+                  <Button type="submit" className="w-full" disabled={authLoading}>
+                    {authLoading ? "Loading..." : "Create Account"}
                   </Button>
                 </form>
               </TabsContent>
