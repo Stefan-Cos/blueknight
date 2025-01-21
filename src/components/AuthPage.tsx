@@ -14,23 +14,6 @@ export function AuthPage() {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const checkAuthorizedViewer = async (email: string) => {
-    console.log('Checking authorization for email:', email);
-    
-    const { data, error } = await supabase
-      .from('authorized_viewers')
-      .select('email')
-      .ilike('email', email); // Using ilike for case-insensitive comparison
-
-    if (error) {
-      console.error('Error checking authorized viewer:', error);
-      return false;
-    }
-
-    console.log('Authorization check result:', data);
-    return data.length > 0;
-  };
-
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -40,26 +23,32 @@ export function AuthPage() {
     const password = formData.get("password") as string;
 
     try {
-      console.log('Attempting to sign up with email:', email);
-      const isAuthorized = await checkAuthorizedViewer(email);
-      console.log('Is authorized:', isAuthorized);
-      
-      if (!isAuthorized) {
+      // First check if the email is in authorized_viewers
+      const { data: viewers, error: viewerError } = await supabase
+        .from('authorized_viewers')
+        .select('email')
+        .ilike('email', email.trim());
+
+      if (viewerError) {
+        throw new Error('Error checking authorization status');
+      }
+
+      if (!viewers || viewers.length === 0) {
         toast({
           variant: "destructive",
           title: "Unauthorized",
           description: "This email is not authorized to access submissions.",
         });
-        setIsLoading(false);
         return;
       }
 
-      const { error } = await supabase.auth.signUp({
+      // If authorized, proceed with signup
+      const { error: signUpError } = await supabase.auth.signUp({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (signUpError) throw signUpError;
 
       toast({
         title: "Registration successful!",
@@ -87,26 +76,32 @@ export function AuthPage() {
     const password = formData.get("password") as string;
 
     try {
-      console.log('Attempting to sign in with email:', email);
-      const isAuthorized = await checkAuthorizedViewer(email);
-      console.log('Is authorized:', isAuthorized);
-      
-      if (!isAuthorized) {
+      // First check if the email is in authorized_viewers
+      const { data: viewers, error: viewerError } = await supabase
+        .from('authorized_viewers')
+        .select('email')
+        .ilike('email', email.trim());
+
+      if (viewerError) {
+        throw new Error('Error checking authorization status');
+      }
+
+      if (!viewers || viewers.length === 0) {
         toast({
           variant: "destructive",
           title: "Unauthorized",
           description: "This email is not authorized to access submissions.",
         });
-        setIsLoading(false);
         return;
       }
 
-      const { error } = await supabase.auth.signInWithPassword({
+      // If authorized, proceed with login
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (signInError) throw signInError;
 
       toast({
         title: "Welcome back!",
@@ -235,4 +230,4 @@ export function AuthPage() {
       </Card>
     </div>
   );
-};
+}
