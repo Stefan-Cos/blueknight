@@ -79,25 +79,35 @@ export function SubmissionsList() {
     setAuthLoading(true);
     setAuthError(null);
     
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
 
-    if (error) {
+      if (error) {
+        setAuthError(error.message);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.message,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Logged in successfully",
+        });
+      }
+    } catch (error: any) {
       setAuthError(error.message);
       toast({
         variant: "destructive",
         title: "Error",
         description: error.message,
       });
-    } else {
-      toast({
-        title: "Success",
-        description: "Logged in successfully",
-      });
+    } finally {
+      setAuthLoading(false);
     }
-    setAuthLoading(false);
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -105,49 +115,59 @@ export function SubmissionsList() {
     setAuthLoading(true);
     setAuthError(null);
 
-    // First check if email is authorized
-    const isAuthorized = await checkIfAuthorizedEmail(email);
+    try {
+      // First check if email is authorized
+      const isAuthorized = await checkIfAuthorizedEmail(email);
 
-    if (!isAuthorized) {
-      setAuthError("This email is not authorized to access submissions. Please contact your administrator.");
-      setAuthLoading(false);
-      return;
-    }
-
-    // Check if user already exists
-    const { data: existingUser } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (existingUser.user) {
-      setAuthError("An account already exists for this email. Please log in instead.");
-      setAuthLoading(false);
-      return;
-    }
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/submissions`
+      if (!isAuthorized) {
+        setAuthError("This email is not authorized to access submissions. Please contact your administrator.");
+        return;
       }
-    });
 
-    if (error) {
+      // Check if user already exists using admin API
+      const { data: existingUsers } = await supabase.auth.admin.listUsers({
+        filters: {
+          email: email
+        }
+      });
+
+      if (existingUsers?.users?.length > 0) {
+        setAuthError("An account already exists for this email. Please log in instead.");
+        return;
+      }
+
+      // Proceed with signup
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/submissions`
+        }
+      });
+
+      if (error) {
+        setAuthError(error.message);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: error.message,
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Account created successfully. You can now log in.",
+        });
+      }
+    } catch (error: any) {
       setAuthError(error.message);
       toast({
         variant: "destructive",
         title: "Error",
         description: error.message,
       });
-    } else {
-      toast({
-        title: "Success",
-        description: "Account created successfully. You can now log in.",
-      });
+    } finally {
+      setAuthLoading(false);
     }
-    setAuthLoading(false);
   };
 
   const fetchSubmissions = async () => {
