@@ -47,12 +47,14 @@ export type Database = {
           main_competitors: string[] | null
           negative_media_coverage: string | null
           outstanding_litigation: string | null
+          products_and_services: string | null
           project_name: string
           reason_for_selling: string
           revenue_and_ebitda: Json
           revenue_by_customer_type: string | null
           revenue_by_geography: string | null
           revenue_by_product_type: string | null
+          revenue_model: string | null
           share_option_schemes: string | null
           share_sale_type: string
           shareholders_exit: string
@@ -82,12 +84,14 @@ export type Database = {
           main_competitors?: string[] | null
           negative_media_coverage?: string | null
           outstanding_litigation?: string | null
+          products_and_services?: string | null
           project_name: string
           reason_for_selling: string
           revenue_and_ebitda?: Json
           revenue_by_customer_type?: string | null
           revenue_by_geography?: string | null
           revenue_by_product_type?: string | null
+          revenue_model?: string | null
           share_option_schemes?: string | null
           share_sale_type: string
           shareholders_exit: string
@@ -117,12 +121,14 @@ export type Database = {
           main_competitors?: string[] | null
           negative_media_coverage?: string | null
           outstanding_litigation?: string | null
+          products_and_services?: string | null
           project_name?: string
           reason_for_selling?: string
           revenue_and_ebitda?: Json
           revenue_by_customer_type?: string | null
           revenue_by_geography?: string | null
           revenue_by_product_type?: string | null
+          revenue_model?: string | null
           share_option_schemes?: string | null
           share_sale_type?: string
           shareholders_exit?: string
