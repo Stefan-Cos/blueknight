@@ -213,7 +213,7 @@ export function SubmissionsList() {
                 <AlertDescription>{authError}</AlertDescription>
               </Alert>
             )}
-            <Tabs defaultValue="login">
+            <Tabs defaultValue="signup">
               <TabsList className="grid w-full grid-cols-2 mb-4">
                 <TabsTrigger value="login">Login</TabsTrigger>
                 <TabsTrigger value="signup">First Time Access</TabsTrigger>
@@ -268,7 +268,7 @@ export function SubmissionsList() {
                       minLength={6}
                     />
                   </div>
-                  <Button type="submit" className="w-full" disabled={authLoading}>
+                  <Button type="submit" className="w-full bg-[#28316B]" disabled={authLoading}>
                     {authLoading ? "Loading..." : "Create Account"}
                   </Button>
                 </form>
