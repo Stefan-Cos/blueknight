@@ -21,8 +21,7 @@ export function AuthPage() {
       const { data, error } = await supabase
         .from('authorized_viewers')
         .select('email')
-        .eq('email', email)
-        .single();
+        .eq('email', email);
 
       if (error) {
         console.error('Database error:', error);
@@ -30,7 +29,8 @@ export function AuthPage() {
       }
 
       console.log('Database response:', data);
-      return data !== null;
+      // Check if the email exists in the returned array
+      return data && data.length > 0;
     } catch (error) {
       console.error('Error in checkAuthorizedViewer:', error);
       return false;
