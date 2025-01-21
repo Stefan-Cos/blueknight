@@ -7,12 +7,15 @@ import { OverviewSection } from "./form-sections/OverviewSection";
 import { BusinessInformationSection } from "./form-sections/BusinessInformationSection";
 import { MetricsSection } from "./form-sections/MetricsSection";
 import { OtherSection } from "./form-sections/OtherSection";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 export function MainForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [currentSection, setCurrentSection] = useState(0);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     // Overview section
@@ -157,15 +160,24 @@ export function MainForm() {
     setIsLoading(true);
 
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const { error } = await supabase
+        .from('form_submissions')
+        .insert([formData]);
+
+      if (error) throw error;
       
       setIsSubmitted(true);
       toast({
         title: "Success!",
         description: "Your form has been submitted successfully.",
       });
+
+      // Navigate back to registration after a delay
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
     } catch (error) {
+      console.error('Error submitting form:', error);
       toast({
         variant: "destructive",
         title: "Error",
@@ -187,6 +199,7 @@ export function MainForm() {
             </CardTitle>
             <CardDescription>
               Thank you for submitting your information. We will review it shortly.
+              You will be redirected back to the registration page.
             </CardDescription>
           </CardHeader>
         </Card>

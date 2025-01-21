@@ -9,6 +9,114 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      form_submissions: {
+        Row: {
+          additional_information: string | null
+          advisor_company_name: string
+          advisor_email: string
+          advisor_full_name: string
+          average_customer_lifespan: string | null
+          business_model_type: Json
+          company_description: string | null
+          company_name: string
+          created_at: string
+          customer_industries: string[] | null
+          customer_lifetime_value: string | null
+          defined_benefit_scheme: string | null
+          gross_churn: string | null
+          growth_plan: string | null
+          id: string
+          industry_keywords: string[] | null
+          is_regulated: string
+          key_industry_risks: string | null
+          main_competitors: string[] | null
+          negative_media_coverage: string | null
+          outstanding_litigation: string | null
+          project_name: string
+          reason_for_selling: string
+          revenue_and_ebitda: Json
+          revenue_by_customer_type: string | null
+          revenue_by_geography: string | null
+          revenue_by_product_type: string | null
+          share_option_schemes: string | null
+          share_sale_type: string
+          shareholders_exit: string
+          shareholders_preference: string | null
+          transition_period: string
+          value_chain: Json
+        }
+        Insert: {
+          additional_information?: string | null
+          advisor_company_name: string
+          advisor_email: string
+          advisor_full_name: string
+          average_customer_lifespan?: string | null
+          business_model_type?: Json
+          company_description?: string | null
+          company_name: string
+          created_at?: string
+          customer_industries?: string[] | null
+          customer_lifetime_value?: string | null
+          defined_benefit_scheme?: string | null
+          gross_churn?: string | null
+          growth_plan?: string | null
+          id?: string
+          industry_keywords?: string[] | null
+          is_regulated: string
+          key_industry_risks?: string | null
+          main_competitors?: string[] | null
+          negative_media_coverage?: string | null
+          outstanding_litigation?: string | null
+          project_name: string
+          reason_for_selling: string
+          revenue_and_ebitda?: Json
+          revenue_by_customer_type?: string | null
+          revenue_by_geography?: string | null
+          revenue_by_product_type?: string | null
+          share_option_schemes?: string | null
+          share_sale_type: string
+          shareholders_exit: string
+          shareholders_preference?: string | null
+          transition_period: string
+          value_chain?: Json
+        }
+        Update: {
+          additional_information?: string | null
+          advisor_company_name?: string
+          advisor_email?: string
+          advisor_full_name?: string
+          average_customer_lifespan?: string | null
+          business_model_type?: Json
+          company_description?: string | null
+          company_name?: string
+          created_at?: string
+          customer_industries?: string[] | null
+          customer_lifetime_value?: string | null
+          defined_benefit_scheme?: string | null
+          gross_churn?: string | null
+          growth_plan?: string | null
+          id?: string
+          industry_keywords?: string[] | null
+          is_regulated?: string
+          key_industry_risks?: string | null
+          main_competitors?: string[] | null
+          negative_media_coverage?: string | null
+          outstanding_litigation?: string | null
+          project_name?: string
+          reason_for_selling?: string
+          revenue_and_ebitda?: Json
+          revenue_by_customer_type?: string | null
+          revenue_by_geography?: string | null
+          revenue_by_product_type?: string | null
+          share_option_schemes?: string | null
+          share_sale_type?: string
+          shareholders_exit?: string
+          shareholders_preference?: string | null
+          transition_period?: string
+          value_chain?: Json
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           company_name: string | null
