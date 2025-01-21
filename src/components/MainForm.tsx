@@ -215,6 +215,11 @@ export function MainForm() {
 
       if (error) {
         console.error('Supabase error:', error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to submit form. Please try again.",
+        });
         throw error;
       }
       
@@ -224,7 +229,7 @@ export function MainForm() {
         description: "Your form has been submitted successfully.",
       });
 
-      // Navigate back to registration after a delay
+      // Add a slight delay before navigation to ensure the success state is shown
       setTimeout(() => {
         navigate('/');
       }, 3000);
