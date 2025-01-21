@@ -167,7 +167,11 @@ export function MainForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
+    console.log('Starting form submission...');
+    console.log('Advisor data:', advisorData);
+    
     if (!advisorData) {
+      console.error('Missing advisor data');
       toast({
         variant: "destructive",
         title: "Error",
@@ -192,8 +196,8 @@ export function MainForm() {
         reason_for_selling: formData.reasonForSelling || '',
         is_regulated: formData.isRegulated || '',
         company_description: formData.companyDescription || '',
-        products_and_services: formData.productsAndServices || '', // Ensure empty string fallback
-        revenue_model: formData.revenueModel || '', // Ensure empty string fallback
+        products_and_services: formData.productsAndServices || '',
+        revenue_model: formData.revenueModel || '',
         industry_keywords: formData.industryKeywords,
         value_chain: formData.valueChain,
         business_model_type: formData.businessModelType,
@@ -216,11 +220,7 @@ export function MainForm() {
         additional_information: formData.additionalInformation || ''
       };
 
-      console.log('Form submission data:', {
-        productsAndServices: formData.productsAndServices,
-        revenueModel: formData.revenueModel,
-        mappedData
-      });
+      console.log('Attempting to insert data with:', mappedData);
 
       const { data, error } = await supabase
         .from('form_submissions')
@@ -228,7 +228,12 @@ export function MainForm() {
         .select();
 
       if (error) {
-        console.error('Supabase error:', error);
+        console.error('Detailed Supabase error:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
         toast({
           variant: "destructive",
           title: "Error",
@@ -237,6 +242,8 @@ export function MainForm() {
         setIsLoading(false);
         return;
       }
+
+      console.log('Submission successful:', data);
       
       setIsSubmitted(true);
       toast({
@@ -248,7 +255,7 @@ export function MainForm() {
         navigate('/');
       }, 5000);
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Unexpected error during submission:', error);
       toast({
         variant: "destructive",
         title: "Error",
