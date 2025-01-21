@@ -5,8 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FileText, Eye, Copy, Check } from "lucide-react";
+import { FileText, Eye, Copy, Check, AlertCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export function SubmissionsList() {
   const [submissions, setSubmissions] = useState<any[]>([]);
@@ -16,12 +17,20 @@ export function SubmissionsList() {
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authLoading, setAuthLoading] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
     checkUser();
-    fetchSubmissions();
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      checkAuthorization();
+      fetchSubmissions();
+    }
   }, [isAuthenticated]);
 
   const checkUser = async () => {
@@ -30,9 +39,23 @@ export function SubmissionsList() {
     setLoading(false);
   };
 
+  const checkAuthorization = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data: authorizedUser } = await supabase
+      .from('authorized_viewers')
+      .select('email')
+      .eq('email', user.email)
+      .single();
+
+    setIsAuthorized(!!authorizedUser);
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthLoading(true);
+    setAuthError(null);
     
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -40,13 +63,13 @@ export function SubmissionsList() {
     });
 
     if (error) {
+      setAuthError(error.message);
       toast({
         variant: "destructive",
         title: "Error",
         description: error.message,
       });
     } else {
-      setIsAuthenticated(true);
       toast({
         title: "Success",
         description: "Logged in successfully",
@@ -58,13 +81,28 @@ export function SubmissionsList() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthLoading(true);
-    
+    setAuthError(null);
+
+    // First check if email is authorized
+    const { data: authorizedUser } = await supabase
+      .from('authorized_viewers')
+      .select('email')
+      .eq('email', email)
+      .single();
+
+    if (!authorizedUser) {
+      setAuthError("This email is not authorized to access submissions. Please contact your administrator.");
+      setAuthLoading(false);
+      return;
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
     });
 
     if (error) {
+      setAuthError(error.message);
       toast({
         variant: "destructive",
         title: "Error",
@@ -112,9 +150,15 @@ export function SubmissionsList() {
       <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/5 to-primary/10">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Login to View Submissions</CardTitle>
+            <CardTitle>Access Submissions</CardTitle>
           </CardHeader>
           <CardContent>
+            {authError && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{authError}</AlertDescription>
+              </Alert>
+            )}
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -141,10 +185,36 @@ export function SubmissionsList() {
                   {authLoading ? "Loading..." : "Login"}
                 </Button>
                 <Button type="button" variant="outline" onClick={handleSignUp} disabled={authLoading} className="flex-1">
-                  Sign Up
+                  First Time? Sign Up
                 </Button>
               </div>
             </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/5 to-primary/10">
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Unauthorized Access</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>
+                Your email is not authorized to view submissions. Please contact your administrator for access.
+              </AlertDescription>
+            </Alert>
+            <Button 
+              className="mt-4 w-full"
+              onClick={() => supabase.auth.signOut()}
+            >
+              Sign Out
+            </Button>
           </CardContent>
         </Card>
       </div>
