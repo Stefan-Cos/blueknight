@@ -911,17 +911,6 @@ export function MainForm() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/5 to-primary/10">
       <Card className="w-full max-w-3xl">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">Business Sale Information</CardTitle>
-          <CardDescription>
-            Please provide the following details about your business sale
-          </CardDescription>
-          <div className="flex justify-between items-center mt-4">
-            <div className="text-sm text-muted-foreground">
-              Step {currentSection + 1} of {sections.length}: {sections[currentSection]}
-            </div>
-          </div>
-        </CardHeader>
         <CardContent>
           <form id="mainForm" onSubmit={handleSubmit} className="space-y-6">
             {renderSection()}
