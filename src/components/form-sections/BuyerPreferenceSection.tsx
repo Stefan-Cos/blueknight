@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 
 interface BuyerPreferenceSectionProps {
   formData: any;
@@ -144,6 +145,32 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
     }));
   };
 
+  const getImportanceStyles = (importance: string) => {
+    switch (importance?.toLowerCase()) {
+      case 'high':
+        return 'bg-red-100 hover:bg-red-200 dark:bg-red-900/20 dark:hover:bg-red-800/30';
+      case 'medium':
+        return 'bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/20 dark:hover:bg-amber-800/30';
+      case 'low':
+        return 'bg-green-100 hover:bg-green-200 dark:bg-green-900/20 dark:hover:bg-green-800/30';
+      default:
+        return '';
+    }
+  };
+
+  const ImportanceSelect = ({ value, onChange, id }: { value: string; onChange: (value: string) => void; id: string }) => (
+    <Select value={value} onValueChange={onChange}>
+      <SelectTrigger className={cn("w-full", getImportanceStyles(value))}>
+        <SelectValue placeholder="Select" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="High" className="bg-red-100 dark:bg-red-900/20">High</SelectItem>
+        <SelectItem value="Medium" className="bg-amber-100 dark:bg-amber-900/20">Medium</SelectItem>
+        <SelectItem value="Low" className="bg-green-100 dark:bg-green-900/20">Low</SelectItem>
+      </SelectContent>
+    </Select>
+  );
+
   return (
     <div className="space-y-6">
       <div className="text-center pb-6 border-b">
@@ -184,19 +211,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
           <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="countryImportance">Importance</Label>
-            <Select
+            <ImportanceSelect
+              id="countryImportance"
               value={formData.countryImportance}
-              onValueChange={(value) => setFormData({ ...formData, countryImportance: value })}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="High">High</SelectItem>
-                <SelectItem value="Medium">Medium</SelectItem>
-                <SelectItem value="Low">Low</SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={(value) => setFormData({ ...formData, countryImportance: value })}
+            />
           </div>
         </div>
 
@@ -232,23 +251,15 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
           <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="industriesImportance">Importance</Label>
-            <Select
+            <ImportanceSelect
+              id="industriesImportance"
               value={formData.industriesImportance}
-              onValueChange={(value) => setFormData({ ...formData, industriesImportance: value })}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="High">High</SelectItem>
-                <SelectItem value="Medium">Medium</SelectItem>
-                <SelectItem value="Low">Low</SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={(value) => setFormData({ ...formData, industriesImportance: value })}
+            />
           </div>
         </div>
 
-        {/* End-user sectors - NEW SECTION */}
+        {/* End-user sectors */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
             <Label htmlFor="buyerEndUserSectors" className="font-medium">What end-user sectors should the buyer serve</Label>
@@ -280,19 +291,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
           <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="endUserSectorsImportance">Importance</Label>
-            <Select
+            <ImportanceSelect
+              id="endUserSectorsImportance"
               value={formData.endUserSectorsImportance}
-              onValueChange={(value) => setFormData({ ...formData, endUserSectorsImportance: value })}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="High">High</SelectItem>
-                <SelectItem value="Medium">Medium</SelectItem>
-                <SelectItem value="Low">Low</SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={(value) => setFormData({ ...formData, endUserSectorsImportance: value })}
+            />
           </div>
         </div>
 
@@ -328,19 +331,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
           <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="keywordsImportance">Importance</Label>
-            <Select
+            <ImportanceSelect
+              id="keywordsImportance"
               value={formData.keywordsImportance}
-              onValueChange={(value) => setFormData({ ...formData, keywordsImportance: value })}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="High">High</SelectItem>
-                <SelectItem value="Medium">Medium</SelectItem>
-                <SelectItem value="Low">Low</SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={(value) => setFormData({ ...formData, keywordsImportance: value })}
+            />
           </div>
         </div>
 
@@ -369,19 +364,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
           <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="reasonImportance">Importance</Label>
-            <Select
+            <ImportanceSelect
+              id="reasonImportance"
               value={formData.reasonImportance}
-              onValueChange={(value) => setFormData({ ...formData, reasonImportance: value })}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="High">High</SelectItem>
-                <SelectItem value="Medium">Medium</SelectItem>
-                <SelectItem value="Low">Low</SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={(value) => setFormData({ ...formData, reasonImportance: value })}
+            />
           </div>
         </div>
 
@@ -417,19 +404,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
           <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="buyersImportance">Importance</Label>
-            <Select
+            <ImportanceSelect
+              id="buyersImportance"
               value={formData.buyersImportance}
-              onValueChange={(value) => setFormData({ ...formData, buyersImportance: value })}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="High">High</SelectItem>
-                <SelectItem value="Medium">Medium</SelectItem>
-                <SelectItem value="Low">Low</SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={(value) => setFormData({ ...formData, buyersImportance: value })}
+            />
           </div>
         </div>
 
