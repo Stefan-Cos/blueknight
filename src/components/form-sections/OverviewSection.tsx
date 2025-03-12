@@ -52,7 +52,7 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
             value={formData.shareSaleType}
             onValueChange={(value) => setFormData({ ...formData, shareSaleType: value })}
           >
-            <SelectTrigger>
+            <SelectTrigger className="self-center">
               <SelectValue placeholder="Select sale type" />
             </SelectTrigger>
             <SelectContent>
@@ -70,7 +70,7 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
             value={formData.shareholdersExit}
             onValueChange={(value) => setFormData({ ...formData, shareholdersExit: value })}
           >
-            <SelectTrigger>
+            <SelectTrigger className="self-center">
               <SelectValue placeholder="Select option" />
             </SelectTrigger>
             <SelectContent>
@@ -88,7 +88,7 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
             value={formData.transitionPeriod}
             onValueChange={(value) => setFormData({ ...formData, transitionPeriod: value })}
           >
-            <SelectTrigger>
+            <SelectTrigger className="self-center">
               <SelectValue placeholder="Select transition period" />
             </SelectTrigger>
             <SelectContent>
