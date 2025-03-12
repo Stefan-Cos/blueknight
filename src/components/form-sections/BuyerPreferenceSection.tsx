@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -127,12 +128,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
       </div>
       
       <div className="space-y-6">
+        {/* Country of buyer */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4">
             <Label htmlFor="buyerCountries" className="font-medium">Country of buyer</Label>
             <p className="text-sm text-muted-foreground mt-1">Enter as many countries as you want or use 'Any'</p>
           </div>
-          <div className="md:col-span-5 space-y-3">
+          <div className="md:col-span-6 space-y-3">
             <div className="flex items-center space-x-2">
               <Input
                 id="buyerCountries"
@@ -156,13 +158,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <Label htmlFor="countryImportance">Importance</Label>
             <Select
               value={formData.countryImportance}
               onValueChange={(value) => setFormData({ ...formData, countryImportance: value })}
             >
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -174,12 +176,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
+        {/* Buyer industries */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4">
             <Label htmlFor="buyerIndustries" className="font-medium">What industries should the buyer be operating in?</Label>
             <p className="text-sm text-muted-foreground mt-1">Start with most important or use 'Any'</p>
           </div>
-          <div className="md:col-span-5 space-y-3">
+          <div className="md:col-span-6 space-y-3">
             <div className="flex items-center space-x-2">
               <Input
                 id="buyerIndustries"
@@ -203,13 +206,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <Label htmlFor="industriesImportance">Importance</Label>
             <Select
               value={formData.industriesImportance}
               onValueChange={(value) => setFormData({ ...formData, industriesImportance: value })}
             >
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -221,12 +224,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
+        {/* Sector keywords */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4">
             <Label htmlFor="buyerSectorKeywords" className="font-medium">Sector keywords for the buyer</Label>
             <p className="text-sm text-muted-foreground mt-1">Provide 6 to 9 keywords</p>
           </div>
-          <div className="md:col-span-5 space-y-3">
+          <div className="md:col-span-6 space-y-3">
             <div className="flex items-center space-x-2">
               <Input
                 id="buyerSectorKeywords"
@@ -250,13 +254,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <Label htmlFor="keywordsImportance">Importance</Label>
             <Select
               value={formData.keywordsImportance}
               onValueChange={(value) => setFormData({ ...formData, keywordsImportance: value })}
             >
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -268,12 +272,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
+        {/* Acquisition reason */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4">
             <Label htmlFor="acquisitionReason" className="font-medium">Most likely reason for acquisition</Label>
             <p className="text-sm text-muted-foreground mt-1">Why would a buyer acquire this company?</p>
           </div>
-          <div className="md:col-span-5">
+          <div className="md:col-span-6">
             <Select
               value={formData.acquisitionReason}
               onValueChange={(value) => setFormData({ ...formData, acquisitionReason: value })}
@@ -290,13 +295,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               </SelectContent>
             </Select>
           </div>
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <Label htmlFor="reasonImportance">Importance</Label>
             <Select
               value={formData.reasonImportance}
               onValueChange={(value) => setFormData({ ...formData, reasonImportance: value })}
             >
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -308,12 +313,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
+        {/* Potential buyers */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4">
             <Label htmlFor="potentialBuyers" className="font-medium">Potential buyers</Label>
             <p className="text-sm text-muted-foreground mt-1">List companies that would be a good fit</p>
           </div>
-          <div className="md:col-span-5 space-y-3">
+          <div className="md:col-span-6 space-y-3">
             <div className="flex items-center space-x-2">
               <Input
                 id="potentialBuyers"
@@ -337,13 +343,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-3">
+          <div className="md:col-span-2">
             <Label htmlFor="buyersImportance">Importance</Label>
             <Select
               value={formData.buyersImportance}
               onValueChange={(value) => setFormData({ ...formData, buyersImportance: value })}
             >
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -355,9 +361,10 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
+        {/* Shareholders' acquirer preference */}
         <div className="space-y-2">
           <Label className="font-medium">Shareholders' acquirer preference</Label>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 mt-2">
+          <div className="flex flex-wrap gap-x-8 gap-y-2 mt-2">
             {[
               { id: "pe", label: "Private Equity" },
               { id: "peBacked", label: "PE-Backed" },
