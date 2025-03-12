@@ -143,8 +143,8 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 onChange={(e) => setCurrentCountry(e.target.value)}
                 onKeyDown={handleCountryKeyDown}
               />
-              <Button type="button" size="sm" variant="outline" onClick={addCountry}>
-                <Plus className="h-4 w-4" />
+              <Button type="button" size="icon" variant="ghost" onClick={addCountry} className="h-10 w-10 p-0 flex-shrink-0">
+                <Plus className="h-5 w-5" />
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -158,7 +158,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-2 self-center">
+          <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="countryImportance">Importance</Label>
             <Select
               value={formData.countryImportance}
@@ -191,8 +191,8 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 onChange={(e) => setCurrentIndustry(e.target.value)}
                 onKeyDown={handleIndustryKeyDown}
               />
-              <Button type="button" size="sm" variant="outline" onClick={addIndustry}>
-                <Plus className="h-4 w-4" />
+              <Button type="button" size="icon" variant="ghost" onClick={addIndustry} className="h-10 w-10 p-0 flex-shrink-0">
+                <Plus className="h-5 w-5" />
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -206,7 +206,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-2 self-center">
+          <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="industriesImportance">Importance</Label>
             <Select
               value={formData.industriesImportance}
@@ -239,8 +239,8 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 onChange={(e) => setCurrentKeyword(e.target.value)}
                 onKeyDown={handleKeywordKeyDown}
               />
-              <Button type="button" size="sm" variant="outline" onClick={addKeyword}>
-                <Plus className="h-4 w-4" />
+              <Button type="button" size="icon" variant="ghost" onClick={addKeyword} className="h-10 w-10 p-0 flex-shrink-0">
+                <Plus className="h-5 w-5" />
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -254,7 +254,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-2 self-center">
+          <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="keywordsImportance">Importance</Label>
             <Select
               value={formData.keywordsImportance}
@@ -278,7 +278,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
             <Label htmlFor="acquisitionReason" className="font-medium">Most likely reason for acquisition</Label>
             <p className="text-sm text-muted-foreground mt-1">Why would a buyer acquire this company?</p>
           </div>
-          <div className="md:col-span-6 self-center">
+          <div className="md:col-span-6 self-start">
             <Select
               value={formData.acquisitionReason}
               onValueChange={(value) => setFormData({ ...formData, acquisitionReason: value })}
@@ -295,7 +295,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               </SelectContent>
             </Select>
           </div>
-          <div className="md:col-span-2 self-center">
+          <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="reasonImportance">Importance</Label>
             <Select
               value={formData.reasonImportance}
@@ -328,8 +328,8 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 onChange={(e) => setCurrentBuyer(e.target.value)}
                 onKeyDown={handleBuyerKeyDown}
               />
-              <Button type="button" size="sm" variant="outline" onClick={addBuyer}>
-                <Plus className="h-4 w-4" />
+              <Button type="button" size="icon" variant="ghost" onClick={addBuyer} className="h-10 w-10 p-0 flex-shrink-0">
+                <Plus className="h-5 w-5" />
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -343,7 +343,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-2 self-center">
+          <div className="md:col-span-2 self-start pt-0">
             <Label htmlFor="buyersImportance">Importance</Label>
             <Select
               value={formData.buyersImportance}
