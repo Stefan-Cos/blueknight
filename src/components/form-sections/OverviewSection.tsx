@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,7 +20,7 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
     <div className="space-y-6">
       <div className="text-center pb-6 border-b">
         <h2 className="text-2xl font-semibold bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">Overview</h2>
-        <p className="text-sm text-muted-foreground mt-1">Step 1 of 4</p>
+        <p className="text-sm text-muted-foreground mt-1">Step 1 of 5</p>
       </div>
       <div className="space-y-4">
         <div className="space-y-2">
