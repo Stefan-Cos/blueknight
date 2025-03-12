@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -25,7 +25,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
   const [currentBuyer, setCurrentBuyer] = useState("");
   const [currentEndUserSector, setCurrentEndUserSector] = useState("");
 
-  useState(() => {
+  useEffect(() => {
     setFormData(prev => ({
       ...prev,
       countryImportance: prev.countryImportance || "N/A",
@@ -35,7 +35,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
       reasonImportance: prev.reasonImportance || "N/A",
       buyersImportance: prev.buyersImportance || "N/A"
     }));
-  }, []);
+  }, [setFormData]);
 
   const handleCountryKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if ((e.key === 'Enter' || e.key === 'Tab') && currentCountry.trim()) {
