@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,8 +22,8 @@ const App = () => (
           <Route path="/form" element={<MainForm />} />
           <Route path="/submissions" element={<SubmissionsList />} />
           <Route path="/submissions/:id" element={<SubmissionDetail />} />
-          <Route path="/" element={<Navigate to="/register" replace />} />
-          <Route path="*" element={<Navigate to="/register" replace />} />
+          <Route path="/" element={<Navigate to="/form" replace />} />
+          <Route path="*" element={<Navigate to="/form" replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
