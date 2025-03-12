@@ -56,6 +56,7 @@ export function MetricsSection({ formData, setFormData }: MetricsSectionProps) {
                   <th className="p-2">Year -1</th>
                   <th className="p-2">Current Year</th>
                   <th className="p-2">Year +1</th>
+                  <th className="p-2">Year +2</th>
                 </tr>
               </thead>
               <tbody>
@@ -121,6 +122,21 @@ export function MetricsSection({ formData, setFormData }: MetricsSectionProps) {
                       })}
                     />
                   </td>
+                  <td className="p-2">
+                    <Input
+                      type="number"
+                      step="0.1"
+                      placeholder="0.0"
+                      value={formData.revenueAndEbitda.fcPlus1Revenue}
+                      onChange={(e) => setFormData({
+                        ...formData,
+                        revenueAndEbitda: {
+                          ...formData.revenueAndEbitda,
+                          fcPlus1Revenue: e.target.value
+                        }
+                      })}
+                    />
+                  </td>
                 </tr>
                 <tr>
                   <td className="p-2">EBITDA</td>
@@ -180,6 +196,21 @@ export function MetricsSection({ formData, setFormData }: MetricsSectionProps) {
                         revenueAndEbitda: {
                           ...formData.revenueAndEbitda,
                           year0Ebitda: e.target.value
+                        }
+                      })}
+                    />
+                  </td>
+                  <td className="p-2">
+                    <Input
+                      type="number"
+                      step="0.1"
+                      placeholder="0.0"
+                      value={formData.revenueAndEbitda.fcPlus1Ebitda}
+                      onChange={(e) => setFormData({
+                        ...formData,
+                        revenueAndEbitda: {
+                          ...formData.revenueAndEbitda,
+                          fcPlus1Ebitda: e.target.value
                         }
                       })}
                     />
