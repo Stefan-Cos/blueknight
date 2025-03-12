@@ -87,11 +87,13 @@ export function MainForm() {
     buyerCountries: [] as string[],
     buyerIndustries: [] as string[],
     buyerSectorKeywords: [] as string[],
+    buyerEndUserSectors: [] as string[],
     acquisitionReason: "",
     potentialBuyers: [] as string[],
     countryImportance: "Medium",
     industriesImportance: "Medium",
     keywordsImportance: "Medium",
+    endUserSectorsImportance: "Medium",
     reasonImportance: "Medium",
     buyersImportance: "Medium"
   });
@@ -224,11 +226,13 @@ export function MainForm() {
         buyer_countries: formData.buyerCountries,
         buyer_industries: formData.buyerIndustries,
         buyer_sector_keywords: formData.buyerSectorKeywords,
+        buyer_end_user_sectors: formData.buyerEndUserSectors,
         acquisition_reason: formData.acquisitionReason,
         potential_buyers: formData.potentialBuyers,
         country_importance: formData.countryImportance,
         industries_importance: formData.industriesImportance,
         keywords_importance: formData.keywordsImportance,
+        end_user_sectors_importance: formData.endUserSectorsImportance,
         reason_importance: formData.reasonImportance,
         buyers_importance: formData.buyersImportance
       };

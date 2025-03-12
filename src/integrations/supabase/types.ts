@@ -34,6 +34,7 @@ export type Database = {
           advisor_full_name: string
           business_model_type: Json
           buyer_countries: string[] | null
+          buyer_end_user_sectors: string[] | null
           buyer_industries: string[] | null
           buyer_sector_keywords: string[] | null
           buyers_importance: string | null
@@ -43,6 +44,7 @@ export type Database = {
           created_at: string
           customer_industries: string[] | null
           defined_benefit_scheme: string | null
+          end_user_sectors_importance: string | null
           growth_plan: string | null
           id: string
           industries_importance: string | null
@@ -82,6 +84,7 @@ export type Database = {
           advisor_full_name: string
           business_model_type?: Json
           buyer_countries?: string[] | null
+          buyer_end_user_sectors?: string[] | null
           buyer_industries?: string[] | null
           buyer_sector_keywords?: string[] | null
           buyers_importance?: string | null
@@ -91,6 +94,7 @@ export type Database = {
           created_at?: string
           customer_industries?: string[] | null
           defined_benefit_scheme?: string | null
+          end_user_sectors_importance?: string | null
           growth_plan?: string | null
           id?: string
           industries_importance?: string | null
@@ -130,6 +134,7 @@ export type Database = {
           advisor_full_name?: string
           business_model_type?: Json
           buyer_countries?: string[] | null
+          buyer_end_user_sectors?: string[] | null
           buyer_industries?: string[] | null
           buyer_sector_keywords?: string[] | null
           buyers_importance?: string | null
@@ -139,6 +144,7 @@ export type Database = {
           created_at?: string
           customer_industries?: string[] | null
           defined_benefit_scheme?: string | null
+          end_user_sectors_importance?: string | null
           growth_plan?: string | null
           id?: string
           industries_importance?: string | null

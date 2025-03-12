@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -23,6 +22,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
   const [currentIndustry, setCurrentIndustry] = useState("");
   const [currentKeyword, setCurrentKeyword] = useState("");
   const [currentBuyer, setCurrentBuyer] = useState("");
+  const [currentEndUserSector, setCurrentEndUserSector] = useState("");
 
   const handleCountryKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if ((e.key === 'Enter' || e.key === 'Tab') && currentCountry.trim()) {
@@ -120,6 +120,30 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
     }));
   };
 
+  const handleEndUserSectorKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if ((e.key === 'Enter' || e.key === 'Tab') && currentEndUserSector.trim()) {
+      e.preventDefault();
+      addEndUserSector();
+    }
+  };
+
+  const addEndUserSector = () => {
+    if (currentEndUserSector.trim()) {
+      setFormData(prev => ({
+        ...prev,
+        buyerEndUserSectors: [...(prev.buyerEndUserSectors || []), currentEndUserSector.trim()]
+      }));
+      setCurrentEndUserSector("");
+    }
+  };
+
+  const removeEndUserSector = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      buyerEndUserSectors: (prev.buyerEndUserSectors || []).filter((_: string, i: number) => i !== index)
+    }));
+  };
+
   return (
     <div className="space-y-6">
       <div className="text-center pb-6 border-b">
@@ -179,7 +203,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
         {/* Buyer industries */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
-            <Label htmlFor="buyerIndustries" className="font-medium">What industries should the buyer be operating in?</Label>
+            <Label htmlFor="buyerIndustries" className="font-medium">What industries should the buyer be operating in</Label>
             <p className="text-sm text-muted-foreground mt-1">Start with most important or use 'Any'</p>
           </div>
           <div className="md:col-span-6 space-y-3 self-center">
@@ -211,6 +235,54 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
             <Select
               value={formData.industriesImportance}
               onValueChange={(value) => setFormData({ ...formData, industriesImportance: value })}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="High">High</SelectItem>
+                <SelectItem value="Medium">Medium</SelectItem>
+                <SelectItem value="Low">Low</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* End-user sectors - NEW SECTION */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
+          <div className="md:col-span-4 self-center">
+            <Label htmlFor="buyerEndUserSectors" className="font-medium">What end-user sectors should the buyer serve</Label>
+            <p className="text-sm text-muted-foreground mt-1">Start with most important or use 'Any'</p>
+          </div>
+          <div className="md:col-span-6 space-y-3 self-center">
+            <div className="flex items-center space-x-2">
+              <Input
+                id="buyerEndUserSectors"
+                placeholder="Add end-user sector or 'Any'"
+                value={currentEndUserSector}
+                onChange={(e) => setCurrentEndUserSector(e.target.value)}
+                onKeyDown={handleEndUserSectorKeyDown}
+              />
+              <Button type="button" size="icon" variant="ghost" onClick={addEndUserSector} className="h-10 w-10 p-0 flex-shrink-0">
+                <Plus className="h-5 w-5" />
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {formData.buyerEndUserSectors?.map((sector: string, index: number) => (
+                <div key={index} className="flex items-center space-x-1 bg-secondary text-secondary-foreground rounded-md px-2 py-1 text-sm">
+                  <span>{sector}</span>
+                  <Button type="button" variant="ghost" size="sm" className="h-5 w-5 p-0" onClick={() => removeEndUserSector(index)}>
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="md:col-span-2 self-start pt-0">
+            <Label htmlFor="endUserSectorsImportance">Importance</Label>
+            <Select
+              value={formData.endUserSectorsImportance}
+              onValueChange={(value) => setFormData({ ...formData, endUserSectorsImportance: value })}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select" />
