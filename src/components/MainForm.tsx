@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
@@ -90,12 +91,12 @@ export function MainForm() {
     buyerEndUserSectors: [] as string[],
     acquisitionReason: "",
     potentialBuyers: [] as string[],
-    countryImportance: "Medium",
-    industriesImportance: "Medium",
-    keywordsImportance: "Medium",
-    endUserSectorsImportance: "Medium",
-    reasonImportance: "Medium",
-    buyersImportance: "Medium"
+    countryImportance: "N/A",
+    industriesImportance: "N/A",
+    keywordsImportance: "N/A",
+    endUserSectorsImportance: "N/A",
+    reasonImportance: "N/A",
+    buyersImportance: "N/A"
   });
 
   const [currentKeyword, setCurrentKeyword] = useState("");
