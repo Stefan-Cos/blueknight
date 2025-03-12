@@ -1,3 +1,4 @@
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -35,42 +36,12 @@ export function MetricsSection({ formData, setFormData }: MetricsSectionProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="revenueByProductType">Revenue split by product type</Label>
+          <Label htmlFor="revenueByProductType">Revenue split by product/service type</Label>
           <Input
             id="revenueByProductType"
             placeholder="e.g., 70% are training modules on a subscription basis"
             value={formData.revenueByProductType}
             onChange={(e) => setFormData({ ...formData, revenueByProductType: e.target.value })}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="customerLifetimeValue">Customer lifetime value (CLV)</Label>
-          <Input
-            id="customerLifetimeValue"
-            placeholder="Enter CLV for subscription-based users"
-            value={formData.customerLifetimeValue}
-            onChange={(e) => setFormData({ ...formData, customerLifetimeValue: e.target.value })}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="grossChurn">Gross churn</Label>
-          <Input
-            id="grossChurn"
-            placeholder="Enter gross churn for subscription-based users"
-            value={formData.grossChurn}
-            onChange={(e) => setFormData({ ...formData, grossChurn: e.target.value })}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="averageCustomerLifespan">Average customer lifespan</Label>
-          <Input
-            id="averageCustomerLifespan"
-            placeholder="Enter average customer lifespan"
-            value={formData.averageCustomerLifespan}
-            onChange={(e) => setFormData({ ...formData, averageCustomerLifespan: e.target.value })}
           />
         </div>
 
@@ -81,12 +52,11 @@ export function MetricsSection({ formData, setFormData }: MetricsSectionProps) {
               <thead>
                 <tr className="border-b">
                   <th className="p-2 text-left">Metric</th>
-                  <th className="p-2">Year-2</th>
-                  <th className="p-2">PY</th>
-                  <th className="p-2">LY</th>
-                  <th className="p-2">Year 0</th>
-                  <th className="p-2">FC+1</th>
-                  <th className="p-2">FC+2</th>
+                  <th className="p-2">Year -2</th>
+                  <th className="p-2">Year -1</th>
+                  <th className="p-2">Current Year 0</th>
+                  <th className="p-2">Year +1</th>
+                  <th className="p-2">Year +2</th>
                 </tr>
               </thead>
               <tbody>

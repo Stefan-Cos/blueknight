@@ -31,15 +31,12 @@ export type Database = {
           advisor_company_name: string
           advisor_email: string
           advisor_full_name: string
-          average_customer_lifespan: string | null
           business_model_type: Json
           company_description: string | null
           company_name: string
           created_at: string
           customer_industries: string[] | null
-          customer_lifetime_value: string | null
           defined_benefit_scheme: string | null
-          gross_churn: string | null
           growth_plan: string | null
           id: string
           industry_associations: string | null
@@ -73,15 +70,12 @@ export type Database = {
           advisor_company_name: string
           advisor_email: string
           advisor_full_name: string
-          average_customer_lifespan?: string | null
           business_model_type?: Json
           company_description?: string | null
           company_name: string
           created_at?: string
           customer_industries?: string[] | null
-          customer_lifetime_value?: string | null
           defined_benefit_scheme?: string | null
-          gross_churn?: string | null
           growth_plan?: string | null
           id?: string
           industry_associations?: string | null
@@ -115,15 +109,12 @@ export type Database = {
           advisor_company_name?: string
           advisor_email?: string
           advisor_full_name?: string
-          average_customer_lifespan?: string | null
           business_model_type?: Json
           company_description?: string | null
           company_name?: string
           created_at?: string
           customer_industries?: string[] | null
-          customer_lifetime_value?: string | null
           defined_benefit_scheme?: string | null
-          gross_churn?: string | null
           growth_plan?: string | null
           id?: string
           industry_associations?: string | null
