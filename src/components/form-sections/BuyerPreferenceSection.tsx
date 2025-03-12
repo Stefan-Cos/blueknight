@@ -1,9 +1,7 @@
-
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { X, Plus } from "lucide-react";
 import {
   Select,
@@ -12,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface BuyerPreferenceSectionProps {
   formData: any;
@@ -128,12 +127,12 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
       </div>
       
       <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start border-b pb-6">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
+          <div className="md:col-span-4">
             <Label htmlFor="buyerCountries" className="font-medium">Country of buyer</Label>
             <p className="text-sm text-muted-foreground mt-1">Enter as many countries as you want or use 'Any'</p>
           </div>
-          <div className="space-y-3">
+          <div className="md:col-span-5 space-y-3">
             <div className="flex items-center space-x-2">
               <Input
                 id="buyerCountries"
@@ -150,26 +149,20 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               {formData.buyerCountries?.map((country: string, index: number) => (
                 <div key={index} className="flex items-center space-x-1 bg-secondary text-secondary-foreground rounded-md px-2 py-1 text-sm">
                   <span>{country}</span>
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-5 w-5 p-0"
-                    onClick={() => removeCountry(index)}
-                  >
+                  <Button type="button" variant="ghost" size="sm" className="h-5 w-5 p-0" onClick={() => removeCountry(index)}>
                     <X className="h-3 w-3" />
                   </Button>
                 </div>
               ))}
             </div>
           </div>
-          <div>
+          <div className="md:col-span-3">
             <Label htmlFor="countryImportance">Importance</Label>
             <Select
               value={formData.countryImportance}
               onValueChange={(value) => setFormData({ ...formData, countryImportance: value })}
             >
-              <SelectTrigger>
+              <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -181,12 +174,12 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start border-b pb-6">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
+          <div className="md:col-span-4">
             <Label htmlFor="buyerIndustries" className="font-medium">What industries should the buyer be operating in?</Label>
             <p className="text-sm text-muted-foreground mt-1">Start with most important or use 'Any'</p>
           </div>
-          <div className="space-y-3">
+          <div className="md:col-span-5 space-y-3">
             <div className="flex items-center space-x-2">
               <Input
                 id="buyerIndustries"
@@ -203,26 +196,20 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               {formData.buyerIndustries?.map((industry: string, index: number) => (
                 <div key={index} className="flex items-center space-x-1 bg-secondary text-secondary-foreground rounded-md px-2 py-1 text-sm">
                   <span>{industry}</span>
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-5 w-5 p-0"
-                    onClick={() => removeIndustry(index)}
-                  >
+                  <Button type="button" variant="ghost" size="sm" className="h-5 w-5 p-0" onClick={() => removeIndustry(index)}>
                     <X className="h-3 w-3" />
                   </Button>
                 </div>
               ))}
             </div>
           </div>
-          <div>
+          <div className="md:col-span-3">
             <Label htmlFor="industriesImportance">Importance</Label>
             <Select
               value={formData.industriesImportance}
               onValueChange={(value) => setFormData({ ...formData, industriesImportance: value })}
             >
-              <SelectTrigger>
+              <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -234,12 +221,12 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start border-b pb-6">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
+          <div className="md:col-span-4">
             <Label htmlFor="buyerSectorKeywords" className="font-medium">Sector keywords for the buyer</Label>
             <p className="text-sm text-muted-foreground mt-1">Provide 6 to 9 keywords</p>
           </div>
-          <div className="space-y-3">
+          <div className="md:col-span-5 space-y-3">
             <div className="flex items-center space-x-2">
               <Input
                 id="buyerSectorKeywords"
@@ -256,26 +243,20 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               {formData.buyerSectorKeywords?.map((keyword: string, index: number) => (
                 <div key={index} className="flex items-center space-x-1 bg-secondary text-secondary-foreground rounded-md px-2 py-1 text-sm">
                   <span>{keyword}</span>
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-5 w-5 p-0"
-                    onClick={() => removeKeyword(index)}
-                  >
+                  <Button type="button" variant="ghost" size="sm" className="h-5 w-5 p-0" onClick={() => removeKeyword(index)}>
                     <X className="h-3 w-3" />
                   </Button>
                 </div>
               ))}
             </div>
           </div>
-          <div>
+          <div className="md:col-span-3">
             <Label htmlFor="keywordsImportance">Importance</Label>
             <Select
               value={formData.keywordsImportance}
               onValueChange={(value) => setFormData({ ...formData, keywordsImportance: value })}
             >
-              <SelectTrigger>
+              <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -287,12 +268,12 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start border-b pb-6">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
+          <div className="md:col-span-4">
             <Label htmlFor="acquisitionReason" className="font-medium">Most likely reason for acquisition</Label>
             <p className="text-sm text-muted-foreground mt-1">Why would a buyer acquire this company?</p>
           </div>
-          <div>
+          <div className="md:col-span-5">
             <Select
               value={formData.acquisitionReason}
               onValueChange={(value) => setFormData({ ...formData, acquisitionReason: value })}
@@ -309,13 +290,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               </SelectContent>
             </Select>
           </div>
-          <div>
+          <div className="md:col-span-3">
             <Label htmlFor="reasonImportance">Importance</Label>
             <Select
               value={formData.reasonImportance}
               onValueChange={(value) => setFormData({ ...formData, reasonImportance: value })}
             >
-              <SelectTrigger>
+              <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -327,12 +308,12 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
-          <div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
+          <div className="md:col-span-4">
             <Label htmlFor="potentialBuyers" className="font-medium">Potential buyers</Label>
             <p className="text-sm text-muted-foreground mt-1">List companies that would be a good fit</p>
           </div>
-          <div className="space-y-3">
+          <div className="md:col-span-5 space-y-3">
             <div className="flex items-center space-x-2">
               <Input
                 id="potentialBuyers"
@@ -349,26 +330,20 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               {formData.potentialBuyers?.map((buyer: string, index: number) => (
                 <div key={index} className="flex items-center space-x-1 bg-secondary text-secondary-foreground rounded-md px-2 py-1 text-sm">
                   <span>{buyer}</span>
-                  <Button 
-                    type="button" 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-5 w-5 p-0"
-                    onClick={() => removeBuyer(index)}
-                  >
+                  <Button type="button" variant="ghost" size="sm" className="h-5 w-5 p-0" onClick={() => removeBuyer(index)}>
                     <X className="h-3 w-3" />
                   </Button>
                 </div>
               ))}
             </div>
           </div>
-          <div>
+          <div className="md:col-span-3">
             <Label htmlFor="buyersImportance">Importance</Label>
             <Select
               value={formData.buyersImportance}
               onValueChange={(value) => setFormData({ ...formData, buyersImportance: value })}
             >
-              <SelectTrigger>
+              <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent>
@@ -382,27 +357,25 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
 
         <div className="space-y-2">
           <Label className="font-medium">Shareholders' acquirer preference</Label>
-          <div className="space-y-2">
+          <div className="flex flex-wrap gap-x-6 gap-y-2 mt-2">
             {[
-              { id: "pe", label: "PE" },
-              { id: "trade", label: "Trade" },
-              { id: "fo", label: "FO" },
+              { id: "pe", label: "Private Equity" },
+              { id: "peBacked", label: "PE-Backed" },
+              { id: "trade", label: "Strategic Trade" },
               { id: "noPreference", label: "No Preference" }
             ].map((option) => (
               <div key={option.id} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
+                <Checkbox
                   id={option.id}
-                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                   checked={Array.isArray(formData.shareholdersPreference) && 
                     formData.shareholdersPreference.includes(option.id)}
-                  onChange={() => {
+                  onCheckedChange={(checked) => {
                     const currentPreferences = Array.isArray(formData.shareholdersPreference) 
                       ? formData.shareholdersPreference 
                       : [];
-                    const updatedPreferences = currentPreferences.includes(option.id)
-                      ? currentPreferences.filter((pref: string) => pref !== option.id)
-                      : [...currentPreferences, option.id];
+                    const updatedPreferences = checked
+                      ? [...currentPreferences, option.id]
+                      : currentPreferences.filter((pref: string) => pref !== option.id);
                     setFormData({ ...formData, shareholdersPreference: updatedPreferences });
                   }}
                 />
