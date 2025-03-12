@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -153,17 +154,19 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
         return 'bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/20 dark:hover:bg-amber-800/30';
       case 'low':
         return 'bg-green-100 hover:bg-green-200 dark:bg-green-900/20 dark:hover:bg-green-800/30';
+      case 'n/a':
       default:
-        return '';
+        return 'bg-gray-100 hover:bg-gray-200 dark:bg-gray-900/20 dark:hover:bg-gray-800/30';
     }
   };
 
   const ImportanceSelect = ({ value, onChange, id }: { value: string; onChange: (value: string) => void; id: string }) => (
-    <Select value={value} onValueChange={onChange}>
+    <Select value={value || "N/A"} onValueChange={onChange}>
       <SelectTrigger className={cn("w-full", getImportanceStyles(value))}>
-        <SelectValue placeholder="Select" />
+        <SelectValue placeholder="N/A" />
       </SelectTrigger>
       <SelectContent>
+        <SelectItem value="N/A" className="bg-gray-100 dark:bg-gray-900/20">N/A</SelectItem>
         <SelectItem value="High" className="bg-red-100 dark:bg-red-900/20">High</SelectItem>
         <SelectItem value="Medium" className="bg-amber-100 dark:bg-amber-900/20">Medium</SelectItem>
         <SelectItem value="Low" className="bg-green-100 dark:bg-green-900/20">Low</SelectItem>
