@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,10 +36,10 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="companyName">Company name</Label>
+          <Label htmlFor="companyName">Company legal name</Label>
           <Input
             id="companyName"
-            placeholder="Enter company name"
+            placeholder="Enter company legal name"
             value={formData.companyName}
             onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
             required
@@ -111,19 +112,47 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="isRegulated">Is the company regulated</Label>
-          <Select
-            value={formData.isRegulated}
-            onValueChange={(value) => setFormData({ ...formData, isRegulated: value })}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Select option" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="yes">Yes</SelectItem>
-              <SelectItem value="no">No</SelectItem>
-            </SelectContent>
-          </Select>
+          <Label htmlFor="regulatoryBodies">If the company is regulated please list the governing bodies</Label>
+          <Textarea
+            id="regulatoryBodies"
+            placeholder="Please list governing bodies if applicable"
+            value={formData.regulatoryBodies}
+            onChange={(e) => setFormData({ ...formData, regulatoryBodies: e.target.value })}
+            className="min-h-[80px]"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="accreditations">If the company has achieved accreditations please list them</Label>
+          <Textarea
+            id="accreditations"
+            placeholder="Please list accreditations if applicable"
+            value={formData.accreditations}
+            onChange={(e) => setFormData({ ...formData, accreditations: e.target.value })}
+            className="min-h-[80px]"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="industryAssociations">If the company is a member of any industry associations please list them</Label>
+          <Textarea
+            id="industryAssociations"
+            placeholder="Please list industry associations if applicable"
+            value={formData.industryAssociations}
+            onChange={(e) => setFormData({ ...formData, industryAssociations: e.target.value })}
+            className="min-h-[80px]"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="recentAwards">If the company has won any awards recently please list them</Label>
+          <Textarea
+            id="recentAwards"
+            placeholder="Please list recent awards if applicable"
+            value={formData.recentAwards}
+            onChange={(e) => setFormData({ ...formData, recentAwards: e.target.value })}
+            className="min-h-[80px]"
+          />
         </div>
       </div>
     </div>

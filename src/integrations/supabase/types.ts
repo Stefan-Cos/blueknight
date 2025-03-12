@@ -26,6 +26,7 @@ export type Database = {
       }
       form_submissions: {
         Row: {
+          accreditations: string | null
           additional_information: string | null
           advisor_company_name: string
           advisor_email: string
@@ -41,6 +42,7 @@ export type Database = {
           gross_churn: string | null
           growth_plan: string | null
           id: string
+          industry_associations: string | null
           industry_keywords: string[] | null
           is_regulated: string
           key_industry_risks: string | null
@@ -50,6 +52,8 @@ export type Database = {
           products_and_services: string | null
           project_name: string
           reason_for_selling: string
+          recent_awards: string | null
+          regulatory_bodies: string | null
           revenue_and_ebitda: Json
           revenue_by_customer_type: string | null
           revenue_by_geography: string | null
@@ -63,6 +67,7 @@ export type Database = {
           value_chain: Json
         }
         Insert: {
+          accreditations?: string | null
           additional_information?: string | null
           advisor_company_name: string
           advisor_email: string
@@ -78,6 +83,7 @@ export type Database = {
           gross_churn?: string | null
           growth_plan?: string | null
           id?: string
+          industry_associations?: string | null
           industry_keywords?: string[] | null
           is_regulated: string
           key_industry_risks?: string | null
@@ -87,6 +93,8 @@ export type Database = {
           products_and_services?: string | null
           project_name: string
           reason_for_selling: string
+          recent_awards?: string | null
+          regulatory_bodies?: string | null
           revenue_and_ebitda?: Json
           revenue_by_customer_type?: string | null
           revenue_by_geography?: string | null
@@ -100,6 +108,7 @@ export type Database = {
           value_chain?: Json
         }
         Update: {
+          accreditations?: string | null
           additional_information?: string | null
           advisor_company_name?: string
           advisor_email?: string
@@ -115,6 +124,7 @@ export type Database = {
           gross_churn?: string | null
           growth_plan?: string | null
           id?: string
+          industry_associations?: string | null
           industry_keywords?: string[] | null
           is_regulated?: string
           key_industry_risks?: string | null
@@ -124,6 +134,8 @@ export type Database = {
           products_and_services?: string | null
           project_name?: string
           reason_for_selling?: string
+          recent_awards?: string | null
+          regulatory_bodies?: string | null
           revenue_and_ebitda?: Json
           revenue_by_customer_type?: string | null
           revenue_by_geography?: string | null

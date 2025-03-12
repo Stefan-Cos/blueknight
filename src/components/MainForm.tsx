@@ -32,11 +32,13 @@ export function MainForm() {
     shareholdersExit: "",
     transitionPeriod: "",
     reasonForSelling: "",
-    isRegulated: "",
-    // Business Information section
+    regulatoryBodies: "",
+    accreditations: "",
+    industryAssociations: "",
+    recentAwards: "",
     companyDescription: "",
-    productsAndServices: "", // New field
-    revenueModel: "", // New field
+    productsAndServices: "",
+    revenueModel: "",
     industryKeywords: [] as string[],
     valueChain: {
       consultancy: false,
@@ -60,7 +62,6 @@ export function MainForm() {
     growthPlan: "",
     mainCompetitors: [] as string[],
     keyIndustryRisks: "",
-    // Metrics section
     revenueByGeography: "",
     revenueByCustomerType: "",
     revenueByProductType: "",
@@ -81,12 +82,11 @@ export function MainForm() {
       fcPlus2Revenue: "0.0",
       fcPlus2Ebitda: "0.0"
     },
-    // Other section
     shareOptionSchemes: "",
     outstandingLitigation: "",
     negativeMediaCoverage: "",
     definedBenefitScheme: "",
-    shareholdersPreference: [] as string[], // Initialize as empty array
+    shareholdersPreference: [] as string[],
     additionalInformation: ""
   });
 
@@ -190,10 +190,13 @@ export function MainForm() {
         shareholders_exit: formData.shareholdersExit,
         transition_period: formData.transitionPeriod,
         reason_for_selling: formData.reasonForSelling,
-        is_regulated: formData.isRegulated,
+        regulatory_bodies: formData.regulatoryBodies,
+        accreditations: formData.accreditations,
+        industry_associations: formData.industryAssociations,
+        recent_awards: formData.recentAwards,
         company_description: formData.companyDescription,
-        products_and_services: formData.productsAndServices, // Make sure this field is included
-        revenue_model: formData.revenueModel, // Make sure this field is included
+        products_and_services: formData.productsAndServices,
+        revenue_model: formData.revenueModel,
         industry_keywords: formData.industryKeywords,
         value_chain: formData.valueChain,
         business_model_type: formData.businessModelType,
@@ -255,7 +258,6 @@ export function MainForm() {
   };
 
   useEffect(() => {
-    // Validate advisor data
     if (!advisorData.email || !advisorData.companyName || !advisorData.fullName) {
       toast({
         variant: "destructive",
