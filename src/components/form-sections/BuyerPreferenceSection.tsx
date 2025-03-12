@@ -130,11 +130,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
       <div className="space-y-6">
         {/* Country of buyer */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
-          <div className="md:col-span-4">
+          <div className="md:col-span-4 self-center">
             <Label htmlFor="buyerCountries" className="font-medium">Country of buyer</Label>
             <p className="text-sm text-muted-foreground mt-1">Enter as many countries as you want or use 'Any'</p>
           </div>
-          <div className="md:col-span-6 space-y-3">
+          <div className="md:col-span-6 space-y-3 self-center">
             <div className="flex items-center space-x-2">
               <Input
                 id="buyerCountries"
@@ -158,7 +158,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 self-center">
             <Label htmlFor="countryImportance">Importance</Label>
             <Select
               value={formData.countryImportance}
@@ -178,11 +178,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
 
         {/* Buyer industries */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
-          <div className="md:col-span-4">
+          <div className="md:col-span-4 self-center">
             <Label htmlFor="buyerIndustries" className="font-medium">What industries should the buyer be operating in?</Label>
             <p className="text-sm text-muted-foreground mt-1">Start with most important or use 'Any'</p>
           </div>
-          <div className="md:col-span-6 space-y-3">
+          <div className="md:col-span-6 space-y-3 self-center">
             <div className="flex items-center space-x-2">
               <Input
                 id="buyerIndustries"
@@ -206,7 +206,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 self-center">
             <Label htmlFor="industriesImportance">Importance</Label>
             <Select
               value={formData.industriesImportance}
@@ -226,11 +226,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
 
         {/* Sector keywords */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
-          <div className="md:col-span-4">
+          <div className="md:col-span-4 self-center">
             <Label htmlFor="buyerSectorKeywords" className="font-medium">Sector keywords for the buyer</Label>
             <p className="text-sm text-muted-foreground mt-1">Provide 6 to 9 keywords</p>
           </div>
-          <div className="md:col-span-6 space-y-3">
+          <div className="md:col-span-6 space-y-3 self-center">
             <div className="flex items-center space-x-2">
               <Input
                 id="buyerSectorKeywords"
@@ -254,7 +254,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 self-center">
             <Label htmlFor="keywordsImportance">Importance</Label>
             <Select
               value={formData.keywordsImportance}
@@ -274,11 +274,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
 
         {/* Acquisition reason */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
-          <div className="md:col-span-4">
+          <div className="md:col-span-4 self-center">
             <Label htmlFor="acquisitionReason" className="font-medium">Most likely reason for acquisition</Label>
             <p className="text-sm text-muted-foreground mt-1">Why would a buyer acquire this company?</p>
           </div>
-          <div className="md:col-span-6">
+          <div className="md:col-span-6 self-center">
             <Select
               value={formData.acquisitionReason}
               onValueChange={(value) => setFormData({ ...formData, acquisitionReason: value })}
@@ -295,7 +295,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               </SelectContent>
             </Select>
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 self-center">
             <Label htmlFor="reasonImportance">Importance</Label>
             <Select
               value={formData.reasonImportance}
@@ -315,11 +315,11 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
 
         {/* Potential buyers */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
-          <div className="md:col-span-4">
+          <div className="md:col-span-4 self-center">
             <Label htmlFor="potentialBuyers" className="font-medium">Potential buyers</Label>
             <p className="text-sm text-muted-foreground mt-1">List companies that would be a good fit</p>
           </div>
-          <div className="md:col-span-6 space-y-3">
+          <div className="md:col-span-6 space-y-3 self-center">
             <div className="flex items-center space-x-2">
               <Input
                 id="potentialBuyers"
@@ -343,7 +343,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
               ))}
             </div>
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 self-center">
             <Label htmlFor="buyersImportance">Importance</Label>
             <Select
               value={formData.buyersImportance}

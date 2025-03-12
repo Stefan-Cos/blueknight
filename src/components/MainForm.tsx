@@ -76,9 +76,7 @@ export function MainForm() {
       year0Revenue: "0.0",
       year0Ebitda: "0.0",
       fcPlus1Revenue: "0.0",
-      fcPlus1Ebitda: "0.0",
-      fcPlus2Revenue: "0.0",
-      fcPlus2Ebitda: "0.0"
+      fcPlus1Ebitda: "0.0"
     },
     outstandingLitigation: "",
     negativeMediaCoverage: "",
