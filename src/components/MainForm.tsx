@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
@@ -88,7 +87,8 @@ export function MainForm() {
     negativeMediaCoverage: "",
     definedBenefitScheme: "",
     shareholdersPreference: [] as string[],
-    additionalInformation: ""
+    additionalInformation: "",
+    uniqueSellingPoints: ""
   });
 
   const [currentKeyword, setCurrentKeyword] = useState("");
@@ -191,8 +191,7 @@ export function MainForm() {
         shareholders_exit: formData.shareholdersExit,
         transition_period: formData.transitionPeriod,
         reason_for_selling: formData.reasonForSelling,
-        // Add is_regulated field required by the database schema
-        is_regulated: "N/A", // Add a default value since we're now using regulatory_bodies instead
+        is_regulated: "N/A",
         regulatory_bodies: formData.regulatoryBodies,
         accreditations: formData.accreditations,
         industry_associations: formData.industryAssociations,
@@ -219,7 +218,8 @@ export function MainForm() {
         negative_media_coverage: formData.negativeMediaCoverage,
         defined_benefit_scheme: formData.definedBenefitScheme,
         shareholders_preference: formData.shareholdersPreference,
-        additional_information: formData.additionalInformation
+        additional_information: formData.additionalInformation,
+        unique_selling_points: formData.uniqueSellingPoints
       };
 
       console.log('Submitting data:', mappedData);
@@ -361,3 +361,4 @@ export function MainForm() {
     </div>
   );
 }
+

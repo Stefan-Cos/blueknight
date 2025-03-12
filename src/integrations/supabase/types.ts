@@ -64,6 +64,7 @@ export type Database = {
           shareholders_exit: string
           shareholders_preference: string[] | null
           transition_period: string
+          unique_selling_points: string | null
           value_chain: Json
         }
         Insert: {
@@ -105,6 +106,7 @@ export type Database = {
           shareholders_exit: string
           shareholders_preference?: string[] | null
           transition_period: string
+          unique_selling_points?: string | null
           value_chain?: Json
         }
         Update: {
@@ -146,6 +148,7 @@ export type Database = {
           shareholders_exit?: string
           shareholders_preference?: string[] | null
           transition_period?: string
+          unique_selling_points?: string | null
           value_chain?: Json
         }
         Relationships: []

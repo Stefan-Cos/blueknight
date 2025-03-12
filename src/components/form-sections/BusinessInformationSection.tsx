@@ -78,9 +78,20 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="industryKeywords">The industries the company operates in</Label>
+          <Label htmlFor="uniqueSellingPoints">What are the company's Unique Selling Points</Label>
+          <Textarea
+            id="uniqueSellingPoints"
+            placeholder="Describe what makes the company unique in its market"
+            value={formData.uniqueSellingPoints || ""}
+            onChange={(e) => setFormData({ ...formData, uniqueSellingPoints: e.target.value })}
+            className="min-h-[100px]"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="sectorKeywords">Please provide 6 to 9 keywords that could be used to identify the sectors the company is in</Label>
           <Input
-            id="industryKeywords"
+            id="sectorKeywords"
             placeholder="Type keywords and press Enter"
             value={currentKeyword}
             onChange={(e) => setCurrentKeyword(e.target.value)}
@@ -153,7 +164,7 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="customerIndustries">Industries of your customers</Label>
+          <Label htmlFor="customerIndustries">Industries of the company's customers (The end-user sectors they serve)</Label>
           <Input
             id="customerIndustries"
             placeholder="Type industry and press Enter"
