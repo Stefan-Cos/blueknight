@@ -7,6 +7,7 @@ import { OverviewSection } from "./form-sections/OverviewSection";
 import { BusinessInformationSection } from "./form-sections/BusinessInformationSection";
 import { MetricsSection } from "./form-sections/MetricsSection";
 import { OtherSection } from "./form-sections/OtherSection";
+import { BuyerPreferenceSection } from "./form-sections/BuyerPreferenceSection";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
@@ -79,13 +80,22 @@ export function MainForm() {
       fcPlus2Revenue: "0.0",
       fcPlus2Ebitda: "0.0"
     },
-    shareOptionSchemes: "",
     outstandingLitigation: "",
     negativeMediaCoverage: "",
     definedBenefitScheme: "",
     shareholdersPreference: [] as string[],
     additionalInformation: "",
-    uniqueSellingPoints: ""
+    uniqueSellingPoints: "",
+    buyerCountries: [] as string[],
+    buyerIndustries: [] as string[],
+    buyerSectorKeywords: [] as string[],
+    acquisitionReason: "",
+    potentialBuyers: [] as string[],
+    countryImportance: "Medium",
+    industriesImportance: "Medium",
+    keywordsImportance: "Medium",
+    reasonImportance: "Medium",
+    buyersImportance: "Medium"
   });
 
   const [currentKeyword, setCurrentKeyword] = useState("");
@@ -207,13 +217,22 @@ export function MainForm() {
         revenue_by_customer_type: formData.revenueByCustomerType,
         revenue_by_product_type: formData.revenueByProductType,
         revenue_and_ebitda: formData.revenueAndEbitda,
-        share_option_schemes: formData.shareOptionSchemes,
         outstanding_litigation: formData.outstandingLitigation,
         negative_media_coverage: formData.negativeMediaCoverage,
         defined_benefit_scheme: formData.definedBenefitScheme,
         shareholders_preference: formData.shareholdersPreference,
         additional_information: formData.additionalInformation,
-        unique_selling_points: formData.uniqueSellingPoints
+        unique_selling_points: formData.uniqueSellingPoints,
+        buyer_countries: formData.buyerCountries,
+        buyer_industries: formData.buyerIndustries,
+        buyer_sector_keywords: formData.buyerSectorKeywords,
+        acquisition_reason: formData.acquisitionReason,
+        potential_buyers: formData.potentialBuyers,
+        country_importance: formData.countryImportance,
+        industries_importance: formData.industriesImportance,
+        keywords_importance: formData.keywordsImportance,
+        reason_importance: formData.reasonImportance,
+        buyers_importance: formData.buyersImportance
       };
 
       console.log('Submitting data:', mappedData);
@@ -284,7 +303,7 @@ export function MainForm() {
     );
   }
 
-  const sections = ["Overview", "Business Information", "Metrics", "Other"];
+  const sections = ["Overview", "Business Information", "Metrics", "Other", "Buyer Preference"];
 
   const renderSection = () => {
     switch (currentSection) {
@@ -313,6 +332,8 @@ export function MainForm() {
         return <MetricsSection formData={formData} setFormData={setFormData} />;
       case 3:
         return <OtherSection formData={formData} setFormData={setFormData} />;
+      case 4:
+        return <BuyerPreferenceSection formData={formData} setFormData={setFormData} />;
       default:
         return null;
     }
@@ -355,4 +376,3 @@ export function MainForm() {
     </div>
   );
 }
-

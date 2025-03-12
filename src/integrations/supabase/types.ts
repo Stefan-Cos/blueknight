@@ -27,28 +27,38 @@ export type Database = {
       form_submissions: {
         Row: {
           accreditations: string | null
+          acquisition_reason: string | null
           additional_information: string | null
           advisor_company_name: string
           advisor_email: string
           advisor_full_name: string
           business_model_type: Json
+          buyer_countries: string[] | null
+          buyer_industries: string[] | null
+          buyer_sector_keywords: string[] | null
+          buyers_importance: string | null
           company_description: string | null
           company_name: string
+          country_importance: string | null
           created_at: string
           customer_industries: string[] | null
           defined_benefit_scheme: string | null
           growth_plan: string | null
           id: string
+          industries_importance: string | null
           industry_associations: string | null
           industry_keywords: string[] | null
           is_regulated: string
           key_industry_risks: string | null
+          keywords_importance: string | null
           main_competitors: string[] | null
           negative_media_coverage: string | null
           outstanding_litigation: string | null
+          potential_buyers: string[] | null
           products_and_services: string | null
           project_name: string
           reason_for_selling: string
+          reason_importance: string | null
           recent_awards: string | null
           regulatory_bodies: string | null
           revenue_and_ebitda: Json
@@ -56,7 +66,6 @@ export type Database = {
           revenue_by_geography: string | null
           revenue_by_product_type: string | null
           revenue_model: string | null
-          share_option_schemes: string | null
           share_sale_type: string
           shareholders_exit: string
           shareholders_preference: string[] | null
@@ -66,28 +75,38 @@ export type Database = {
         }
         Insert: {
           accreditations?: string | null
+          acquisition_reason?: string | null
           additional_information?: string | null
           advisor_company_name: string
           advisor_email: string
           advisor_full_name: string
           business_model_type?: Json
+          buyer_countries?: string[] | null
+          buyer_industries?: string[] | null
+          buyer_sector_keywords?: string[] | null
+          buyers_importance?: string | null
           company_description?: string | null
           company_name: string
+          country_importance?: string | null
           created_at?: string
           customer_industries?: string[] | null
           defined_benefit_scheme?: string | null
           growth_plan?: string | null
           id?: string
+          industries_importance?: string | null
           industry_associations?: string | null
           industry_keywords?: string[] | null
           is_regulated: string
           key_industry_risks?: string | null
+          keywords_importance?: string | null
           main_competitors?: string[] | null
           negative_media_coverage?: string | null
           outstanding_litigation?: string | null
+          potential_buyers?: string[] | null
           products_and_services?: string | null
           project_name: string
           reason_for_selling: string
+          reason_importance?: string | null
           recent_awards?: string | null
           regulatory_bodies?: string | null
           revenue_and_ebitda?: Json
@@ -95,7 +114,6 @@ export type Database = {
           revenue_by_geography?: string | null
           revenue_by_product_type?: string | null
           revenue_model?: string | null
-          share_option_schemes?: string | null
           share_sale_type: string
           shareholders_exit: string
           shareholders_preference?: string[] | null
@@ -105,28 +123,38 @@ export type Database = {
         }
         Update: {
           accreditations?: string | null
+          acquisition_reason?: string | null
           additional_information?: string | null
           advisor_company_name?: string
           advisor_email?: string
           advisor_full_name?: string
           business_model_type?: Json
+          buyer_countries?: string[] | null
+          buyer_industries?: string[] | null
+          buyer_sector_keywords?: string[] | null
+          buyers_importance?: string | null
           company_description?: string | null
           company_name?: string
+          country_importance?: string | null
           created_at?: string
           customer_industries?: string[] | null
           defined_benefit_scheme?: string | null
           growth_plan?: string | null
           id?: string
+          industries_importance?: string | null
           industry_associations?: string | null
           industry_keywords?: string[] | null
           is_regulated?: string
           key_industry_risks?: string | null
+          keywords_importance?: string | null
           main_competitors?: string[] | null
           negative_media_coverage?: string | null
           outstanding_litigation?: string | null
+          potential_buyers?: string[] | null
           products_and_services?: string | null
           project_name?: string
           reason_for_selling?: string
+          reason_importance?: string | null
           recent_awards?: string | null
           regulatory_bodies?: string | null
           revenue_and_ebitda?: Json
@@ -134,7 +162,6 @@ export type Database = {
           revenue_by_geography?: string | null
           revenue_by_product_type?: string | null
           revenue_model?: string | null
-          share_option_schemes?: string | null
           share_sale_type?: string
           shareholders_exit?: string
           shareholders_preference?: string[] | null

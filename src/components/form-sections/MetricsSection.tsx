@@ -1,4 +1,3 @@
-
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -54,7 +53,7 @@ export function MetricsSection({ formData, setFormData }: MetricsSectionProps) {
                   <th className="p-2 text-left">Metric</th>
                   <th className="p-2">Year -2</th>
                   <th className="p-2">Year -1</th>
-                  <th className="p-2">Current Year 0</th>
+                  <th className="p-2">Current Year</th>
                   <th className="p-2">Year +1</th>
                   <th className="p-2">Year +2</th>
                 </tr>
