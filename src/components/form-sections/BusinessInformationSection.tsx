@@ -1,8 +1,9 @@
+
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { X } from "lucide-react";
+import { RequiredLabel } from "@/components/ui/required-label";
 
 interface BusinessInformationSectionProps {
   formData: any;
@@ -45,10 +46,9 @@ export function BusinessInformationSection({
       </div>
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="companyDescription" className="flex items-center">
+          <RequiredLabel htmlFor="companyDescription" required>
             Company description
-            <span className="text-red-500 ml-1">*</span>
-          </Label>
+          </RequiredLabel>
           <Textarea
             id="companyDescription"
             placeholder="Provide a description of your company"
@@ -60,10 +60,9 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="productsAndServices" className="flex items-center">
+          <RequiredLabel htmlFor="productsAndServices" required>
             Describe the products and services
-            <span className="text-red-500 ml-1">*</span>
-          </Label>
+          </RequiredLabel>
           <Textarea
             id="productsAndServices"
             placeholder="Provide a description of the main products and services"
@@ -75,7 +74,9 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="revenueModel">Describe the revenue model for the main products and services</Label>
+          <RequiredLabel htmlFor="revenueModel">
+            Describe the revenue model for the main products and services
+          </RequiredLabel>
           <Textarea
             id="revenueModel"
             placeholder="Describe how the company generates revenue and charges customers for its products and services"
@@ -86,7 +87,9 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="uniqueSellingPoints">What are the company's Unique Selling Points</Label>
+          <RequiredLabel htmlFor="uniqueSellingPoints">
+            What are the company's Unique Selling Points
+          </RequiredLabel>
           <Textarea
             id="uniqueSellingPoints"
             placeholder="Describe what makes the company unique in its market"
@@ -97,10 +100,9 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="sectorKeywords" className="flex items-center">
+          <RequiredLabel htmlFor="sectorKeywords" required>
             Please provide 6 to 9 keywords that could be used to identify the sectors the company is in
-            <span className="text-red-500 ml-1">*</span>
-          </Label>
+          </RequiredLabel>
           <Input
             id="sectorKeywords"
             placeholder="Type keywords and press Enter"
@@ -124,7 +126,7 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label>Company's place in value chain</Label>
+          <RequiredLabel>Company's place in value chain</RequiredLabel>
           <div className="grid grid-cols-2 gap-4">
             {Object.entries(formData.valueChain).map(([key, value]) => (
               <div key={key} className="flex items-center space-x-2">
@@ -141,16 +143,16 @@ export function BusinessInformationSection({
                     }))
                   }
                 />
-                <Label htmlFor={key} className="capitalize">
+                <RequiredLabel htmlFor={key} className="capitalize">
                   {key.replace(/([A-Z])/g, ' $1').trim()}
-                </Label>
+                </RequiredLabel>
               </div>
             ))}
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label>Business model type</Label>
+          <RequiredLabel>Business model type</RequiredLabel>
           <div className="grid grid-cols-2 gap-4">
             {Object.entries(formData.businessModelType).map(([key, value]) => (
               <div key={key} className="flex items-center space-x-2">
@@ -167,19 +169,18 @@ export function BusinessInformationSection({
                     }))
                   }
                 />
-                <Label htmlFor={key} className="capitalize">
+                <RequiredLabel htmlFor={key} className="capitalize">
                   {key === 'other' ? 'Other' : key.toUpperCase()}
-                </Label>
+                </RequiredLabel>
               </div>
             ))}
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="targetCustomers" className="flex items-center">
+          <RequiredLabel htmlFor="targetCustomers" required>
             Describe the company's target customers
-            <span className="text-red-500 ml-1">*</span>
-          </Label>
+          </RequiredLabel>
           <Textarea
             id="targetCustomers"
             placeholder="Describe who the company's ideal customers are"
@@ -191,10 +192,9 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="customerIndustries" className="flex items-center">
+          <RequiredLabel htmlFor="customerIndustries" required>
             Industries of the company's customers (The end-user sectors they serve)
-            <span className="text-red-500 ml-1">*</span>
-          </Label>
+          </RequiredLabel>
           <Input
             id="customerIndustries"
             placeholder="Type industry and press Enter"
@@ -218,13 +218,16 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="mainCompetitors">Main competitors</Label>
+          <RequiredLabel htmlFor="mainCompetitors" required>
+            Main competitors
+          </RequiredLabel>
           <Input
             id="mainCompetitors"
             placeholder="Type competitor and press Enter"
             value={currentCompetitor}
             onChange={(e) => setCurrentCompetitor(e.target.value)}
             onKeyDown={handleCompetitorKeyDown}
+            required
           />
           <div className="flex flex-wrap gap-2 mt-2">
             {formData.mainCompetitors.map((competitor: string, index: number) => (
@@ -241,7 +244,7 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="growthPlan">Growth plan</Label>
+          <RequiredLabel htmlFor="growthPlan">Growth plan</RequiredLabel>
           <Textarea
             id="growthPlan"
             placeholder="Describe the company's growth plans around geography, product and customer expansion"
@@ -252,7 +255,7 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="keyIndustryRisks">Key industry risks</Label>
+          <RequiredLabel htmlFor="keyIndustryRisks">Key industry risks</RequiredLabel>
           <Textarea
             id="keyIndustryRisks"
             placeholder="Describe the key industry risks impacting the company"
