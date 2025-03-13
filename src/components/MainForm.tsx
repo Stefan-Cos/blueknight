@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
@@ -30,6 +29,7 @@ export function MainForm() {
   const [formData, setFormData] = useState({
     projectName: "",
     companyName: "",
+    companyWebsite: "",
     shareSaleType: "",
     shareholdersExit: "",
     transitionPeriod: "",
@@ -41,6 +41,7 @@ export function MainForm() {
     companyDescription: "",
     productsAndServices: "",
     revenueModel: "",
+    targetCustomers: "",
     industryKeywords: [] as string[],
     valueChain: {
       consultancy: false,
@@ -195,6 +196,7 @@ export function MainForm() {
         advisor_email: advisorData.email,
         project_name: formData.projectName,
         company_name: formData.companyName,
+        company_website: formData.companyWebsite,
         share_sale_type: formData.shareSaleType,
         shareholders_exit: formData.shareholdersExit,
         transition_period: formData.transitionPeriod,
@@ -235,7 +237,8 @@ export function MainForm() {
         keywords_importance: formData.keywordsImportance,
         end_user_sectors_importance: formData.endUserSectorsImportance,
         reason_importance: formData.reasonImportance,
-        buyers_importance: formData.buyersImportance
+        buyers_importance: formData.buyersImportance,
+        target_customers: formData.targetCustomers
       };
 
       console.log('Submitting data:', mappedData);

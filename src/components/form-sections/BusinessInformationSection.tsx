@@ -1,3 +1,4 @@
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -161,6 +162,17 @@ export function BusinessInformationSection({
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="targetCustomers">Describe the company's target customers</Label>
+          <Textarea
+            id="targetCustomers"
+            placeholder="Describe who the company's ideal customers are"
+            value={formData.targetCustomers || ""}
+            onChange={(e) => setFormData({ ...formData, targetCustomers: e.target.value })}
+            className="min-h-[100px]"
+          />
         </div>
 
         <div className="space-y-2">

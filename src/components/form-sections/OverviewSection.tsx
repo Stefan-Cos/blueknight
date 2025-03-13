@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -42,6 +43,16 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
             value={formData.companyName}
             onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
             required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="companyWebsite">Company website</Label>
+          <Input
+            id="companyWebsite"
+            placeholder="Enter company website URL"
+            value={formData.companyWebsite || ""}
+            onChange={(e) => setFormData({ ...formData, companyWebsite: e.target.value })}
           />
         </div>
 
