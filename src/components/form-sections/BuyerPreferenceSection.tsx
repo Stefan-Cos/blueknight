@@ -1,5 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
+import { RequiredLabel } from "@/components/ui/required-label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { X, Plus } from "lucide-react";
@@ -196,7 +198,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
         {/* Country of buyer */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
-            <Label htmlFor="buyerCountries" className="font-medium">Country of buyer</Label>
+            <RequiredLabel htmlFor="buyerCountries" className="font-medium" required>Country of buyer</RequiredLabel>
             <p className="text-sm text-muted-foreground mt-1">Enter as many countries as you want or use 'Any'</p>
           </div>
           <div className="md:col-span-6 space-y-3 self-center">
@@ -207,6 +209,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentCountry}
                 onChange={(e) => setCurrentCountry(e.target.value)}
                 onKeyDown={handleCountryKeyDown}
+                required
               />
               <Button type="button" size="icon" variant="ghost" onClick={addCountry} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -236,7 +239,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
         {/* Buyer industries */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
-            <Label htmlFor="buyerIndustries" className="font-medium">What industries should the buyer be operating in</Label>
+            <RequiredLabel htmlFor="buyerIndustries" className="font-medium" required>What industries should the buyer be operating in</RequiredLabel>
             <p className="text-sm text-muted-foreground mt-1">Start with most important or use 'Any'</p>
           </div>
           <div className="md:col-span-6 space-y-3 self-center">
@@ -247,6 +250,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentIndustry}
                 onChange={(e) => setCurrentIndustry(e.target.value)}
                 onKeyDown={handleIndustryKeyDown}
+                required
               />
               <Button type="button" size="icon" variant="ghost" onClick={addIndustry} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -276,7 +280,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
         {/* End-user sectors */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
-            <Label htmlFor="buyerEndUserSectors" className="font-medium">What end-user sectors should the buyer serve</Label>
+            <RequiredLabel htmlFor="buyerEndUserSectors" className="font-medium" required>What end-user sectors should the buyer serve</RequiredLabel>
             <p className="text-sm text-muted-foreground mt-1">Start with most important or use 'Any'</p>
           </div>
           <div className="md:col-span-6 space-y-3 self-center">
@@ -287,6 +291,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentEndUserSector}
                 onChange={(e) => setCurrentEndUserSector(e.target.value)}
                 onKeyDown={handleEndUserSectorKeyDown}
+                required
               />
               <Button type="button" size="icon" variant="ghost" onClick={addEndUserSector} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -313,13 +318,12 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
-        {/* Sector keywords */}
+        {/* Sector keywords - this is already marked as required in the original code */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
-            <Label htmlFor="buyerSectorKeywords" className="font-medium flex items-center">
+            <RequiredLabel htmlFor="buyerSectorKeywords" className="font-medium" required>
               Sector keywords for the buyer
-              <span className="text-red-500 ml-1">*</span>
-            </Label>
+            </RequiredLabel>
             <p className="text-sm text-muted-foreground mt-1">Provide 6 to 9 keywords</p>
           </div>
           <div className="md:col-span-6 space-y-3 self-center">
@@ -360,13 +364,14 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
         {/* Acquisition reason */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
-            <Label htmlFor="acquisitionReason" className="font-medium">Most likely reason for acquisition</Label>
+            <RequiredLabel htmlFor="acquisitionReason" className="font-medium" required>Most likely reason for acquisition</RequiredLabel>
             <p className="text-sm text-muted-foreground mt-1">Why would a buyer acquire this company?</p>
           </div>
           <div className="md:col-span-6 self-start">
             <Select
               value={formData.acquisitionReason}
               onValueChange={(value) => setFormData({ ...formData, acquisitionReason: value })}
+              required
             >
               <SelectTrigger>
                 <SelectValue placeholder="Select reason" />
@@ -393,7 +398,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
         {/* Potential buyers */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
-            <Label htmlFor="potentialBuyers" className="font-medium">Potential buyers</Label>
+            <RequiredLabel htmlFor="potentialBuyers" className="font-medium" required>Potential buyers</RequiredLabel>
             <p className="text-sm text-muted-foreground mt-1">List companies that would be a good fit</p>
           </div>
           <div className="md:col-span-6 space-y-3 self-center">
@@ -404,6 +409,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentBuyer}
                 onChange={(e) => setCurrentBuyer(e.target.value)}
                 onKeyDown={handleBuyerKeyDown}
+                required
               />
               <Button type="button" size="icon" variant="ghost" onClick={addBuyer} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -432,7 +438,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
 
         {/* Shareholders' acquirer preference */}
         <div className="space-y-2">
-          <Label className="font-medium">Shareholders' acquirer preference</Label>
+          <RequiredLabel className="font-medium" required>Shareholders' acquirer preference</RequiredLabel>
           <div className="flex flex-wrap gap-x-8 gap-y-2 mt-2">
             {[
               { id: "pe", label: "Private Equity" },
@@ -454,6 +460,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                       : currentPreferences.filter((pref: string) => pref !== option.id);
                     setFormData({ ...formData, shareholdersPreference: updatedPreferences });
                   }}
+                  required={formData.shareholdersPreference?.length === 0}
                 />
                 <Label htmlFor={option.id} className="cursor-pointer">{option.label}</Label>
               </div>
