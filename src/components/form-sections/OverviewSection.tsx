@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,7 +24,10 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
       </div>
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="projectName">Project name</Label>
+          <Label htmlFor="projectName" className="flex items-center">
+            Project name
+            <span className="text-red-500 ml-1">*</span>
+          </Label>
           <Input
             id="projectName"
             placeholder="Enter project name"
@@ -36,7 +38,10 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="companyName">Company legal name</Label>
+          <Label htmlFor="companyName" className="flex items-center">
+            Company legal name
+            <span className="text-red-500 ml-1">*</span>
+          </Label>
           <Input
             id="companyName"
             placeholder="Enter company legal name"
@@ -47,12 +52,16 @@ export function OverviewSection({ formData, setFormData }: OverviewSectionProps)
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="companyWebsite">Company website</Label>
+          <Label htmlFor="companyWebsite" className="flex items-center">
+            Company website
+            <span className="text-red-500 ml-1">*</span>
+          </Label>
           <Input
             id="companyWebsite"
             placeholder="Enter company website URL"
             value={formData.companyWebsite || ""}
             onChange={(e) => setFormData({ ...formData, companyWebsite: e.target.value })}
+            required
           />
         </div>
 

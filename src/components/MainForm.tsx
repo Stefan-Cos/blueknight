@@ -350,6 +350,9 @@ export function MainForm() {
       <Card className="w-full max-w-3xl">
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="text-sm text-muted-foreground mb-4 italic">
+              <span className="text-red-500">*</span> denotes a required field
+            </div>
             {renderSection()}
             <div className="flex justify-between mt-6">
               <Button

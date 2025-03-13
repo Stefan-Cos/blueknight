@@ -316,7 +316,10 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
         {/* Sector keywords */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
-            <Label htmlFor="buyerSectorKeywords" className="font-medium">Sector keywords for the buyer</Label>
+            <Label htmlFor="buyerSectorKeywords" className="font-medium flex items-center">
+              Sector keywords for the buyer
+              <span className="text-red-500 ml-1">*</span>
+            </Label>
             <p className="text-sm text-muted-foreground mt-1">Provide 6 to 9 keywords</p>
           </div>
           <div className="md:col-span-6 space-y-3 self-center">
@@ -327,6 +330,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentKeyword}
                 onChange={(e) => setCurrentKeyword(e.target.value)}
                 onKeyDown={handleKeywordKeyDown}
+                required
               />
               <Button type="button" size="icon" variant="ghost" onClick={addKeyword} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />

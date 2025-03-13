@@ -1,4 +1,3 @@
-
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -46,24 +45,32 @@ export function BusinessInformationSection({
       </div>
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="companyDescription">Company description</Label>
+          <Label htmlFor="companyDescription" className="flex items-center">
+            Company description
+            <span className="text-red-500 ml-1">*</span>
+          </Label>
           <Textarea
             id="companyDescription"
             placeholder="Provide a description of your company"
             value={formData.companyDescription}
             onChange={(e) => setFormData({ ...formData, companyDescription: e.target.value })}
             className="min-h-[100px]"
+            required
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="productsAndServices">Describe the products and services</Label>
+          <Label htmlFor="productsAndServices" className="flex items-center">
+            Describe the products and services
+            <span className="text-red-500 ml-1">*</span>
+          </Label>
           <Textarea
             id="productsAndServices"
             placeholder="Provide a description of the main products and services"
             value={formData.productsAndServices || ""}
             onChange={(e) => setFormData({ ...formData, productsAndServices: e.target.value })}
             className="min-h-[100px]"
+            required
           />
         </div>
 
@@ -90,13 +97,17 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="sectorKeywords">Please provide 6 to 9 keywords that could be used to identify the sectors the company is in</Label>
+          <Label htmlFor="sectorKeywords" className="flex items-center">
+            Please provide 6 to 9 keywords that could be used to identify the sectors the company is in
+            <span className="text-red-500 ml-1">*</span>
+          </Label>
           <Input
             id="sectorKeywords"
             placeholder="Type keywords and press Enter"
             value={currentKeyword}
             onChange={(e) => setCurrentKeyword(e.target.value)}
             onKeyDown={handleKeywordKeyDown}
+            required
           />
           <div className="flex flex-wrap gap-2 mt-2">
             {formData.industryKeywords.map((keyword: string, index: number) => (
@@ -165,24 +176,32 @@ export function BusinessInformationSection({
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="targetCustomers">Describe the company's target customers</Label>
+          <Label htmlFor="targetCustomers" className="flex items-center">
+            Describe the company's target customers
+            <span className="text-red-500 ml-1">*</span>
+          </Label>
           <Textarea
             id="targetCustomers"
             placeholder="Describe who the company's ideal customers are"
             value={formData.targetCustomers || ""}
             onChange={(e) => setFormData({ ...formData, targetCustomers: e.target.value })}
             className="min-h-[100px]"
+            required
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="customerIndustries">Industries of the company's customers (The end-user sectors they serve)</Label>
+          <Label htmlFor="customerIndustries" className="flex items-center">
+            Industries of the company's customers (The end-user sectors they serve)
+            <span className="text-red-500 ml-1">*</span>
+          </Label>
           <Input
             id="customerIndustries"
             placeholder="Type industry and press Enter"
             value={currentIndustry}
             onChange={(e) => setCurrentIndustry(e.target.value)}
             onKeyDown={handleIndustryKeyDown}
+            required
           />
           <div className="flex flex-wrap gap-2 mt-2">
             {formData.customerIndustries.map((industry: string, index: number) => (
