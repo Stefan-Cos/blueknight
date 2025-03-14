@@ -27,44 +27,40 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
   const [currentBuyer, setCurrentBuyer] = useState("");
   const [currentEndUserSector, setCurrentEndUserSector] = useState("");
 
-  // Initialize form data with default values if not already set
+  // Ensure arrays are properly initialized
   useEffect(() => {
-    setFormData(prev => ({
-      ...prev,
-      countryImportance: prev.countryImportance || "N/A",
-      industriesImportance: prev.industriesImportance || "N/A",
-      endUserSectorsImportance: prev.endUserSectorsImportance || "N/A",
-      keywordsImportance: prev.keywordsImportance || "N/A",
-      reasonImportance: prev.reasonImportance || "N/A",
-      buyersImportance: prev.buyersImportance || "N/A",
-      buyerCountries: prev.buyerCountries || [],
-      buyerIndustries: prev.buyerIndustries || [],
-      buyerSectorKeywords: prev.buyerSectorKeywords || [],
-      buyerEndUserSectors: prev.buyerEndUserSectors || [],
-      potentialBuyers: prev.potentialBuyers || [],
-      shareholdersPreference: prev.shareholdersPreference || []
-    }));
-  }, [setFormData]);
-
-  // Handle empty arrays - this ensures arrays always exist and aren't null
-  useEffect(() => {
-    const ensureArraysExist = () => {
-      const arrayFields = ['buyerCountries', 'buyerIndustries', 'buyerSectorKeywords', 
-                           'buyerEndUserSectors', 'potentialBuyers', 'shareholdersPreference'];
+    setFormData(prev => {
+      const updatedData = { ...prev };
+      
+      // Ensure all array fields are initialized as arrays
+      const arrayFields = [
+        'buyerCountries', 
+        'buyerIndustries', 
+        'buyerSectorKeywords', 
+        'buyerEndUserSectors', 
+        'potentialBuyers', 
+        'shareholdersPreference'
+      ];
       
       arrayFields.forEach(field => {
-        if (!formData[field] || !Array.isArray(formData[field])) {
-          setFormData(prev => ({
-            ...prev,
-            [field]: []
-          }));
+        if (!updatedData[field] || !Array.isArray(updatedData[field])) {
+          updatedData[field] = [];
         }
       });
-    };
-    
-    ensureArraysExist();
-  }, [formData, setFormData]);
+      
+      // Set default importance values if not already set
+      if (!updatedData.countryImportance) updatedData.countryImportance = "N/A";
+      if (!updatedData.industriesImportance) updatedData.industriesImportance = "N/A";
+      if (!updatedData.endUserSectorsImportance) updatedData.endUserSectorsImportance = "N/A";
+      if (!updatedData.keywordsImportance) updatedData.keywordsImportance = "N/A";
+      if (!updatedData.reasonImportance) updatedData.reasonImportance = "N/A";
+      if (!updatedData.buyersImportance) updatedData.buyersImportance = "N/A";
+      
+      return updatedData;
+    });
+  }, [setFormData]);
 
+  // Handlers for adding items to arrays
   const handleCountryKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if ((e.key === 'Enter' || e.key === 'Tab') && currentCountry.trim()) {
       e.preventDefault();
@@ -214,11 +210,12 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
   );
 
   // Check if arrays have items - used for validation
-  const hasCountries = formData.buyerCountries && formData.buyerCountries.length > 0;
-  const hasIndustries = formData.buyerIndustries && formData.buyerIndustries.length > 0;
-  const hasEndUserSectors = formData.buyerEndUserSectors && formData.buyerEndUserSectors.length > 0;
-  const hasKeywords = formData.buyerSectorKeywords && formData.buyerSectorKeywords.length > 0;
-  const hasBuyers = formData.potentialBuyers && formData.potentialBuyers.length > 0;
+  const hasCountries = Array.isArray(formData.buyerCountries) && formData.buyerCountries.length > 0;
+  const hasIndustries = Array.isArray(formData.buyerIndustries) && formData.buyerIndustries.length > 0;
+  const hasEndUserSectors = Array.isArray(formData.buyerEndUserSectors) && formData.buyerEndUserSectors.length > 0;
+  const hasKeywords = Array.isArray(formData.buyerSectorKeywords) && formData.buyerSectorKeywords.length > 0;
+  const hasBuyers = Array.isArray(formData.potentialBuyers) && formData.potentialBuyers.length > 0;
+  const hasShareholdersPreference = Array.isArray(formData.shareholdersPreference) && formData.shareholdersPreference.length > 0;
 
   return (
     <div className="space-y-6">
@@ -243,6 +240,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 onChange={(e) => setCurrentCountry(e.target.value)}
                 onKeyDown={handleCountryKeyDown}
                 required={!hasCountries}
+                aria-required={!hasCountries}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addCountry} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -284,6 +282,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 onChange={(e) => setCurrentIndustry(e.target.value)}
                 onKeyDown={handleIndustryKeyDown}
                 required={!hasIndustries}
+                aria-required={!hasIndustries}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addIndustry} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -325,6 +324,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 onChange={(e) => setCurrentEndUserSector(e.target.value)}
                 onKeyDown={handleEndUserSectorKeyDown}
                 required={!hasEndUserSectors}
+                aria-required={!hasEndUserSectors}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addEndUserSector} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -368,6 +368,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 onChange={(e) => setCurrentKeyword(e.target.value)}
                 onKeyDown={handleKeywordKeyDown}
                 required={!hasKeywords}
+                aria-required={!hasKeywords}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addKeyword} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -443,6 +444,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 onChange={(e) => setCurrentBuyer(e.target.value)}
                 onKeyDown={handleBuyerKeyDown}
                 required={!hasBuyers}
+                aria-required={!hasBuyers}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addBuyer} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -493,7 +495,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                       : currentPreferences.filter((pref: string) => pref !== option.id);
                     setFormData({ ...formData, shareholdersPreference: updatedPreferences });
                   }}
-                  required={!formData.shareholdersPreference?.length}
+                  required={!hasShareholdersPreference}
                 />
                 <Label htmlFor={option.id} className="cursor-pointer">{option.label}</Label>
               </div>

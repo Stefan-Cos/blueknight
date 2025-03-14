@@ -17,7 +17,7 @@ export const RequiredLabel = React.forwardRef<
     {...props}
   >
     {children}
-    {required && <span className="text-red-500 ml-1">*</span>}
+    {required && <span className="text-red-500 ml-1 font-bold">*</span>}
   </Label>
 ));
 RequiredLabel.displayName = "RequiredLabel";
