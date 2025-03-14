@@ -40,6 +40,7 @@ export type Database = {
           buyers_importance: string | null
           company_description: string | null
           company_name: string
+          company_website: string | null
           country_importance: string | null
           created_at: string
           customer_industries: string[] | null
@@ -90,6 +91,7 @@ export type Database = {
           buyers_importance?: string | null
           company_description?: string | null
           company_name: string
+          company_website?: string | null
           country_importance?: string | null
           created_at?: string
           customer_industries?: string[] | null
@@ -140,6 +142,7 @@ export type Database = {
           buyers_importance?: string | null
           company_description?: string | null
           company_name?: string
+          company_website?: string | null
           country_importance?: string | null
           created_at?: string
           customer_industries?: string[] | null
