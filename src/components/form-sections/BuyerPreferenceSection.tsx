@@ -27,6 +27,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
   const [currentBuyer, setCurrentBuyer] = useState("");
   const [currentEndUserSector, setCurrentEndUserSector] = useState("");
 
+  // Initialize form data with default values if not already set
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
@@ -35,9 +36,34 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
       endUserSectorsImportance: prev.endUserSectorsImportance || "N/A",
       keywordsImportance: prev.keywordsImportance || "N/A",
       reasonImportance: prev.reasonImportance || "N/A",
-      buyersImportance: prev.buyersImportance || "N/A"
+      buyersImportance: prev.buyersImportance || "N/A",
+      buyerCountries: prev.buyerCountries || [],
+      buyerIndustries: prev.buyerIndustries || [],
+      buyerSectorKeywords: prev.buyerSectorKeywords || [],
+      buyerEndUserSectors: prev.buyerEndUserSectors || [],
+      potentialBuyers: prev.potentialBuyers || [],
+      shareholdersPreference: prev.shareholdersPreference || []
     }));
   }, [setFormData]);
+
+  // Handle empty arrays - this ensures arrays always exist and aren't null
+  useEffect(() => {
+    const ensureArraysExist = () => {
+      const arrayFields = ['buyerCountries', 'buyerIndustries', 'buyerSectorKeywords', 
+                           'buyerEndUserSectors', 'potentialBuyers', 'shareholdersPreference'];
+      
+      arrayFields.forEach(field => {
+        if (!formData[field] || !Array.isArray(formData[field])) {
+          setFormData(prev => ({
+            ...prev,
+            [field]: []
+          }));
+        }
+      });
+    };
+    
+    ensureArraysExist();
+  }, [formData, setFormData]);
 
   const handleCountryKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if ((e.key === 'Enter' || e.key === 'Tab') && currentCountry.trim()) {
@@ -187,6 +213,13 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
     </Select>
   );
 
+  // Check if arrays have items - used for validation
+  const hasCountries = formData.buyerCountries && formData.buyerCountries.length > 0;
+  const hasIndustries = formData.buyerIndustries && formData.buyerIndustries.length > 0;
+  const hasEndUserSectors = formData.buyerEndUserSectors && formData.buyerEndUserSectors.length > 0;
+  const hasKeywords = formData.buyerSectorKeywords && formData.buyerSectorKeywords.length > 0;
+  const hasBuyers = formData.potentialBuyers && formData.potentialBuyers.length > 0;
+
   return (
     <div className="space-y-6">
       <div className="text-center pb-6 border-b">
@@ -209,7 +242,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentCountry}
                 onChange={(e) => setCurrentCountry(e.target.value)}
                 onKeyDown={handleCountryKeyDown}
-                required
+                required={!hasCountries}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addCountry} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -250,7 +283,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentIndustry}
                 onChange={(e) => setCurrentIndustry(e.target.value)}
                 onKeyDown={handleIndustryKeyDown}
-                required
+                required={!hasIndustries}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addIndustry} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -291,7 +324,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentEndUserSector}
                 onChange={(e) => setCurrentEndUserSector(e.target.value)}
                 onKeyDown={handleEndUserSectorKeyDown}
-                required
+                required={!hasEndUserSectors}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addEndUserSector} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -318,7 +351,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
           </div>
         </div>
 
-        {/* Sector keywords - this is already marked as required in the original code */}
+        {/* Sector keywords */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start border-b pb-6">
           <div className="md:col-span-4 self-center">
             <RequiredLabel htmlFor="buyerSectorKeywords" className="font-medium" required>
@@ -334,7 +367,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentKeyword}
                 onChange={(e) => setCurrentKeyword(e.target.value)}
                 onKeyDown={handleKeywordKeyDown}
-                required
+                required={!hasKeywords}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addKeyword} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -409,7 +442,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                 value={currentBuyer}
                 onChange={(e) => setCurrentBuyer(e.target.value)}
                 onKeyDown={handleBuyerKeyDown}
-                required
+                required={!hasBuyers}
               />
               <Button type="button" size="icon" variant="ghost" onClick={addBuyer} className="h-10 w-10 p-0 flex-shrink-0">
                 <Plus className="h-5 w-5" />
@@ -460,7 +493,7 @@ export function BuyerPreferenceSection({ formData, setFormData }: BuyerPreferenc
                       : currentPreferences.filter((pref: string) => pref !== option.id);
                     setFormData({ ...formData, shareholdersPreference: updatedPreferences });
                   }}
-                  required={formData.shareholdersPreference?.length === 0}
+                  required={!formData.shareholdersPreference?.length}
                 />
                 <Label htmlFor={option.id} className="cursor-pointer">{option.label}</Label>
               </div>
