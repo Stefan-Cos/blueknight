@@ -72,6 +72,7 @@ export type Database = {
           share_sale_type: string
           shareholders_exit: string
           shareholders_preference: string[]
+          target_customers: string | null
           transition_period: string
           unique_selling_points: string | null
           value_chain: Json
@@ -123,6 +124,7 @@ export type Database = {
           share_sale_type: string
           shareholders_exit: string
           shareholders_preference?: string[]
+          target_customers?: string | null
           transition_period: string
           unique_selling_points?: string | null
           value_chain?: Json
@@ -174,6 +176,7 @@ export type Database = {
           share_sale_type?: string
           shareholders_exit?: string
           shareholders_preference?: string[]
+          target_customers?: string | null
           transition_period?: string
           unique_selling_points?: string | null
           value_chain?: Json

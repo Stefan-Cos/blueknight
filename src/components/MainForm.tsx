@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
@@ -209,6 +210,7 @@ export function MainForm() {
         company_description: formData.companyDescription,
         products_and_services: formData.productsAndServices,
         revenue_model: formData.revenueModel,
+        target_customers: formData.targetCustomers,
         industry_keywords: formData.industryKeywords,
         value_chain: formData.valueChain,
         business_model_type: formData.businessModelType,
@@ -237,8 +239,7 @@ export function MainForm() {
         keywords_importance: formData.keywordsImportance,
         end_user_sectors_importance: formData.endUserSectorsImportance,
         reason_importance: formData.reasonImportance,
-        buyers_importance: formData.buyersImportance,
-        target_customers: formData.targetCustomers
+        buyers_importance: formData.buyersImportance
       };
 
       console.log('Submitting data:', mappedData);
